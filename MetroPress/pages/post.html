@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>post</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet">
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
+    <script src="/js/wpapi.js"></script>
+    <link href="/css/default.css" rel="stylesheet">
+    <link href="/css/post.css" rel="stylesheet">
+    <script src="/js/post.js"></script>
+</head>
+<body>    
+    <div class="fragment post post-single win-ui-light">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled></button>
+            <h1 class="titlearea win-type-ellipsis">
+				<span class="pagetitle title"></span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main" class="contentArea">
+            <article>
+                <div>
+                    <header>
+                        <div class="meta win-contentcaption"></div>
+                    </header>
+                    <div class="content win-body"></div>
+                </div>
+                
+                 <div class="comments">
+                    <h2>Comments</h2>
+                    <div class="comment"></div>
+                </div>
+                <br />
+                <button id="commentButton">Post New Comment</button>
+                <p id="comments#results"></p>
+                <!-- Scenario Controls -->
+                <div class="commentBox" id="commentFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Flyer comment}">
+                    <form onsubmit="return false;">
+                        <p>
+                            <label for="commentName">
+                                Name <br />
+                            </label>
+                            <span id="commentNameError" class="error"></span>
+                            <input type="text" id="commentName"/>                    
+                        </p>
+                        <p>
+                            <label for="commentEmail">
+                                Email <br /></label>                    
+                            <span id="commentEmailError" class="error"></span>
+                            <input type="text" id="commentEmail"/>                    
+                        </p>
+                        <p>
+                            <label for="commentUrl">
+                                Website <br /></label>                    
+                            <input type="text" id="commentUrl" />                    
+                        </p>
+                        <p>
+                            <label for="commentComment">
+                                Comment <br /></label>                    
+                            <span id="commentCommentError" class="error"></span>
+                            <textarea rows="4" cols="50" id="commentComment"></textarea>
+                        </p>
+                        <button id="submitCommentButton">
+                            Post Comment</button>
+                    </form>
+                </div>
+
+                <div class="relatedPosts">
+                    <h2>Related Post</h2>
+                    <div class="relatedPost"></div>        
+                </div>                
+            </article>            
+        </section>
+        <div id="reblogUI" data-win-control="WinJS.UI.Flyout">
+			<textarea class="note-text" id="note" placeholder="Your comments (optional)" onfocus="if (this.value == 'Your comments (optional)') {this.value = '';}"></textarea>
+			<input id="publish-reblog" type="button" value="Publish">
+		</div>
+
+        
+    </div>
+    <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'viewblog',label:'View Blog',section:'selection',tooltip:'See this post in its original format'}"></button>
+		<button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'home',label:'Home',section:'selection',tooltip:'Home'}"></button>
+		<button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'like',label:'Bookmark',section:'selection',tooltip:'Bookmark the post'}"></button>
+    </div>
+</body>
+</html>

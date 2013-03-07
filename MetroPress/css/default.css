@@ -1,0 +1,362 @@
+﻿/* Import rules for custom themes */
+@import url('themes/custom.light.css');
+
+/* @import url('themes/custom.dark.css'); */
+/* @import url('themes/custom.orange.css'); */
+
+html {
+    cursor: default;
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background-image: url('/images/background.png');
+	background-size: cover;
+    background-position: 0 center;
+    height: 100%;
+    width: 100%;
+}
+
+#contenthost {
+    height: 100%;
+    width: 100%;
+}
+
+/* layout and headers */
+.fragment {
+    display: -ms-grid;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 140px 1fr;
+	height: 100%;
+}
+
+header[role=banner] {
+	-ms-grid-row: 1;
+    /* Define a grid with columns for the back button and page title. */
+    display: -ms-grid;
+    -ms-grid-columns: 120px 400px 1fr;
+    -ms-grid-rows: 1fr;
+}
+
+header[role=banner] .win-backbutton {
+    margin-left: 39px;
+    margin-top: 69px;
+}
+
+header[role=banner] .titlearea {
+    -ms-grid-column: 2;
+    margin-top: 48px;
+    height: 72px;
+    margin-right: 35px;
+    margin-left:  -4px;
+}
+
+header[role=banner] .titleImage {
+    display:none;
+    height:80px;
+}
+
+header[role=banner].showImage .titleImage {
+    display: block;
+    margin-left:-5px;
+}
+
+header[role=banner].showImage .pagetitle {
+    display: none;
+}
+
+header[role=banner] .titlearea {
+    overflow: visible;
+}
+
+header[role=banner] .titlearea .pagetitle {
+    width: calc(100% - 20px);
+    letter-spacing: 0;
+}
+
+
+section[role=main] {
+    height: 100%;
+    width: 100%;
+	-ms-grid-row: 2;
+}
+
+
+/* controls, icons and buttons */
+
+.win-body {
+    font-size: 11pt;
+    font-weight: 300;
+}
+
+.win-backbutton {
+    border-color: black;
+    color: black;
+}
+
+button {
+    border: solid 2px #666;
+    background: #ccc;
+    color:#000;
+}
+
+#refresh .win-commandimage::before {
+    content: "\e149";
+}
+
+#like .win-commandimage::before {
+    content: "\e0b4";
+}
+
+#viewblog {
+    float: right;
+}
+
+#viewblog .win-commandimage::before {
+    content: "\e17c";
+}
+
+#viewblog.open-in-browser .win-commandimage::before {
+    content:  "\e17c";
+}
+
+#home .win-commandimage::before {
+    content:  "\e10f";
+}
+
+
+.win-appbar #viewblog.open-in-browser .win-commandimage {
+    margin-top: -4px;
+    margin-left:  -1px;
+    margin-right:  -1px;
+    font-size:  13pt;
+}
+
+#viewblog.open-in-browser .win-commandicon {
+    background: none;
+}
+
+.win-commandicon {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32px, 32px;
+    font-family: "Segoe UI Symbol";
+}
+
+.win-command {
+    white-space: nowrap;
+}
+
+.win-command.selected .win-commandicon,
+.win-command:hover:active .win-commandicon {
+    background-color: #fff;
+}
+
+.win-command.selected .win-commandimage::before,
+.win-command:hover:active .win-commandimage::before {
+    color: #ccc;
+}
+
+.win-command .win-label {
+     color: #fff;
+}
+
+.win-appbar {
+	background-color: #333333;
+}
+
+.win-appbar .win-commandimage {
+    margin-top: -3px;
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block;
+}
+
+.win-contentcaption {
+    font-size: 9pt;
+}
+
+section[role=main] article {
+    display:block;
+    height:100%;
+    width:100%;   
+}
+
+
+.win-listview {
+    overflow:hidden;
+    height:100%;
+}
+
+.win-horizontal.win-viewport .win-surface {
+	margin-top: 0px;
+	height: 100%;
+    margin-bottom: 60px;
+}
+
+.win-container {
+	margin-right: 8px;
+	margin-bottom: 8px;
+}
+
+.win-selected, .win-item:focus, .win-item:focus {
+	outline: none;
+	border: none;
+	box-shadow: none;
+}
+
+.win-groups.win-listview > .win-horizontal .win-surface {
+    margin-left: 40px;
+}
+
+.win-listview > .win-horizontal .win-surface {
+}
+
+progress.win-ring {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: calc(50% - 50px);
+    top: calc(50% - 100px);
+}
+
+div.error {
+    width: 100%;
+    position: absolute;
+    margin: 0 auto 0 auto;
+    text-align: center;
+    top: 45%;
+    color: #fff;
+}
+.mp-share { display: none;}
+
+
+@media screen and (-ms-view-state: fullscreen-portrait) {
+    header[role=banner] {
+        -ms-grid-columns: 100px 400px 1fr;
+    }
+
+    header[role=banner] .win-backbutton {
+        margin-left: 29px;
+    }
+
+}
+
+@media (-ms-high-contrast) {
+    .win-commandicon {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 32px, 32px;
+        font-family: "Segoe UI Symbol";
+    }
+    .selected .win-commandicon {
+        background-color: #fff;
+    }
+    .selected .win-commandimage::before {
+        color: #000;
+    }
+
+}
+
+@media screen and (-ms-view-state: snapped) {
+    .fragment {
+        display: -ms-grid;
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: 70px 1fr 0px;
+    }
+
+    header[role=banner] {
+        display: block;
+    }
+
+    header[role=banner] .titlearea {
+        float: left;
+        margin-top: 20px;
+        height: 44px;
+        width: 210px;
+        overflow: visible;
+    }
+
+    header[role=banner] .title {
+        width: 210px;
+        -ms-text-overflow: ellipsis;
+        overflow:hidden;
+        display:block;
+    }   
+    
+    header[role=banner] .win-backbutton {
+        float:left;
+        margin-top: 25px;
+        margin-left:20px;
+        margin-right:20px;
+    }
+
+    header[role=banner] .win-backbutton[disabled=disabled] {
+        margin-left:0px;
+        margin-right:9px;
+    }
+    
+    header[role=banner].showImage .titleImage {
+        height: 42px;        
+        margin-left:1px;
+
+    }
+
+    progress.win-ring {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: calc(50% - 25px);
+        top: calc(50% - 25px);
+    }
+
+}
+
+/*====================================================== Hub ======================================================*/
+#hub-content {
+    display:-ms-grid;
+    -ms-grid-rows:1fr;
+    height:100%;
+    overflow-x:scroll;
+    padding-left:116px;
+}
+
+#hub-content .mp-module {
+    display:-ms-grid;  
+    -ms-grid-row:1;
+    -ms-grid-rows: 80px 1fr;  
+    padding-right: 116px;
+    min-width:400px;
+    min-height:200px;
+    position:relative;
+}
+
+#hub-content .mp-module .mp-module-title {    
+    -ms-grid-row: 1;
+}
+#hub-content .mp-module .mp-module-content {    
+    -ms-grid-row: 2;
+    height:100%;
+}
+
+@media screen and (-ms-view-state: snapped) {
+    #hub-content {
+        display:block;
+        overflow-x:hidden;
+        overflow-y:scroll;
+        padding-left:20px;
+    }
+    #hub-content .mp-module {
+        display: block;
+        float:left;
+        min-width: inherit;
+        width:100%;
+        padding-right: 0px;
+    }
+}

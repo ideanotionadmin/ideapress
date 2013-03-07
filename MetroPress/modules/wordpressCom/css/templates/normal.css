@@ -1,0 +1,34 @@
+﻿.wpc-list .wpc-item {
+    overflow: hidden;  
+    display: -ms-grid;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 160px 60px;
+    width: 220px;
+    height: 220px;
+}
+
+.wpc-list .wpc-item .wpc-image-container {
+    overflow: hidden;
+    position: relative;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+}
+
+.wpc-list .wpc-item .wpc-image-container .wpc-image{
+    height:160px;
+    width:220px;
+    background-position: center;
+    background-size:cover;
+}
+
+.wpc-list .wpc-item .wpc-title-count {
+    font-size: 11pt !important;
+}
+
+.wpc-list .wpc-item .wpc-text-section {
+    padding: 4px 12px 8px;
+    -ms-grid-row: 2;
+    z-index: 1;
+    width: calc(100% - 24px);
+    height: 100%;    
+}

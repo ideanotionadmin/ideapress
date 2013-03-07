@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="ms-design-extensionType" content="Search" />
+    <title>Search Contract</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/mainpage.css" rel="stylesheet" />
+    <link href="/css/searchResults.css" rel="stylesheet" />
+    <script src="/js/data.js"></script>
+</head>
+<body>
+    <!-- This template is used to display each item in the ListView declared
+         below. -->
+    <div class="itemtemplate" data-win-control="WinJS.Binding.Template">
+        <div class="post" data-win-bind="id: local_storage_key">
+            <div class="post-image-container" style="width:252px;height:234px">
+                <img data-win-bind="src: post_image" onload="WPApi.fadeImage(this)" />
+            </div>
+			<div class="large-post-data">
+					<h2 class="post-title" data-win-bind="textContent: post_title"></h2>
+					<div class="post-meta theme-color" data-win-bind="textContent: post_subtitle"></div>
+			</div>            
+		</div>
+	</div>
+
+    <!-- The content that will be loaded and displayed. -->
+    <div class="searchResults fragment gridview">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle"></span>
+            </h1>
+        </header>
+        <section aria-label="Main content" class="reader-filter" role="main">
+            <div class="resultsmessage win-type-x-large">No results match your search.</div>
+            <div class="filterarea">
+                <ul class="filterbar"></ul>
+                <select class="filterselect"></select>
+            </div>
+            <div id="search-list" class="posts-list resultslist" aria-label="Search results" data-win-control="WinJS.UI.ListView"></div>
+            <progress id="loader" class="show win-ring"></progress>
+        </section>
+    </div>
+
+    <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'home',label:'Home',section:'selection',tooltip:'Home'}"></button>		
+    </div>
+</body>
+</html>

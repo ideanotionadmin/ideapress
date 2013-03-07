@@ -1,0 +1,41 @@
+﻿/* colors */
+h1, h2, h3, h4, h5, h6, .mp-color-header {
+    color: #ff7700;
+}
+
+body, .mp-color-text {
+    color:#000;
+}
+.mp-color-title, progress.win-ring
+{
+    color: #fff;
+}
+
+.mp-color-link, .a, a:link {
+    color: #ff7700;
+}
+
+.mp-color-subtitle,  a:visited, a:active, article a:hover {
+    color: #333;
+}
+
+body, .mp-bg-main {
+    background-color:#d0d0d0 !important;
+}
+
+.mp-bg-overlay {
+    background-color:#ff7700;
+}
+
+.win-backbutton {
+    border-color: #ff7700;
+    color: #ff7700;
+}
+
+.win-backbutton:hover {
+    background-color:#ccc;
+}
+
+.win-container:hover {
+    outline-color: #ff7700;
+}

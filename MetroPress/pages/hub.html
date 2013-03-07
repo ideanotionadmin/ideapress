@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Main Page</title>     
+    <script src="/js/hub.js"></script>
+    
+</head>
+<body>
+    <div class="fragment hub">
+        <header aria-label="Header content" role="banner"> 
+            <button class="win-backbutton" aria-label="Back" disabled></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <img class="titleImage" />
+                <span class="pagetitle"></span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <article>    		
+                <div id="hub-content"></div>
+                <div id="error-div" class="error hide"></div>
+            </article>
+        </section>        
+    </div>
+    <div id="appbar" data-win-control="WinJS.UI.AppBar">
+		<button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'refresh',label:'Refresh',section:'selection',tooltip:'Refresh content'}"></button>
+    </div>
+</body>
+</html>

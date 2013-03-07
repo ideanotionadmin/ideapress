@@ -1,0 +1,21 @@
+﻿<link href="../css/wpcom.module.css" rel="stylesheet" />
+<h2>
+    <span class="mp-module-title wpc-title" >&nbsp</span>
+    <span class="wpc-title-count" >&nbsp</span>
+</h2>
+
+<div class="mp-module-content wpc-list" data-win-control="WinJS.UI.ListView"></div>
+<progress class="mp-loader show win-ring"></progress>
+
+
+<div class="wpc-post-template" data-win-control="WinJS.Binding.Template" style="display: none">
+	<div data-win-bind="id: id; className: className" class="wpc-item" >
+        <div class="wpc-image-container">
+            <div class="wpc-image" data-win-bind="style.backgroundImage : imgUrlStyle" ></div>
+        </div>
+		<div class="wpc-text-section mp-bg-overlay">
+			<h3 class="mp-color-title win-type-ellipsis" data-win-bind="textContent: title"></h3>
+			<h5 class="mp-color-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h5>
+		</div>
+	</div>
+</div>

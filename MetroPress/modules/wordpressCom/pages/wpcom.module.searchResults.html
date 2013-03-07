@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>    
+    <script src="../js/wpcom.module.section.js"></script>
+    <script src="../js/wpcom.module.searchResults.js"></script>
+    <link href="../css/wpcom.module.section.css" rel="stylesheet">
+    <link href="../css/wpcom.module.css" rel="stylesheet">
+    <link href="/css/default.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wpc-post-template" data-win-control="WinJS.Binding.Template" style="display: none">
+	    <div data-win-bind="id: id;" class="wpc-item">
+            <div class="wpc-image-container">
+                <div class="wpc-image" data-win-bind="style.backgroundImage : imgUrlStyle" ></div>
+            </div>
+		    <div class="wpc-text-section mp-bg-overlay">
+			    <h3 class="mp-color-title win-type-ellipsis" data-win-bind="textContent: title"></h3>
+			    <h5 class="mp-color-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h5>
+		    </div>
+	    </div>
+    </div>
+
+    <div class="fragment wpc-section">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle"></span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <div class="resultsmessage win-type-x-large">No results match your search.</div>
+
+            <progress class="mp-loader show win-ring"></progress>
+            <article>
+                <div class="wpc-list resultslist" data-win-control="WinJS.UI.ListView"></div>
+            </article>
+        </section>
+    </div>
+
+    <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'home',label:'Home',section:'selection',tooltip:'Home'}"></button>		
+    </div>
+</body>
+</html>

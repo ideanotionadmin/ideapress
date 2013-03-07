@@ -1,0 +1,21 @@
+﻿<link href="../css/wp.module.css" rel="stylesheet" />
+<h2>
+    <span class="mp-module-title wp-title" >&nbsp</span>
+    <span class="wp-title-count" >&nbsp</span>
+</h2>
+
+<div class="mp-module-content wp-list" data-win-control="WinJS.UI.ListView"></div>
+<progress class="mp-loader show win-ring"></progress>
+
+
+<div class="wp-post-template" data-win-control="WinJS.Binding.Template" style="display: none">
+	<div data-win-bind="id: id; className: className" class="wp-item" >
+        <div class="wp-image-container">
+            <div class="wp-image" data-win-bind="style.backgroundImage : imgUrlStyle" ></div>
+        </div>
+		<div class="wp-text-section mp-bg-overlay">            
+			<h3 class="mp-color-title win-type-ellipsis" data-win-bind="textContent: title"></h3>
+			<h5 class="mp-color-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h5>
+		</div>
+	</div>
+</div>

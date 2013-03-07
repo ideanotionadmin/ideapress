@@ -1,0 +1,30 @@
+﻿/* Import rules for GridView templates */
+@import url('templates/normal.css');
+
+/* @import url('templates/large.css'); */
+/* @import url('templates/wide.css'); */
+
+
+@media screen and (-ms-view-state: snapped) {    
+    .wp-list .wp-item {
+        height: 220px;
+        width: 100%;
+    }
+
+    .wp-list .wp-item .wp-image-container .wp-image{
+        height:160px;
+    }   
+
+    .wp-list .win-vertical .win-item {
+        width: 100%;
+    }
+    .wp-list .win-vertical .win-item .wp-image-container .wp-image {
+        width: 100%;
+    }
+        .wp-list .win-vertical .win-item {
+        width: 100%;
+    }
+    .wp-list .win-vertical .win-item .wp-image-container .wp-image {
+        width: 100%;
+    }
+}

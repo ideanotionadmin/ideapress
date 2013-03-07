@@ -1,0 +1,20 @@
+﻿.wp-section .wp-list .win-horizontal .win-surface {
+    margin-left:116px;
+}
+
+.resultsmessage {
+    display: none;
+    margin-left: 120px;
+    margin-top: 36px;
+    display: none;
+}
+
+.filterarea {
+    display: none;
+}
+
+@media screen and (-ms-view-state: snapped) {
+    .wp-list .win-vertical .win-container {   
+        margin-left:20px;     
+    }
+}

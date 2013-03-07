@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Main Page</title>
+    
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet">
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
+    <script src="/js/wpapi.js"></script>
+    <link href="/css/default.css" rel="stylesheet">
+    <link href="/css/mainpage.css" rel="stylesheet">
+    <script src="/js/mainpage.js"></script>
+</head>
+<body>
+    <div id="headerTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="headerTemplateText" role="link">
+            <div class="category-title" data-win-bind="catId: category_id; textContent: category_title; onclick: headerClick;" role="link"></div>
+            <div class="category-count" data-win-bind="textContent: category_count"></div>
+		</div>
+    </div>
+	<div id="allpostsTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+		<div data-win-bind="id: local_storage_key; className: type">
+            <div class="post-image-container" style="width:252px;height:234px">
+                <img data-win-bind="src: post_image" onload="WPApi.fadeImage(this)" />
+            </div>
+			<div class="large-post-data">
+					<h2 class="post-title win-type-ellipsis" data-win-bind="textContent: post_title"></h2>
+					<div class="post-meta theme-color" data-win-bind="textContent: post_subtitle"></div>
+			</div>
+		</div>
+	</div>
+
+    <div class="fragment mainpage gridview">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <img class="titleImage"/>
+                <span class="pagetitle"></span>
+            </h1>
+        </header>
+         <section aria-label="Main content" role="main">
+             <article>
+    		<div id="allposts-list" class="posts-list" data-win-control="WinJS.UI.ListView"></div>
+            <progress id="loader" class="show win-ring"></progress>
+            <div class="error hide"></div>
+                 </article>
+        </section>
+    </div>
+    <div id="appbar" data-win-control="WinJS.UI.AppBar">
+		<button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'refresh',label:'Refresh',section:'selection',tooltip:'Refresh content'}"></button>
+    </div>
+</body>
+</html>
