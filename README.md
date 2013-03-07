@@ -153,8 +153,9 @@ The js folder contains the core JavaScript files for the App. The main file that
  - navigator.js – controls the navigational behaviors of the App 
  - options.js – configures the application and the modules (Section 4.3) 
  - share-source.js – handles the Sharing functionality  
-<h3>4.4 modules folder</h3>
 
+
+<h3>4.4 modules folder</h3>
 Modularization, introduced in v2, greatly enhances the extendibility of MetroPress. By convention, each folder in the modules folder represents a different module, each with its own CSS, JavaScript files, and HTML files. The modules to be used are specified in **options.js**. 
 <h3>4.5 pages folder</h3>
 
@@ -423,6 +424,165 @@ module, and trigger the module to render and update its content on the Hub Conte
 <h3>5.3 Options.js</h3>
 
 The application and modules are setup in options.js. It imports the module JavaScripts and sets all the options. It is essential to understand options.js in order to correctly setup MetroPress.
+
+<table border=1>
+  <tbody>
+    <!-- Results table headers -->
+    <tr>
+      <th>Options Parameter </th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>appTitleImage</td>
+      <td>Title Image Url ;  If specified, it will ignore the appTitle parameter<br /></td>
+    </tr>
+    <tr>
+      <td>appTitle	</td>
+      <td>Title text</td>
+    </tr>
+    <tr>
+      <td>cacheTime</td>
+      <td># of Minutes to keep the cached data<br /></td>
+    </tr>
+    <tr>
+      <td>mainUrl</td>
+      <td>Main Url to share when user click the Share Charm in the hub page<br /></td>
+    </tr>
+    <tr>
+      <td>privacyUrl</td>
+      <td>Url for the privacy page, launch from Settings Charm<br /></td>
+    </tr>
+    <tr>
+      <td>modules</td>
+      <td>See module options section below<br /></td>
+    </tr>
+    <tr>
+      <td>searchModule</td>
+      <td>See module options section below<br /></td>
+    </tr>
+    <tr>
+      <td>liveTileModule</td>
+      <td>See module options section below</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.4 Images</h3>
+
+The following are the default set of images for the App.
+
+<table border=1>
+  <tbody>
+    <!-- Results table headers -->
+    <tr>
+      <th>File name </th>
+      <th>Dimension</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td>background.png</td>
+      <td>Varies</td>
+      <td>Background image of the app.  A good resolution will be 1920 by 1080.  If you want to enable the scrolling background effect, use a double wide background such as 3840 x 1080 or higher<br /></td>
+    </tr>
+    <tr>
+      <td>badgelogo.png	</td>
+      <td>24x24px</td>
+      <td>Badge icon on Win8 start screen<br /></td>
+    </tr>
+    <tr>
+      <td>blank.png	</td>
+      <td>Varies</td>
+      <td>Default background when no featured image<br /></td>
+    </tr>
+    <tr>
+      <td>logo.png	</td>
+      <td>150x150px</td>
+      <td>The default app logo<br /></td>
+    </tr>
+    <tr>
+      <td>smalllogo.png	</td>
+      <td>30x30px</td>
+      <td>Smaller dimension of the default app logo<br /></td>
+    </tr>
+    <tr>
+      <td>splashscreen.png </td>
+      <td>620x300px</td>
+      <td>Image for the splash screen<br /></td>
+    </tr>
+    <tr>
+      <td>storelogo.png	</td>
+      <td>50x50px</td>
+      <td>Logo displayed in Windows Store<br /></td>
+    </tr>
+    <tr>
+      <td>widelogo.png	</td>
+      <td>310x150px</td>
+      <td>Large icon on Win8 start screen</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.5 Search Charm</h3>
+
+Both modules can be configured in options.js to handle Search Charm.  When user enters a query into the search charm, 
+the application navigates to the module’s search page displaying the results.
+<img src="https://lh5.googleusercontent.com/k5BplnZ_axmFdZUCudlLS5cfsd6j78UqoE64JEFLrC7ED2lhwH1vJ8BxkP42zvZ8VfxxVnhq6FonRYP0tE9V-5xH9X5SbFcAAhX45ScqHHtAJsEHL9Ns4TBAqlr12PXMW3w"/>
+
+<h3>5.6 Share Charm</h3>
+
+Share Charm is handled by MetroPress. The default behavior is to share the mainUrl defined in options.js. This is useful 
+in hub page or other pages that doesn’t have content to share. However, a module can override that behavior if the page 
+has a special Div element:
+
+```html
+<div class="mp-share" title="this is the title" permalink="http://blah.com">
+ This is the description...
+</div>
+```
+
+The Share Charm will use the title, permalink and div inner Html as description. The class mp-share will by default keep
+the element hidden.
+<img src="https://lh5.googleusercontent.com/ugtlonHlJC3ekeOGhXL9pPLRLI_5r_QALjjxDj7Ri8gf-yHllrTVNYagceJi8fbKtAsLUr8jtNn-bdKjhaoasScs_uWbEV2OFlTmv2cJXAqG9m1VA5lFZFJp3RI4tXRyJf0"/>
+
+<h3>5.7 Live Tiles</h3>
+
+Live Tiles is improved in version 2 by using background task to update the tile. Both modules can be configured in 
+options.js to handle Live Tiles. Live tiles will show the latest 5 posts. This is the general flow:
+<img src="https://docs.google.com/a/ideanotion.net/drawings/d/smfSlZM0F1W2FNP_HcLY84w/image?w=648&h=129&rev=1&ac=1"/>
+
+<h3>5.8 Settings Charm</h3>
+
+Two menu items were added to the Settings Charm.  
+
+ * About Us flyout defined in /html/About-flyout.html
+ * Privacy Policy will launch Internet Explorer to display the privacy URL defined in options.j
+<img src="https://lh4.googleusercontent.com/ygRjJ9PgRcuRBxgdiWMUYaxXRShjlCCUEYJV1tqCi720YfJuWawrFCp63FU_ca6JK4IJWwTv5sMd69tI6_xu0kST9sqRA4MzAH2KtZKY_PtN5SL77NCwTLajKOhfnEdOWLw"/>
+
+<h3>5.9 Bookmarking</h3>
+
+User can bookmark any post or page to view it at a later time.  Bookmarked items will only be shown at the Hub page if one instance of the module is configured as Bookmark type. 
+<img src="https://lh5.googleusercontent.com/6GHnowLmHi04SqgFfFeIhKCRs4SJ_eN3IHEJFdDGdSLvdiUd3csuhB_yUY25LERdsxRs0sshmAtRa2jz2Yg2kuegVnHQE5n5uNVuSrClo4e4TQp_Lo0IVdUCa8TcQPtETas"/>
+
+<h3>5.10 LocalStorage Caching</h3>
+
+MetroPress and modules utilize LocalStorage to cache data to improve performance, and allow off line access. The modules stored fetched posts, and pages into localStorage along with a timestamp.  When loading from localStorage, the timestamp is used to check if it exceeded the CacheTime set by the options.js.
+
+During development, one may need to flush the cache, and the quickest way is to increment the localStorageSchemaVersion.  This will clear the EVERYTHING from the localStorage when the application launches.
+
+```javascript
+var metroPress = {
+   // Change Storage Version to empty the local storage
+   localStorageSchemaVersion: '20130101-1',
+   modules: [],
+   initialized: false,
+   accessToken: null,
+}
+```
+
+<h2>6 Theme Customization</h2>
+The CCS styling rules govern the look and feel of MetroPress. It is important that the theme system is easy-to-customize and flexible. The CSS files are organized into four separate groups.  
+
+
 
 
   [1]: https://lh4.googleusercontent.com/9EXeWB41_clwNQILjpqcfqI9LunZoDd75XE6W3rC688-SZzyIQ7XMikuQAQf3tshG6dJ1n-_iUeqB6YOu_SrVdUqT5RWCPBvXk2KQr14L33e_h1yylAg0gMBRsc378Cmbbc
