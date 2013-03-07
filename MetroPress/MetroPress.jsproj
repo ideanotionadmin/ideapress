@@ -62,6 +62,7 @@
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
+    <Content Include="images\title.png" />
     <Content Include="images\widelogo.png" />
     <Content Include="images\background.png" />
     <Content Include="js\default.js" />

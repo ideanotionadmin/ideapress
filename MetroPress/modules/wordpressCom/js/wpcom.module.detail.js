@@ -55,25 +55,25 @@
             // Related Post
             var relatedPost = '';
             var primCat = item.module;
-            var count = 0;
+            
             for (var l = 0; l < primCat.list.length && l < primCat.numberOfRelatedPosts; l++) {
                 // Only add post that is not itself.
                 var value = primCat.list.getAt(l);
                 if (value.id != item.id) {
                     relatedPost += '<div class="item"><div class="wpc-caption-text" id="related' + value.id + '"><a href="#">' + value.title + '</a></div><br/>';
-                    relatedPost += '<p style="float:right;">From ' + value.authorName + ' ' + GetDateDifference(value.date) + ' ago</p></div>';
+                    relatedPost += '<p style="float:right;">From ' + value.authorName + ' ' + getDateDifference(value.date) + ' ago</p></div>';
                 }
             }
 
-            WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector(".relatedPost"), relatedPost)
+            WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector(".relatedPost"), relatedPost);
 
             // We'll add the listener after we add the elements into the script
             primCat.list.forEach(
-                 function showIteration(value, index, array) {
-                     if (value.id != item.id) {
-                         if (document.getElementById('related' + value.id)) {
-                             document.getElementById('related' + value.id).addEventListener("click", function () {
-                                 WinJS.Navigation.navigate("/modules/wordpressCom/pages/wpcom.module.detail.html", { item: value });
+                 function (v) {
+                     if (v.id != item.id) {
+                         if (document.getElementById('related' + v.id)) {
+                             document.getElementById('related' + v.id).addEventListener("click", function () {
+                                 WinJS.Navigation.navigate("/modules/wordpressCom/pages/wpcom.module.detail.html", { item: v });
                              }, false);
                          }
                      }
@@ -100,7 +100,7 @@
                         comments += '<div class="item"><div class="wpc-caption-text">';
                         comments += data.comments[i].content + '</div>';
                         comments += '<p style="float:right;">Posted by ' + data.comments[i].author.name + ' ';
-                        comments += GetDateDifference(data.comments[i].date) + ' ago</p></div>';
+                        comments += getDateDifference(data.comments[i].date) + ' ago</p></div>';
                     }
 
                     WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector('.comment'), comments);
@@ -116,17 +116,17 @@
         );        
     }
 
-    function GetDateDifference(LSPostDateString) {
+    function getDateDifference(lsPostDateString) {
         // Expected Format: 
         //  0123456789012345678
         //  2012-10-26 07:49:03
-        var Year = LSPostDateString.substring(0, 4);
-        var Month = parseInt(LSPostDateString.substring(5, 7)) - 1; // month starts from 0 to 11
-        var Day = LSPostDateString.substring(8, 10);
-        var Hour = LSPostDateString.substring(11, 13);
-        var Minute = LSPostDateString.substring(14, 16);
-        var Milli = LSPostDateString.substring(17,19);
-        return metroPress.timeSince(new Date(Year, Month, Day, Hour, Minute, Milli, 0));
+        var year = lsPostDateString.substring(0, 4);
+        var month = parseInt(lsPostDateString.substring(5, 7)) - 1; // month starts from 0 to 11
+        var day = lsPostDateString.substring(8, 10);
+        var hour = lsPostDateString.substring(11, 13);
+        var minute = lsPostDateString.substring(14, 16);
+        var milli = lsPostDateString.substring(17, 19);
+        return metroPress.timeSince(new Date(year, month, day, hour, minute, milli, 0));
     }
 
     function viewBlog() {
@@ -168,7 +168,7 @@
         }
     }
 
-    function bookmarkClick(m) {
+    function bookmarkClick() {
         var isBookmarked = item.module.checkIsBookmarked(item.id);
         if (!isBookmarked) {
             item.module.addBookmark(item);
@@ -208,11 +208,16 @@
             // Check to see if an access token is stored 
             var token = metroPress.getAccessToken();
             if (null == token)
-                item.module.submitCommentWithoutToken(function (token) {
-                    document.getElementById("commentFlyout").winControl.hide();
-                    submitCommentWithToken(comment, token);
+                item.module.submitCommentWithoutToken(function (t, e) {
+                    if (e) {
+                        document.getElementById('comments#results').innerText = "Error Posting Comment. " + e;
+                    }
+                    else {
+                        document.getElementById("commentFlyout").winControl.hide();
+                        submitCommentWithToken(comment, t);
+                    }
                 });    // ReceiveToken is the function call to invoke when token retrieval is completed.
-            else
+            else                
                 submitCommentWithToken(comment, token);
         }
     }
@@ -235,7 +240,7 @@
                     existingComment += '<div class="item"><div class="wpc-caption-text">';
                     existingComment += data.content + '</div>';
                     existingComment += '<p style="float:right;">Posted by ' + data.author.name + ' ';
-                    existingComment += GetDateDifference(data.date) + ' ago</p></div>';
+                    existingComment += getDateDifference(data.date) + ' ago</p></div>';
                     
                     WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector('.comment'), existingComment);
                     // Clear any progress status
@@ -251,10 +256,10 @@
                     document.getElementById('comments#results').innerText = result.responseText;
                 }
             },
-            function error(result) {
-                document.getElementById('comments#results').innerText = "Error Posting Comment.";                
+            function (e) {
+                document.getElementById('comments#results').innerText = "Error Posting Comment. " + e;
             },
-            function progress(result) {                
+            function () {                
             }
        );
     }

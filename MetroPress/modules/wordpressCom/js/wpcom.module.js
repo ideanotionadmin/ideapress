@@ -12,11 +12,16 @@ var wordpresscomModule = function(metroPress, options) {
     // set options
     this.title = options.title;
     this.siteDomain = options.siteDomain;
-    this.categoryId = options.categoryId;
+    this.typeId = options.typeId;
+    this.localStorageKey = "wpcom-" + options.typeId;
+    if (options.categoryId) {
+        this.categoryId = options.categoryId;
+        this.localStorageKey = this.localStorageKey + "-" + this.categoryId;
+    }
     this.pageIds = options.pageIds;
     this.clientId = options.clientId;
     this.clientSecret = options.clientSecret;
-    this.localStorageKey = "wpcom-" + options.categoryId;
+    this.hubItemsCount = options.hubItemsCount;
 
     // set constants
     this.defaultCount = 32;
@@ -27,9 +32,10 @@ var wordpresscomModule = function(metroPress, options) {
 };
 
 // Constant
-wordpresscomModule.BOOKMARKS = -1;
-wordpresscomModule.MOSTRECENT = -2;
-wordpresscomModule.PAGES = -3;
+wordpresscomModule.PAGES = 0;
+wordpresscomModule.MOSTRECENT = 1;
+wordpresscomModule.CATEGORY = 2;
+wordpresscomModule.BOOKMARKS = 3;
 
 /* 
 ============================================================================     External Methods     =============================================================//
@@ -57,8 +63,12 @@ wordpresscomModule.prototype.render = function(elem) {
 // Fetch data and update UI
 wordpresscomModule.prototype.update = function(viewState) {
     var self = this;
-    self.fetch(0).then(function() {
-        if (self.categoryId == wordpresscomModule.BOOKMARKS) {
+    if (false !== self.fetching) {
+        self.fetching.cancel();
+    }
+
+    self.fetching = self.fetch(0).then(function() {
+        if (self.typeId == wordpresscomModule.BOOKMARKS) {
             if (self.list.length == 0) {
                 var content = self.container.querySelector(".mp-module-content");
                 content.parentNode.className = content.parentNode.className + ' hide';
@@ -76,7 +86,7 @@ wordpresscomModule.prototype.update = function(viewState) {
         var titleCount = self.container.querySelector(".wpc-title-count");
 
         // no header for page
-        if (self.categoryId !== wordpresscomModule.PAGES) {
+        if (self.typeId !== wordpresscomModule.PAGES) {
             title.textContent = self.title;            
             titleCount.textContent = Math.max(self.list.length, self.totalCount);
         }
@@ -108,8 +118,10 @@ wordpresscomModule.prototype.update = function(viewState) {
             layout: listViewLayout,
             item: self
         });
-        listview.oniteminvoked = function (e) { self.showPost(e) };
-    }, function() {
+        listview.oniteminvoked = function (e) { self.showPost(e); };
+        self.fetching = false;
+    }, function () {
+        self.fetching = false;
     }, function() {
     });
 };
@@ -136,7 +148,7 @@ wordpresscomModule.prototype.cancel = function() {
 // Search Charm initialization
 wordpresscomModule.prototype.searchInit = function () {
     var appModel = Windows.ApplicationModel;
-    var nav = WinJS.Navigation;
+    var nav = WinJS.Navigation;    
     appModel.Search.SearchPane.getForCurrentView().onquerysubmitted = function (args) { nav.navigate('/modules/wordpressCom/pages/wpcom.module.searchResults.html', args); };
 
 };
@@ -176,24 +188,18 @@ wordpresscomModule.prototype.getLiveTileList = function () {
 wordpresscomModule.prototype.fetch = function(page) {
     var self = this;
     return new WinJS.Promise(function(comp, err, prog) {
-        if (false !== self.fetching) {
-            self.fetching.cancel();
-        }
-
         var url = self.apiURL;
         var queryString;
 
-        if (self.categoryId == wordpresscomModule.PAGES) {
+        if (self.typeId == wordpresscomModule.PAGES) {
             self.getPages(page).then(function() {
                 comp(0);
-            }, function(f) {
+            }, function() {
                 var storage = self.loadFromStorage();
                 if (localStorageObject != null && storage.pages != null) {
                     var pages = storage.pages;
                     self.addPagesToList(pages);
-                }
-
-                self.fetching = false;
+                }                
 
                 comp();
                 metroPress.toggleElement(self.loader, "hide");
@@ -206,9 +212,7 @@ wordpresscomModule.prototype.fetch = function(page) {
 
         }
 
-        if (self.categoryId == wordpresscomModule.BOOKMARKS) {
-            self.fetching = true;
-
+        if (self.typeId == wordpresscomModule.BOOKMARKS) {
             var bookmarks = self.getBookmarks();
             self.post_count = bookmarks.post_count;
             self.lastFetched = bookmarks.lastFetched;
@@ -223,13 +227,12 @@ wordpresscomModule.prototype.fetch = function(page) {
                 bookmarks.posts[j].module = self;
                 self.list.push(bookmarks.posts[j]);
             }
-            self.count = bookmarks.posts.length;
-            self.fetching = false;
+            self.totalCount = bookmarks.posts.length;
 
             metroPress.toggleElement(self.loader, "hide");
             comp();
             return;
-        } else if (self.categoryId == wordpresscomModule.MOSTRECENT)
+        } else if (self.typeId == wordpresscomModule.MOSTRECENT)
             queryString = 'rest/v1/sites/' + self.siteDomain + '/posts/?number=' + self.defaultCount + '&order_by=date&page=' + (page + 1);
         else
             queryString = 'rest/v1/sites/' + self.siteDomain + '/posts/?number=' + self.defaultCount + '&category=' + self.categoryId + '&page=' + (page + 1);
@@ -240,11 +243,10 @@ wordpresscomModule.prototype.fetch = function(page) {
         var localStorageObject = self.loadFromStorage();
 
         if (self.shouldFetch(localStorageObject, page)) {
-            self.fetching = WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function(r) {
+            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function(r) {
                 var data = JSON.parse(r.responseText);
                 if (data.found == undefined || data.found == "0") {
                     self.maxPagingIndex = page;
-                    self.fetching = false;
                     comp(0);
                     return;
                 }
@@ -262,7 +264,6 @@ wordpresscomModule.prototype.fetch = function(page) {
                     self.saveToStorage(localStorageObject);
                 }
 
-                self.fetching = false;
                 comp(0);
                 metroPress.toggleElement(self.loader, "hide");
             },
@@ -271,7 +272,6 @@ wordpresscomModule.prototype.fetch = function(page) {
                     if (localStorageObject != null && localStorageObject.posts != null)
                         self.addItemsToList(localStorageObject.posts);
 
-                    self.fetching = false;
                     metroPress.toggleElement(self.loader, "hide");
                     err(m);
                 },
@@ -287,7 +287,6 @@ wordpresscomModule.prototype.fetch = function(page) {
 
             self.lastFetched = localStorageObject.lastFetched;
             self.totalCount = localStorageObject.post_count;
-            self.fetching = false;
             comp(0);
             metroPress.toggleElement(self.loader, "hide");
         }
@@ -302,7 +301,7 @@ wordpresscomModule.prototype.shouldFetch = function(localStorageObject, page) {
             return true;
         }
 
-        if (this.categoryId == wordpresscomModule.PAGES) {
+        if (this.typeId == wordpresscomModule.PAGES) {
             if (localStorageObject.pages && localStorageObject.pages.length > 0) {
                 if (new Date() - new Date(localStorageObject.lastFetched) < 360000) {
                     return false;
@@ -343,9 +342,6 @@ wordpresscomModule.prototype.showPost = function (eventObject) {
 
 // Navigate to Section page
 wordpresscomModule.prototype.showCategory = function () {
-    if (this.fetching)
-        this.fetching.cancel();
-
     WinJS.Navigation.navigate("/modules/wordpressCom/pages/wpcom.module.section.html", { category: this });
 };
 
@@ -359,6 +355,10 @@ wordpresscomModule.prototype.getHubList = function() {
         l = 12;
     else if (h > 1199)
         l = 8;
+
+    // override
+    if (this.hubItemsCount)
+        l = this.hubItemsCount;
 
     for (var i = 0; i < Math.min(l, this.list.length); i++)
         hubList.push(this.list.getAt(i));
@@ -510,9 +510,6 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
 wordpresscomModule.prototype.getPages = function (page) {
     var self = this;
     return new WinJS.Promise(function(comp, err, prog) {        
-        if (false !== self.fetching) {
-            self.fetching.cancel();
-        }
 
         var url = self.apiURL;
         var queryString = 'rest/v1/sites/' + self.siteDomain + '/posts/';
@@ -534,13 +531,12 @@ wordpresscomModule.prototype.getPages = function (page) {
 
             self.lastFetched = localStorageObject.lastFetched;
             self.totalCount = localStorageObject.page_count;
-            self.fetching = false;
 
             comp();
             metroPress.toggleElement(self.loader, "hide");
 
         } else {
-            self.fetching = WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function() {
+            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function() {
                 var localPages = new Array();
 
                 var promises = new Array();
@@ -575,7 +571,6 @@ wordpresscomModule.prototype.getPages = function (page) {
                     self.addPagesToList(localPages);
 
                     self.saveToStorage(localStorageObject);
-                    self.fetching = false;
                     self.postsFetched = new Date();
                     metroPress.toggleElement(self.loader, "hide");
                     comp();
@@ -589,7 +584,6 @@ wordpresscomModule.prototype.getPages = function (page) {
                         self.addPagesToList(pages);
                     }
 
-                    self.fetching = false;
 
                     comp();
                     metroPress.toggleElement(self.loader, "hide");
@@ -661,7 +655,7 @@ wordpresscomModule.prototype.submitCommentWithoutToken = function(callback) {
     // https://public-api.wordpress.com/oauth2/authorize?client_id=your_client_id&redirect_uri=your_url&response_type=code
 
     var authorizeUrl = "https://public-api.wordpress.com/oauth2/authorize?client_id=";
-    var callbackUrl = "https://www.facebook.com/connect/login_success.html";
+    var callbackUrl = "http://www.wordpress.org/";
     authorizeUrl += this.clientId + "&redirect_uri=" + encodeURIComponent(callbackUrl) + "&response_type=code";
 
     try {
@@ -683,12 +677,28 @@ wordpresscomModule.prototype.submitCommentWithToken = function (accessToken, pos
     var headers = { 'authorization': 'Bearer ' + accessToken, "User-Agent": this.userAgent, "Content-type": "application/x-www-form-urlencoded" };
     var postData = "content=" + comment;
 
-    WinJS.xhr({ type: "POST", url: fullUrl, headers: headers, data: postData }).done(
+    var self = this;
+    if (false !== self.fetching) {
+        self.fetching.cancel();
+    }
+
+    self.fetching = WinJS.xhr({ type: "POST", url: fullUrl, headers: headers, data: postData }).then(
         function (result) {
             c(result);
+            self.fetching = false;
         },
         function (result) {
-            r(result);
+            var msg = "";
+            try {
+                if (result.responseText) {
+                    msg = JSON.parse(result.responseText).message;
+                }
+            }
+            catch(e) {
+                
+            }
+            r(msg);
+            self.fetching = false;
         },
         function (result) {
             p(result);
@@ -698,12 +708,6 @@ wordpresscomModule.prototype.submitCommentWithToken = function (accessToken, pos
 
 // OAuth Callback
 wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, callback) {
-    var response = "Status returned by WebAuth broker: " + result.responseStatus + "\r\n";
-
-    if (result.responseStatus == 2) {
-        response += "Error returned: " + result.responseErrorDetail + "\r\n";
-    }
-
     if (result.responseStatus == 0) {
         var vars = result.responseData.split('?')[1].split('&');
         for (var i = 0; i < vars.length; i++) {
@@ -716,22 +720,27 @@ wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, 
                 // You are required to pass client_id, client_secret, and redirect_uri for web applications. 
                 // These parameters have to match the details for your application. grant_type has to be set to “authorization_code”. 
                 // code must match the code you received in the redirect.
-                var callbackUrl = "https://www.facebook.com/connect/login_success.html";
+                var callbackUrl = "http://www.wordpress.org/";
                 var fullUrl = 'https://public-api.wordpress.com/oauth2/token';
                 var postData = 'client_id=' + self.clientId + '&client_secret=' + self.clientSecret + '&redirect_uri=' + encodeURIComponent(callbackUrl) + '&grant_type=authorization_code&code=' + code;
                 var headers = { "User-Agent": 'wp-window8', "Content-type": "application/x-www-form-urlencoded" }; //WPApi.userAgent()
 
                 WinJS.xhr({ type: "POST", url: fullUrl, headers: headers, data: postData }).done(
-                    function () {
-                        // Parse JSON results
-                        var data = JSON.parse(result.responseText);
+                    function (r) {
+                        try {
+                            // Parse JSON results
+                            var data = JSON.parse(r.responseText);
 
-                        // Store the Access Token
-                        metroPress.setAccessToken(data.access_token);
-                        callback(data.access_token);
+                            // Store the Access Token
+                            metroPress.setAccessToken(data.access_token);
+                            callback(data.access_token);
+                            
+                        } catch (e) {
+                            callback(null, "");
+                        }
                     },
-                    function () {
-                        callback(null);
+                    function () {                        
+                        callback(null, "");
                     },
                     function () {                        
                     }
@@ -742,9 +751,9 @@ wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, 
 };
 
 // OAuth Error Callback
-wordpresscomModule.prototype.callbackWordPressWebAuthError = function (err) {
+wordpresscomModule.prototype.callbackWordPressWebAuthError = function () {
     // Do nothing
-    //var error = "Error returned by WebAuth broker. Error Number: " + err.number + " Error Message: " + err.message + "\r\n";
+    // var error = "Error returned by WebAuth broker. Error Number: " + err.number + " Error Message: " + err.message + "\r\n";
 };
 
 // Get comments for a post thru API
@@ -773,10 +782,9 @@ wordpresscomModule.prototype.getComments = function(postId, c, r, p) {
 // Search for posts thru API
 wordpresscomModule.prototype.search = function (query) {
     var self = this;
-    //renew the search list
-    //TODO?
+
     return new WinJS.Promise(function(comp, err, prog) {
-        prog(0);
+        prog();
 
         //var queryString = '?json=get_search_results&search=' + query;
         var queryString = 'rest/v1/sites/' + self.siteDomain + '/posts/?number=100&search=' + query;

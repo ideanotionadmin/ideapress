@@ -1,8 +1,6 @@
 ﻿(function () {
     "use strict";
     
-    var appView = Windows.UI.ViewManagement.ApplicationView;
-    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var item;
     var fetching = false;
     function hideLoader() {
@@ -17,7 +15,7 @@
         metroPress.toggleElement(loader, "show");
     }
 
-    function getOlderPosts(e) {
+    function getOlderPosts() {
         if (document.querySelector('.wpc-list')) {
             var listview = document.querySelector('.wpc-list').winControl;
 
@@ -39,7 +37,7 @@
         }
     }
 
-    function scrollToPosition(e) {
+    function scrollToPosition() {
         var listview = document.querySelector(".wpc-list").winControl;
         if ('complete' == listview.loadingState) {
             listview.removeEventListener('loadingstatechanged', scrollToPosition);
@@ -91,7 +89,7 @@
                 layout: listViewLayout,
                 item: self
             });
-            listView.oniteminvoked = function (e) { item.showPost(e) };
+            listView.oniteminvoked = function (e) { item.showPost(e); };
             
             if (item.scrollPosition > 0) {
                 

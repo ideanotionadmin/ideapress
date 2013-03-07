@@ -4,7 +4,7 @@ MetroPress Version 2.0
 */
 var metroPress = {
     // Change Storage Version to empty the local storage
-    localStorageSchemaVersion: '20130101-1',
+    localStorageSchemaVersion: '20130201-1',
     modules: [],
     initialized: false,
     accessToken: null,
@@ -71,6 +71,8 @@ var metroPress = {
         for (var i in metroPress.modules) {
             metroPress.modules[i].cancel();
         }
+        if (metroPress.searchModule)
+            metroPress.searchModule.cancel();
     },
 
     // Override the onClick for all the links and launch content in an iframe 

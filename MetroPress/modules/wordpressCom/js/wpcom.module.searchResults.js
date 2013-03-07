@@ -7,9 +7,9 @@
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var nav = WinJS.Navigation;
     var ui = WinJS.UI;
-    var searchPageURI = "/modules/wordpressCom/pages/wpcom.module.searchResults.html";
+    var searchPageUri = "/modules/wordpressCom/pages/wpcom.module.searchResults.html";
 
-    ui.Pages.define(searchPageURI, {
+    ui.Pages.define(searchPageUri, {
         _filters: [],
         _lastSearch: "",
 
@@ -22,7 +22,7 @@
             this._handleQuery(element, options);
             listView.element.focus();
 
-            document.getElementById("home").addEventListener("click", function () { var nav = WinJS.Navigation; nav.back(nav.history.backStack.length); }, false);
+            document.getElementById("home").addEventListener("click", function () { nav.back(nav.history.backStack.length); }, false);
 
             var wc = document.querySelector('.wpc-list').winControl;
             wc.addEventListener("mousewheel", metroPress.scrollBackground);
@@ -35,10 +35,10 @@
             var listView = element.querySelector(".resultslist").winControl;
             if (lastViewState !== viewState) {
                 if (lastViewState === appViewState.snapped || viewState === appViewState.snapped) {
-                    var handler = function (e) {
+                    var handler = function(e) {
                         listView.removeEventListener("contentanimating", handler, false);
                         e.preventDefault();
-                    }
+                    };
                     listView.addEventListener("contentanimating", handler, false);
                     var firstVisible = listView.indexOfFirstVisible;
                     this._initializeLayout(listView, viewState);
@@ -67,12 +67,11 @@
 
         _generateFilters: function () {
             this._filters = [];
-            this._filters.push({ results: null, text: "All", predicate: function (item) { return true; } });
+            this._filters.push({ results: null, text: "All", predicate: function () { return true; } });
         },
 
         // This function executes each step required to perform a search.
         _handleQuery: function (element, args) {
-            var originalResults;
             var self = this;
             this._lastSearch = args.queryText;
             WinJS.Namespace.define("searchResults", { markText: WinJS.Binding.converter(this._markText.bind(this)) });
@@ -89,7 +88,7 @@
                 metroPress.toggleElement(self.loader, "hide");
                 self._populateFilterBar(element, originalResults);
                 self._applyFilter(self._filters[0], originalResults);
-            }, function (e) { }, function (p) {  });
+            }, function () { }, function () {  });
         },
 
         // This function updates the ListView with new layouts
@@ -144,7 +143,7 @@
                     nav.history.current = { location: Application.navigator.home, initialState: {} };
                 }
 
-                return nav.navigate(searchPageURI, { queryText: args.detail.queryText });
+                return nav.navigate(searchPageUri, { queryText: args.detail.queryText });
             }));
         }
     });

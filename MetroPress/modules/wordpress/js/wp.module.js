@@ -10,12 +10,18 @@ var wordpressModule = function (metroPress, options) {
     this.fetching = false;
 
     // set options
-    this.localStorageKey = "wp-" + options.categoryId;
     this.title = options.title;
-    this.categoryId = options.categoryId;
+    this.typeId = options.typeId;
+    this.localStorageKey = "wp-" + options.typeId;
+    if (options.categoryId) {
+        this.categoryId = options.categoryId;
+        this.localStorageKey = this.localStorageKey + "-" + this.categoryId;
+    }
     this.pageIds = options.pageIds;
-    this.apiURL = options.apiUrl,
-        // set constant
+    this.apiURL = options.apiUrl;
+    this.hubItemsCount = options.hubItemsCount;
+
+    // set constant
     this.defaultCount = 32;
     this.numberOfRelatedPosts = 4;
     this.maxPagingIndex = -1;
@@ -24,10 +30,10 @@ var wordpressModule = function (metroPress, options) {
 };
 
 // Constants
-wordpressModule.BOOKMARKS = -1;
-wordpressModule.MOSTRECENT = -2;
-wordpressModule.PAGES = -3;
-wordpressModule.fetching = false;
+wordpressModule.PAGES = 0;
+wordpressModule.MOSTRECENT = 1;
+wordpressModule.CATEGORY = 2;
+wordpressModule.BOOKMARKS = 3;
 
 /* 
 ============================================================================     External Methods     =============================================================//
@@ -66,7 +72,7 @@ wordpressModule.prototype.update = function(viewState) {
     self.fetching = self.fetch(0).then(function () {
         var listViewLayout;
 
-        if (self.categoryId == wordpressModule.BOOKMARKS) {
+        if (self.typeId == wordpressModule.BOOKMARKS) {
             if (self.list.length == 0) {
                 var content = self.container.querySelector(".mp-module-content");
                 content.parentNode.className = content.parentNode.className + ' hide';
@@ -82,7 +88,7 @@ wordpressModule.prototype.update = function(viewState) {
         var titleCount = self.container.querySelector(".wp-title-count");        
 
         // no header for page
-        if (self.categoryId !== wordpressModule.PAGES) {
+        if (self.typeId !== wordpressModule.PAGES) {
             title.textContent = self.title;
             titleCount.textContent = Math.max(self.list.length, self.totalCount);
         }        
@@ -114,7 +120,7 @@ wordpressModule.prototype.update = function(viewState) {
             layout: listViewLayout,
             item: self
         });               
-        listview.oniteminvoked = function (e) { self.showPost(e) };
+        listview.oniteminvoked = function (e) { self.showPost(e); };
         self.fetching = false;
     }, function () {
         self.fetching = false;
@@ -197,7 +203,7 @@ wordpressModule.prototype.fetch = function(page) {
         var queryString;
 
         // branch off to get pages, posts or bookmark based on categoryId
-        if (self.categoryId == wordpressModule.PAGES) {
+        if (self.typeId == wordpressModule.PAGES) {
             self.getPages().then(function() {
                 comp();
                 return;
@@ -216,7 +222,7 @@ wordpressModule.prototype.fetch = function(page) {
                     prog(p);
                 });
             return;
-        } else if (self.categoryId == wordpressModule.BOOKMARKS) {           
+        } else if (self.typeId == wordpressModule.BOOKMARKS) {
 
             // read from bookmark and store to the list
             var bookmarks = self.getBookmarks();
@@ -238,7 +244,7 @@ wordpressModule.prototype.fetch = function(page) {
             return;
         } else {
             // fetch Posts            
-            if (self.categoryId == wordpressModule.MOSTRECENT)
+            if (self.typeId == wordpressModule.MOSTRECENT)
                 queryString = '?json=get_recent_posts&count=' + self.defaultCount + "&page=" + (page + 1);
             else
                 queryString = '?json=get_category_posts&id=' + self.categoryId + '&count=' + self.defaultCount + "&page=" + (page + 1);
@@ -391,7 +397,7 @@ wordpressModule.prototype.shouldFetch = function (localStorageObject, page) {
         if (page && (page > this.maxPagingIndex)) {
             return true;
         }
-        if (this.categoryId == wordpressModule.PAGES) {
+        if (this.typeId == wordpressModule.PAGES) {
             if (localStorageObject.pages && localStorageObject.pages.length > 0) {
                 if (new Date() - new Date(localStorageObject.lastFetched) < 360000) {
                     return false;
@@ -433,9 +439,6 @@ wordpressModule.prototype.showPost = function(eventObject) {
 
 // Navigate to Section page
 wordpressModule.prototype.showCategory = function() {
-    if (this.fetching)
-        this.fetching.cancel();
-
     WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.section.html", { category: this });    
 };
 
@@ -450,6 +453,10 @@ wordpressModule.prototype.getHubList = function() {
     else if (h > 1199)
         l = 8;
 
+    // override
+    if (this.hubItemsCount)
+        l = this.hubItemsCount;
+
     for (var i = 0; i < Math.min(l, this.list.length); i++)
         hubList.push(this.list.getAt(i));
 
@@ -461,12 +468,20 @@ wordpressModule.prototype.submitComment = function(postId, name, email, url, com
     var fullUrl = this.apiURL + '?json=submit_comment&post_id=' + postId + '&name=' + encodeURI(name) + '&email=' + encodeURI(email) + '&content=' + encodeURI(comment);
     var headers = { "User-Agent": this.userAgent };
     
-    WinJS.xhr({ type: "POST", url: fullUrl, headers: headers }).done(
+
+    var self = this;
+    if (false !== self.fetching) {
+        self.fetching.cancel();
+    }
+
+    self.fetching = WinJS.xhr({ type: "POST", url: fullUrl, headers: headers }).then(
         function (result) {
             c(result);
+            self.fetching = false;
         },
         function (result) {
             r(result);
+            self.fetching = false;
         },
         function (result) {
             p(result);

@@ -1,8 +1,6 @@
 ﻿(function () {
     "use strict";
 
-    var appView = Windows.UI.ViewManagement.ApplicationView;
-    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var item;
     var fetching = false;
     
@@ -18,7 +16,7 @@
         metroPress.toggleElement(loader, "show");
     }
 
-    function getOlderPosts(e) {
+    function getOlderPosts() {
         if (document.querySelector('.wp-list')) {
             var listview = document.querySelector('.wp-list').winControl;
 
@@ -38,7 +36,7 @@
         }
     }
 
-    function scrollToPosition(e) {
+    function scrollToPosition() {
         var listview = document.querySelector(".wp-list").winControl;
 
         if ('complete' == listview.loadingState) {
@@ -90,7 +88,7 @@
                 layout: listViewLayout,
                 item: self
             });
-            listView.oniteminvoked = function (e) { item.showPost(e) };
+            listView.oniteminvoked = function (e) { item.showPost(e); };
             
             if (item.scrollPosition > 0) {
                 //hideLoader();

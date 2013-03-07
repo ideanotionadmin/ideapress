@@ -52,7 +52,7 @@
                 comments += '<div class="item"><div class="wp-caption-text">';
                 comments += item.comments[i].content + '</div>';
                 comments += '<p style="float:right;">Posted by ' + item.comments[i].name + ' ';
-                comments += GetDateDifference(item.comments[i].date) + ' ago</p></div>';
+                comments += getDateDifference(item.comments[i].date) + ' ago</p></div>';
             }
             WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector('.comment'), comments);
         }
@@ -66,18 +66,18 @@
                 var value = primCat.list.getAt(l);
                 if (value.id != item.id) {
                     relatedPost += '<div class="item"><div class="wp-caption-text" id="related' + value.id + '"><a href="#">' + value.title + '</a></div><br/>';
-                    relatedPost += '<p style="float:right;">From ' + value.authorName + ' ' + GetDateDifference(value.date) + ' ago</p></div>';
+                    relatedPost += '<p style="float:right;">From ' + value.authorName + ' ' + getDateDifference(value.date) + ' ago</p></div>';
                 }
             }
             WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector(".relatedPost"), relatedPost);
 
             // We'll add the listener after we add the elements into the script
             primCat.list.forEach(
-                function showIteration(value, index, array) {
-                    if (value.id != item.id) {
-                        if (document.getElementById('related' + value.id)) {
-                            document.getElementById('related' + value.id).addEventListener("click", function() {
-                                WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.detail.html", { item: value });
+                function (v) {
+                    if (v.id != item.id) {
+                        if (document.getElementById('related' + v.id)) {
+                            document.getElementById('related' + v.id).addEventListener("click", function() {
+                                WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.detail.html", { item: v });
                             }, false);
                         }
                     }
@@ -91,17 +91,17 @@
         return; // convenient to set breakpoint :)
     }
 
-    function GetDateDifference(LSPostDateString) {
+    function getDateDifference(lsPostDateString) {
         // Expected Format: 
         //  0123456789012345678
         //  2012-10-26 07:49:03
-        var Year = LSPostDateString.substring(0, 4);
-        var Month = parseInt(LSPostDateString.substring(5, 7)) - 1; // month starts from 0 to 11
-        var Day = LSPostDateString.substring(8, 10);
-        var Hour = LSPostDateString.substring(11, 13);
-        var Minute = LSPostDateString.substring(14, 16);
-        var Milli = LSPostDateString.substring(17);
-        return metroPress.timeSince(new Date(Year, Month, Day, Hour, Minute, Milli, 0));
+        var year = lsPostDateString.substring(0, 4);
+        var month = parseInt(lsPostDateString.substring(5, 7)) - 1; // month starts from 0 to 11
+        var day = lsPostDateString.substring(8, 10);
+        var hour = lsPostDateString.substring(11, 13);
+        var minute = lsPostDateString.substring(14, 16);
+        var milli = lsPostDateString.substring(17);
+        return metroPress.timeSince(new Date(year, month, day, hour, minute, milli, 0));
     }
 
     function viewBlog() {
@@ -121,10 +121,10 @@
     }
 
     // Update the behavior of the app button
-    function updateButton(IsBookmarked) {
+    function updateButton(isBookmarked) {
         var likeButton = document.getElementById('like');
 
-        if (!IsBookmarked) {
+        if (!isBookmarked) {
             WinJS.Utilities.removeClass(likeButton, "selected");
             likeButton.onmouseover = "";
             likeButton.onmouseout = "";
@@ -134,12 +134,12 @@
         else {
             likeButton.getElementsByClassName('win-label').item(0).innerText = "Bookmarked";
             WinJS.Utilities.addClass(likeButton, "selected");
-            likeButton.onmouseover = function () {
+            likeButton.onmouseover = function() {
                 likeButton.getElementsByClassName('win-label').item(0).innerText = "Unbookmark";
-            }
-            likeButton.onmouseout = function () {
+            };
+            likeButton.onmouseout = function() {
                 likeButton.getElementsByClassName('win-label').item(0).innerText = "Bookmarked";
-            }
+            };
         }
     }
 
@@ -152,7 +152,7 @@
         return copy;
     }
 
-    function bookmarkClick(m) {
+    function bookmarkClick() {
         var isBookmarked = item.module.checkIsBookmarked(item.id);
         if (!isBookmarked) {
             var copyItem = clone(item);
@@ -226,7 +226,7 @@
                 function (result) {
                     document.getElementById('comments#results').innerText = 'An error occurred: ' + result.status + ' ' + result.statusText;
                 },
-                function (result) {
+                function () {
                     document.getElementById('comments#results').innerText = "Posting in progress.";
                 }
             );
