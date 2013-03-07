@@ -628,7 +628,7 @@ recommended that styles are changed in **Theme CSS**.
 <h3>6.2 Theme CSS: Custom.*.css</h3>
 
 The theme CSS defines the colors, font, and background of a MetroPress App. It also defines CSS classes and common 
-HTML elements.  
+HTML elements such as &lt;1> to &lt6>, &lt;a>, &lt;body>, etc;.  
 
 Few default themes were provided: custom.light.css, custom.dark.css, and custom.orange.css. They are a good starting 
 place to extend and customize your own MetroPress application.
@@ -650,7 +650,7 @@ This is a breakdown of CSS classes that custom.*.css must define:
     </tr>
     <tr>
       <td>.mp-color-header	</td>
-      <td>Default font color for header</td>
+      <td>Default font color for header and &lt;1> to &lt;6></td>
     </tr>
     <tr>
       <td>.mp-color-text	</td>
