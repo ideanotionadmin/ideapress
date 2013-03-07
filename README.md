@@ -335,5 +335,95 @@ To implement a module that the Hub page consumes, one constructor and six method
     </tr>
   </tbody>
 </table>
+
+MetroPress v2 currently includes two types of modules that can be instantiated: one that supports WordPress.com hosted websites and the other for self-hosted WordPress websites. 
+
+<h4>5.1.1 Modules – WordPressComModule</h4>
+
+The WordpressComModule works with any WordPress.com website.  An instance of this module can display the following: 
+Most Recent Posts, Pages, Posts by a category, or bookmarked posts. The module can be initialized to handle Search and 
+Live Tile as well.
+ 
+In options.js, instance of module can be configured by these parameters:
+<table border=1>
+  <tbody>
+    <!-- Results table headers -->
+    <tr>
+      <th>Options Parameter </th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>title	</td>
+      <td>Title to display in the Hub Page on top of its GridView<br />If categoryId is set to wordpresscomModule.PAGES, title will not be displayed.</td>
+    </tr>
+    <tr>
+      <td>siteDomain</td>
+      <td>User’s WordPress.com site domain URL.  Do not include “http://” prefix.  <br />i.e. (metropress.wordpress.com)</td>
+    </tr>
+    <tr>
+      <td>categoryId</td>
+      <td>Defines the category this module will fetch from user’s WordPress.Com website.  Use category slur in string (i.e. “Tech”)<br /> <br />Or, use of the predefined values:<br />wordpresscomModule.PAGES:  pages<br />wordpresscomModule.BOOKMARK: bookmarked pages or posts<br />wordpresscomModule.MOSTRECENT: most recent posts</td>
+    </tr>
+    <tr>
+      <td>pageIds</td>
+      <td>Array of page ID to fetch from user’s WordPress.com website.  This is only applicable if categoryId = wordpresscomModule.PAGES.<br /> <br />i.e. ([1,2,8])</td>
+    </tr>
+    <tr>
+      <td>clientId</td>
+      <td>In order to allow user to post comment to user’s WordPress.com website, a WordPress Application Client ID/Secret must be generated and provided here.<br /> <br />See this link on how to create Client ID/Secret:<a href="https://developer.wordpress.com/apps/new/">https://developer.wordpress.com/apps/new/</a></td>
+    </tr>
+    <tr>
+      <td>clientSecret</td>
+      <td>See above.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>5.1.2 Module – WordPressModule (Self-hosted)</h4>
+
+The WordpressModule works with any self-hosted WordPress website. The WordPress website must have already install 
+the <a href="http://wordpress.org/extend/plugins/json-api/installation/">JSON API plugin</a> in order for MetroPress to interact with. An instance of this module can display the following:  
+Most Recent Posts, Pages, Posts by a category, or bookmarked posts. The module can be initialized to handle Search and 
+Live Tile as well.
+
+In options.js, instance of module can be configured by these parameters:
+
+<table border=1>
+  <tbody>
+    <!-- Results table headers -->
+    <tr>
+      <th>Options Parameter </th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>title	</td>
+      <td>Title to display in the Hub Page on top of its GridView<br />If categoryId is set to wordpressModule.PAGES, title will not be displayed.</td>
+    </tr>
+    <tr>
+      <td>apiURL</td>
+      <td>User’s self-hosted WordPress website URL.  Please use full url in this format “http://www.ideanotion.com/”</td>
+    </tr>
+    <tr>
+      <td>categoryId</td>
+      <td>Defines the category ID this module will fetch from user’s website.  Use category id in integer type format (i.e. 6)<br /><br />Or, use of the predefined values:<br />wordpressModule.PAGES:  pages<br />wordpressModule.BOOKMARK: bookmarked pages or posts<br />wordpressModule.MOSTRECENT: most recent posts</td>
+    </tr>
+    <tr>
+      <td>pageIds</td>
+      <td>Array of page ID to fetch from user’s WordPress.com website.  This is only applicable if categoryId = wordpresscomModule.PAGES.<br /><br />i.e. ([1,2,8])</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.2 Hub Page</h3>
+
+The Hub Page (~/pages/hub.html) is the landing page when the application launches. **hub.js** will initialize each 
+module, and trigger the module to render and update its content on the Hub Content Area. 
+<img src="https://lh4.googleusercontent.com/5FdqJeH5Vz1BRYarILdN34XnAS0Fnb-BtCoXSYLV0OM0_P26i4Wl9AvcxYalFBWgeraoCIfXnx8vWOpIg9gWzEMIWoYLBeHTtU4YaK5DSD4apZ-1mNiF-zYrlrNQz7vWatc"/>
+
+<h3>5.3 Options.js</h3>
+
+The application and modules are setup in options.js. It imports the module JavaScripts and sets all the options. It is essential to understand options.js in order to correctly setup MetroPress.
+
+
   [1]: https://lh4.googleusercontent.com/9EXeWB41_clwNQILjpqcfqI9LunZoDd75XE6W3rC688-SZzyIQ7XMikuQAQf3tshG6dJ1n-_iUeqB6YOu_SrVdUqT5RWCPBvXk2KQr14L33e_h1yylAg0gMBRsc378Cmbbc
   [2]: https://lh6.googleusercontent.com/Fl-ah70aavCp2zG3ObCOnk2lE6Yz-9sDF_VLHZIXD0cxNEjzTLgSHBGppZwvXlPo9iTskQQG6qnpquK3lgCvvPtBYS0vXdibIvDDilq8D4llPjVs3U5nCinzBC8ca-TkGHQ
