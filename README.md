@@ -128,11 +128,10 @@ Assign **wordpressModule.BOOKMARKS** to **categoryId**.<br/>
 <h2>4 Solution Breakdowns</h2>
 
 This section will provide a brief breakdown of the Visual Studio solution for MetroPress v2. Whether you download the release version or directly sync from source on CodePlex, you will find a **trunk** folder that contains a **MetroPress.sln** file and a **MetroPress** folder. If desired, you may rename the solution file from MetroPress.sln to your own project name.
-<img src="https://lh3.googleusercontent.com/qyIsZ3DdqC6otAYAvBSOWIDWnu8euqNaSWNaFk6fAscPiX7ZLLlhxvN8MtInwsCGjg9MxJEFL1eJlZMrAmxTcgb2des01OGLTTqrUYbAmIpiWktEnA08konYF4ZGk0glshE" />
+<img src="http://oi48.tinypic.com/25q83g0.jpg" />
 
 You need Visual Studio 2012 to open the solution. Upon opening it, you will see the following files and folder:
-<img src="https://lh4.googleusercontent.com/tyeE7S-ee7WZ7x-xrbthPDe11p1HVhxuKR6jbyhPvLeU45mld_00ROy-1GzVPddigugtkcuR4QH-fEbWy4ksCvU45GVieRsoWFbv-90asnt2uvODUVMEloZk8d6-6y9qvp4" alt=""/>
-<img src="https://lh5.googleusercontent.com/8FvI8mRVLDZWkz74t7dX0AvgtY1dcqEutHpt9rEDVSWuahW55xuJjvwP2mw2L9XVXg10bNWwUJ9paO2WtxVQ5Z7ZzvRxTO4fl8U0v4rimYTt7fZvumhSmw-6Zxt1SToJnls" alt=""/>
+<img src="http://oi46.tinypic.com/30mlrps.jpg" />
 <br/>
 <h3>4.1 css folder</h3>
 
@@ -556,13 +555,13 @@ Two menu items were added to the Settings Charm.
 
  * About Us flyout defined in /html/About-flyout.html
  * Privacy Policy will launch Internet Explorer to display the privacy URL defined in options.j
-<img src="https://lh4.googleusercontent.com/ygRjJ9PgRcuRBxgdiWMUYaxXRShjlCCUEYJV1tqCi720YfJuWawrFCp63FU_ca6JK4IJWwTv5sMd69tI6_xu0kST9sqRA4MzAH2KtZKY_PtN5SL77NCwTLajKOhfnEdOWLw"/>
+<img src="http://oi49.tinypic.com/iclr3d.jpg" />
 
 <h3>5.9 Bookmarking</h3>
 
 User can bookmark any post or page to view it at a later time.  Bookmarked items will only be shown at the Hub page if one instance of the module is configured as Bookmark type. 
 
-<img src="https://lh5.googleusercontent.com/6GHnowLmHi04SqgFfFeIhKCRs4SJ_eN3IHEJFdDGdSLvdiUd3csuhB_yUY25LERdsxRs0sshmAtRa2jz2Yg2kuegVnHQE5n5uNVuSrClo4e4TQp_Lo0IVdUCa8TcQPtETas"/>
+<img src="http://oi46.tinypic.com/358qqu8.jpg" />
 
 <h3>5.10 LocalStorage Caching</h3>
 
@@ -628,7 +627,7 @@ recommended that styles are changed in **Theme CSS**.
 <h3>6.2 Theme CSS: Custom.*.css</h3>
 
 The theme CSS defines the colors, font, and background of a MetroPress App. It also defines CSS classes and common 
-HTML elements such as &lt;1> to &lt6>, &lt;a>, &lt;body>, etc;.  
+HTML elements such as &lt;1> to &lt;6>, &lt;a>, &lt;body>, etc;.  
 
 Few default themes were provided: custom.light.css, custom.dark.css, and custom.orange.css. They are a good starting 
 place to extend and customize your own MetroPress application.
