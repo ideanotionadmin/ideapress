@@ -3,7 +3,7 @@
 <br/>
 <h2>1 Overview</h2>
 
-MetroPress is an app template that powers the transformation of any WordPress website into a Windows Store App.
+IdeaPress is an app template that powers the transformation of any WordPress website into a Windows Store App.
  
 Building on the foundation of version 1 and the feedback from the community, version 2 has undergone major additions to its architecture that include:
 
@@ -15,18 +15,17 @@ Building on the foundation of version 1 and the feedback from the community, ver
  - Theme/Template System
    
     - Offers easy and flexible customization
-    - Has a number of default color themes     and templates to choose   
-   from
+    - Has a number of default color themes and templates to choose from
  - Live Tile Support – display new posts
    by pulling the WordPress website with
    a background task
 
-MetroPress is primarily constructed using HTML5, WinJS, and Cascading Style Sheet (CSS).
+IdeaPress is primarily constructed using HTML5, WinJS, and Cascading Style Sheet (CSS).
 <br/>
 <br/>
 <br/>
 <h2>2 Features</h2>
-MetroPress v2 offers the following set of features:
+IdeaPress v2 offers the following set of features:
 
 <table>
   <tr>
@@ -69,14 +68,14 @@ MetroPress v2 offers the following set of features:
 <br/>
 <br/>
 <br/>
-<h2>3 Building Your First MetroPress App Using Your WordPress Website</h2>
-<h3>3.1 Download MetroPress</h3>
+<h2>3 Building Your First IdeaPress App Using Your WordPress Website</h2>
+<h3>3.1 Download IdeaPress</h3>
 
-Download MetroPress from CodePlex: https://metropress.codeplex.com
+Download IdeaPress from CodePlex: https://metropress.codeplex.com
 
 <h3>3.2 Compile The VS Solution</h3>
 
-Unzip the downloaded file, compile, and run the MetroPress solution in Visual Studio 2012 on your Windows 8 system. As you compile, it will bring up the MetroPress App, but it connects to http://ideanotion.net by default. 
+Unzip the downloaded file, compile, and run the IdeaPress solution in Visual Studio 2012 on your Windows 8 system. As you compile, it will bring up the IdeaPress App, but it connects to http://ideanotion.net by default. 
 
 <h3>3.3 Change It to Your Own Website</h3>
 
@@ -127,7 +126,7 @@ Assign **wordpressModule.BOOKMARKS** to **categoryId**.<br/>
 <br/>
 <h2>4 Solution Breakdowns</h2>
 
-This section will provide a brief breakdown of the Visual Studio solution for MetroPress v2. Whether you download the release version or directly sync from source on CodePlex, you will find a **trunk** folder that contains a **MetroPress.sln** file and a **MetroPress** folder. If desired, you may rename the solution file from MetroPress.sln to your own project name.
+This section will provide a brief breakdown of the Visual Studio solution for IdeaPress v2. Whether you download the release version or directly sync from source on CodePlex, you will find a **trunk** folder that contains a **IdeaPress.sln** file and a **IdeaPress** folder. If desired, you may rename the solution file from IdeaPress.sln to your own project name.
 <img src="http://oi48.tinypic.com/25q83g0.jpg" />
 
 You need Visual Studio 2012 to open the solution. Upon opening it, you will see the following files and folder:
@@ -146,16 +145,16 @@ The images folder stores the required images of the App, as well as any other cu
 The js folder contains the core JavaScript files for the App. The main file that needs to be edited is **options.js** which is used for configuring the App.
 
  - default.js – starting point of the App 
- - hub.js – loads up hub.html and sets things up by calling functions defined in metropress.js (Section 4.2)  
+ - hub.js – loads up hub.html and sets things up by calling functions defined in ideapress.js (Section 4.2)  
  - liveTileTask.js – handles the support of live tiles 
- - metroPress.js – contains core logics of the application 
+ - ideaPress.js – contains core logics of the application 
  - navigator.js – controls the navigational behaviors of the App 
  - options.js – configures the application and the modules (Section 4.3) 
  - share-source.js – handles the Sharing functionality  
 
 
 <h3>4.4 modules folder</h3>
-Modularization, introduced in v2, greatly enhances the extendibility of MetroPress. By convention, each folder in the modules folder represents a different module, each with its own CSS, JavaScript files, and HTML files. The modules to be used are specified in **options.js**. 
+Modularization, introduced in v2, greatly enhances the extendibility of IdeaPress. By convention, each folder in the modules folder represents a different module, each with its own CSS, JavaScript files, and HTML files. The modules to be used are specified in **options.js**. 
 <h3>4.5 pages folder</h3>
 
 The pages folder contains hub.html and about-flyout.html. 
@@ -178,15 +177,15 @@ The file **about-flyout.html** is defined for the About page specified in the Se
 
 <h3>4.6 default.html</h3>
 
-This is the default container page for the MetroPress App.
+This is the default container page for the IdeaPress App.
 <br/><br/><br/>
 <h2>5 Components</h2>
 
-This section will provide details on the main feature components that constitute MetroPress. 
+This section will provide details on the main feature components that constitute IdeaPress. 
 <h3>5.1 Modules</h3>
 
 Modularization emphasizes separating the functionality of a program into independent, interchangeable modules, 
-such that each contains everything necessary to execute only one aspect of the desired functionality. MetroPress 
+such that each contains everything necessary to execute only one aspect of the desired functionality. IdeaPress 
 modules are designed and developed following this paradigm. It represents a separation of concerns, and improves 
 maintainability by enforcing logical boundaries between components.
  
@@ -214,11 +213,11 @@ To implement a module that the Hub page consumes, one constructor and six method
   <tbody>
     <tr>
       <th>Method Name</th>
-      <td>constructor(metroPress, options)</td>
+      <td>constructor(ideaPress, options)</td>
     </tr>
     <tr>
       <th>Input Params</th>
-      <td>metroPress – metroPress object<br />options – JSON object options</td>
+      <td>ideaPress – ideaPress object<br />options – JSON object options</td>
     </tr>
     <tr>
       <th>Output</th>
@@ -336,7 +335,7 @@ To implement a module that the Hub page consumes, one constructor and six method
   </tbody>
 </table>
 
-MetroPress v2 currently includes two types of modules that can be instantiated: one that supports WordPress.com hosted websites and the other for self-hosted WordPress websites. 
+IdeaPress v2 currently includes two types of modules that can be instantiated: one that supports WordPress.com hosted websites and the other for self-hosted WordPress websites. 
 
 <h4>5.1.1 Modules – WordPressComModule</h4>
 
@@ -358,7 +357,7 @@ In options.js, instance of module can be configured by these parameters:
     </tr>
     <tr>
       <td>siteDomain</td>
-      <td>User’s WordPress.com site domain URL.  Do not include “http://” prefix.  <br />i.e. (metropress.wordpress.com)</td>
+      <td>User’s WordPress.com site domain URL.  Do not include “http://” prefix.  <br />i.e. (ideapress.wordpress.com)</td>
     </tr>
     <tr>
       <td>categoryId</td>
@@ -382,7 +381,7 @@ In options.js, instance of module can be configured by these parameters:
 <h4>5.1.2 Module – WordPressModule (Self-hosted)</h4>
 
 The WordpressModule works with any self-hosted WordPress website. The WordPress website must have already install 
-the <a href="http://wordpress.org/extend/plugins/json-api/installation/">JSON API plugin</a> in order for MetroPress to interact with. An instance of this module can display the following:  
+the <a href="http://wordpress.org/extend/plugins/json-api/installation/">JSON API plugin</a> in order for IdeaPress to interact with. An instance of this module can display the following:  
 Most Recent Posts, Pages, Posts by a category, or bookmarked posts. The module can be initialized to handle Search and 
 Live Tile as well.
 
@@ -422,7 +421,7 @@ module, and trigger the module to render and update its content on the Hub Conte
 
 <h3>5.3 Options.js</h3>
 
-The application and modules are setup in options.js. It imports the module JavaScripts and sets all the options. It is essential to understand options.js in order to correctly setup MetroPress.
+The application and modules are setup in options.js. It imports the module JavaScripts and sets all the options. It is essential to understand options.js in order to correctly setup IdeaPress.
 
 <table border=1>
   <tbody>
@@ -529,7 +528,7 @@ the application navigates to the module’s search page displaying the results.
 
 <h3>5.6 Share Charm</h3>
 
-Share Charm is handled by MetroPress. The default behavior is to share the mainUrl defined in options.js. This is useful 
+Share Charm is handled by IdeaPress. The default behavior is to share the mainUrl defined in options.js. This is useful 
 in hub page or other pages that doesn’t have content to share. However, a module can override that behavior if the page 
 has a special Div element:
 
@@ -565,12 +564,12 @@ User can bookmark any post or page to view it at a later time.  Bookmarked items
 
 <h3>5.10 LocalStorage Caching</h3>
 
-MetroPress and modules utilize LocalStorage to cache data to improve performance, and allow off line access. The modules stored fetched posts, and pages into localStorage along with a timestamp.  When loading from localStorage, the timestamp is used to check if it exceeded the CacheTime set by the options.js.
+IdeaPress and modules utilize LocalStorage to cache data to improve performance, and allow off line access. The modules stored fetched posts, and pages into localStorage along with a timestamp.  When loading from localStorage, the timestamp is used to check if it exceeded the CacheTime set by the options.js.
 
 During development, one may need to flush the cache, and the quickest way is to increment the localStorageSchemaVersion.  This will clear the EVERYTHING from the localStorage when the application launches.
 
 ```javascript
-var metroPress = {
+var ideaPress = {
    // Change Storage Version to empty the local storage
    localStorageSchemaVersion: '20130101-1',
    modules: [],
@@ -580,7 +579,7 @@ var metroPress = {
 ```
 
 <h2>6 Theme Customization</h2>
-The CCS styling rules govern the look and feel of MetroPress. It is important that the theme system is easy-to-customize and flexible. The CSS files are organized into four separate groups.  
+The CCS styling rules govern the look and feel of IdeaPress. It is important that the theme system is easy-to-customize and flexible. The CSS files are organized into four separate groups.  
 
 <table border=1>
   <tbody>
@@ -626,11 +625,11 @@ recommended that styles are changed in **Theme CSS**.
 
 <h3>6.2 Theme CSS: Custom.*.css</h3>
 
-The theme CSS defines the colors, font, and background of a MetroPress App. It also defines CSS classes and common 
+The theme CSS defines the colors, font, and background of a IdeaPress App. It also defines CSS classes and common 
 HTML elements such as &lt;1> to &lt;6>, &lt;a>, &lt;body>, etc;.  
 
 Few default themes were provided: custom.light.css, custom.dark.css, and custom.orange.css. They are a good starting 
-place to extend and customize your own MetroPress application.
+place to extend and customize your own IdeaPress application.
 
 To choose one of the default themes, open default.css and find the import statement at the beginning of the file.  
 Then change the file name to apply a different theme:
@@ -694,7 +693,7 @@ at folder **~/modules/{module name}/css**
 
 <h3>6.4 Module Template CSS</h3>
 
-MetroPress uses ListView (GridView) to group and display WordPress posts and pages into tiles. GridView is highly 
+IdeaPress uses ListView (GridView) to group and display WordPress posts and pages into tiles. GridView is highly 
 customizable through CSS, and can easily achieve different looks by changing CSS rules. The CSS rules that control the 
 layout of the GridView were extracted into Template CSS. They are located in folder **~/modules/{module name}/css/
 templates**
