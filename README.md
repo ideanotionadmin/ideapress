@@ -167,7 +167,9 @@ The Hub page (**hub.html** and **hub.js**) handles all the modules included in t
  - Render() function is called whenever there is a change in layout or viewing mode (back and forward on page)
  - Update() function is called when there is navigational changes (back and forward of pages)
  - Refresh() function is called when the Refresh button is clicked
+
 If you wish to extend or implement a new module, please refer to Section 4.1 Modules for details on implementation of a module that conforms to the Hub page’s requirement.
+
 <h4>4.5.2 about-flyout.html</h4>
 
 The file **about-flyout.html** is defined for the About page specified in the Settings Charm (Section 4.8).
@@ -203,5 +205,54 @@ a set of basic functions such as Render(), Update(), Refresh(), Cancel(), and ot
 Live Tiles. To perform functions, each module needs to be instantiated with a specific task. **The application can include 
 multiple instances of modules, each managing or manipulating module data in a different ways. For example, showing 
 recent posts vs. showing pages of the website or producing YouTube playlist vs. pulling the latest videos**.
+
+<img src="https://lh5.googleusercontent.com/QGlfthqwQtA1P73V9w6YqGWQLd2ZN2qnLIEr_5VZtv5wqnsHs8yBuTueTwxkqTLPsC1mmiD1RZ0m9dsmYfhDol1Rwa_SzCoP_t4zXOmsSGnkL0KpNr3jsr0zq6kzGSi0i_4" />
+
+To implement a module that the Hub page consumes, one constructor and six methods must be implemented.
+
+<table border=1>
+  <tbody>
+    <tr>
+      <td>Method Name</td>
+      <td>constructor(metroPress, options)</td>
+    </tr>
+    <tr>
+      <td>Input Params</td>
+      <td>metroPress – metroPress object<br />options – JSON object options</td>
+    </tr>
+    <tr>
+      <td>Output</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Desctiption</td>
+      <td>Setup the module with the passed in options</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border=1>
+  <tbody>
+    <tr>
+      <td>Method Name</td>
+      <td>render(elem)</td>
+    </tr>
+    <tr>
+      <td>Input Params</td>
+      <td>elem – the HTML element from Hub Page to render module content</td>
+    </tr>
+    <tr>
+      <td>Output</td>
+      <td>Promise Object</td>
+    </tr>
+    <tr>
+      <td>Desctiption</td>
+      <td>Create a promise object and render the HTML fragment or dynamically create HTML elements and append to “elem”.  This is call every time user navigates to the hub page</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
   [1]: https://lh4.googleusercontent.com/9EXeWB41_clwNQILjpqcfqI9LunZoDd75XE6W3rC688-SZzyIQ7XMikuQAQf3tshG6dJ1n-_iUeqB6YOu_SrVdUqT5RWCPBvXk2KQr14L33e_h1yylAg0gMBRsc378Cmbbc
   [2]: https://lh6.googleusercontent.com/Fl-ah70aavCp2zG3ObCOnk2lE6Yz-9sDF_VLHZIXD0cxNEjzTLgSHBGppZwvXlPo9iTskQQG6qnpquK3lgCvvPtBYS0vXdibIvDDilq8D4llPjVs3U5nCinzBC8ca-TkGHQ
