@@ -561,6 +561,7 @@ Two menu items were added to the Settings Charm.
 <h3>5.9 Bookmarking</h3>
 
 User can bookmark any post or page to view it at a later time.  Bookmarked items will only be shown at the Hub page if one instance of the module is configured as Bookmark type. 
+
 <img src="https://lh5.googleusercontent.com/6GHnowLmHi04SqgFfFeIhKCRs4SJ_eN3IHEJFdDGdSLvdiUd3csuhB_yUY25LERdsxRs0sshmAtRa2jz2Yg2kuegVnHQE5n5uNVuSrClo4e4TQp_Lo0IVdUCa8TcQPtETas"/>
 
 <h3>5.10 LocalStorage Caching</h3>
@@ -582,8 +583,180 @@ var metroPress = {
 <h2>6 Theme Customization</h2>
 The CCS styling rules govern the look and feel of MetroPress. It is important that the theme system is easy-to-customize and flexible. The CSS files are organized into four separate groups.  
 
+<table border=1>
+  <tbody>
+    <!-- Results table headers -->
+    <tr>
+      <th>Type </th>
+      <th>Path</th>
+      <th>Description</th>
+      <th>Extendable</th>
+    </tr>
+    <tr>
+      <td>Application</td>
+      <td>/css/default.css	</td>
+      <td>Default elements such as typography, Size, common controls, and other non-theme-able elements.	</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Theme</td>
+      <td>/css/themes/custom.*.css	</td>
+      <td>Theme elements such as font, colors, background colors, background images	</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Module</td>
+      <td>/modules/css/*.css	</td>
+      <td>Module specific styling	</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Template</td>
+      <td>/modules/css/templates/*.css	</td>
+      <td>Defines the main Grid View layout template  	</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
 
+<h3>6.1 Application-Specific CSS: Default.css</h3>
 
+Default.css defines the positioning, layout of the application, common controls, and HTML elements.  Default.css have rules specific to different application View State (i.e. snapped). Default.css is less likely to be modified, it is recommended that styles are changed in Theme CSS.
 
+<h3>6.2 Theme CSS: Custom.*.css</h3>
+
+The theme CSS defines the colors, font, and background of a MetroPress App. It also defines CSS classes and common HTML elements such as <h1> to <h6>, <a>, <body>, etc.  
+
+Few default themes were provided: custom.light.css, custom.dark.css, and custom.orange.css. They are a good starting place to extend and customize your own MetroPress application.
+
+To choose one of the default themes, open default.css and find the import statement at the beginning of the file.  Then change the file name to apply a different theme:
+
+```css
+@import  url('themes/custom.light.css');
+```
+This is a breakdown of CSS classes that custom.*.css must define:
+
+<table border=1>
+  <tbody>
+    <!-- Results table headers -->
+    <tr>
+      <th>CSS Class Name </th>
+      <th>Description<br /></th>
+    </tr>
+    <tr>
+      <td>.mp-color-header	</td>
+      <td>Default font color for header and <h1> to <h6><br /></td>
+    </tr>
+    <tr>
+      <td>.mp-color-text	</td>
+      <td>Default font color for text and body text<br /></td>
+    </tr>
+    <tr>
+      <td>.mp-color-title	</td>
+      <td>Default font color for title used by modules<br /></td>
+    </tr>
+    <tr>
+      <td>.mp-color-subtitle	</td>
+      <td>Default font color for sub-title used by modules<br /></td>
+    </tr>
+    <tr>
+      <td>.mp-color-link	</td>
+      <td>Default font color for links <a><br /></td>
+    </tr>
+    <tr>
+      <td>.mp-bg-main	</td>
+      <td>Default background color for the main application<br /></td>
+    </tr>
+    <tr>
+      <td>.mp-bg-overlay	</td>
+      <td>Default background color for the Grid text overlay<br /></td>
+    </tr>
+    <tr>
+      <td>.win-backbutton	</td>
+      <td>Back button color</td>
+    </tr>
+  </tbody>
+</table>
+
+**Theme Custom.*.css Colors Diagram**
+
+<h3>6.3 Module Specific CSS</h3>
+
+These CSS defines the overall module styling and such as positioning of various controls and elements.  They are located
+at folder **~/modules/{module name}/css**
+
+<h3>6.4 Module Template CSS</h3>
+
+MetroPress uses ListView (GridView) to group and display WordPress posts and pages into tiles. GridView is highly 
+customizable through CSS, and can easily achieve different looks by changing CSS rules. The CSS rules that control the 
+layout of the GridView were extracted into Template CSS. They are located in folder **~/modules/{module name}/css/
+templates**
+
+Three default templates were provided: normal.css, large.css, and wide.css. To choose a template, open **modules/<module 
+name>/css/<module name>.module.css**. Then locate the import statement at the beginning of the file.  Change the file path
+name to apply a different template:
+
+```css
+@import url('templates/normal.css');
+```
+
+<h3>6.5 Grid View HTML and CSS Class Diagram</h3>
+
+A WordPress post or page tile is composed using 3 piece of information: image, title and subtitle. Below we will show a walk-through on how a “normal” template tile is being styled and layout.  
+The Html template is defined below:
+```html
+<div class="wp-item wp-item-0" > 
+	<div class="wp-image-container">   
+		<div class="wp-image"></div> 
+    </div> 
+        <div class="wp-text-section mp-bg-overlay">             
+			<h3 class="mp-color-title win-type-ellipsis">…</h3> 
+       		<h5 class="mp-color-subtitle win-type-ellipsis">…</h5> 
+    </div> 
+</div>
+```
+The normal.css control the layout of the tile using -ms-grid and related CSS rules.  
+
+1. Formats the tile into a square 220x220px, and 2 rows – one for image, one for the text section.
+
+```css
+.wp-list .wp-item {
+   overflow: hidden;  
+   display: -ms-grid;
+   -ms-grid-columns: 1fr;
+   -ms-grid-rows: 160px 60px;
+   width: 220px;
+   height: 220px;
+}
+```
+2. Fit the image container into the first row, and assign 160px height to the image
+
+```css
+.wp-list .wp-item .wp-image-container {
+   overflow: hidden;
+   position: relative;
+   -ms-grid-row: 1;
+   -ms-grid-row-span: 1;
+}
+
+.wp-list .wp-item .wp-image-container .wp-image{
+   height:160px;
+   width:220px;
+   background-position: center;
+   background-size:cover;
+}
+```
+3. Fit the text section into row 2
+
+```css
+.wp-list .wp-item .wp-text-section {
+   padding: 4px 12px 8px;
+   -ms-grid-row: 2;
+   z-index: 1;
+   width: calc(100% - 24px);
+   height: 100%; 
+}
+```
+Here is a schematic look of the HTML and CSS classes:
   [1]: https://lh4.googleusercontent.com/9EXeWB41_clwNQILjpqcfqI9LunZoDd75XE6W3rC688-SZzyIQ7XMikuQAQf3tshG6dJ1n-_iUeqB6YOu_SrVdUqT5RWCPBvXk2KQr14L33e_h1yylAg0gMBRsc378Cmbbc
   [2]: https://lh6.googleusercontent.com/Fl-ah70aavCp2zG3ObCOnk2lE6Yz-9sDF_VLHZIXD0cxNEjzTLgSHBGppZwvXlPo9iTskQQG6qnpquK3lgCvvPtBYS0vXdibIvDDilq8D4llPjVs3U5nCinzBC8ca-TkGHQ
