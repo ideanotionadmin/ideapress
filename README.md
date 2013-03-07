@@ -213,19 +213,19 @@ To implement a module that the Hub page consumes, one constructor and six method
 <table border=1>
   <tbody>
     <tr>
-      <td>Method Name</td>
+      <th>Method Name</th>
       <td>constructor(metroPress, options)</td>
     </tr>
     <tr>
-      <td>Input Params</td>
+      <th>Input Params</th>
       <td>metroPress – metroPress object<br />options – JSON object options</td>
     </tr>
     <tr>
-      <td>Output</td>
+      <th>Output</th>
       <td>None</td>
     </tr>
     <tr>
-      <td>Desctiption</td>
+      <th>Desctiption</th>
       <td>Setup the module with the passed in options</td>
     </tr>
   </tbody>
@@ -234,25 +234,106 @@ To implement a module that the Hub page consumes, one constructor and six method
 <table border=1>
   <tbody>
     <tr>
-      <td>Method Name</td>
+      <th>Method Name</th>
       <td>render(elem)</td>
     </tr>
     <tr>
-      <td>Input Params</td>
+      <th>Input Params</th>
       <td>elem – the HTML element from Hub Page to render module content</td>
     </tr>
     <tr>
-      <td>Output</td>
+      <th>Output</th>
       <td>Promise Object</td>
     </tr>
     <tr>
-      <td>Desctiption</td>
+      <th>Desctiption</th>
       <td>Create a promise object and render the HTML fragment or dynamically create HTML elements and append to “elem”.  This is call every time user navigates to the hub page</td>
     </tr>
   </tbody>
 </table>
 
+<table border=1>
+  <tbody>
+    <tr>
+      <th>Method Name</th>
+      <td>update(viewState)<br /></td>
+    </tr>
+    <tr>
+      <th>Input Params</th>
+      <td>viewState – Application View State<br /></td>
+    </tr>
+    <tr>
+      <th>Output</th>
+      <td>N/A<br /></td>
+    </tr>
+    <tr>
+      <th>Desctiption</th>
+      <td>Update the content (Grid/ListView) by fetching from data source or cached.  This is call onload or when viewState changes</td>
+    </tr>
+  </tbody>
+</table>
 
+<table border=1>
+  <tbody>
+    <tr>
+      <th>Method Name</th>
+      <td>refresh(viewState)<br /></td>
+    </tr>
+    <tr>
+      <th>Input Params</th>
+      <td>viewState – Application View State<br /></td>
+    </tr>
+    <tr>
+      <th>Output</th>
+      <td>N/A<br /></td>
+    </tr>
+    <tr>
+      <th>Desctiption</th>
+      <td>This is called when User click on the refresh command.  Clear the cached data, and update the content (Grid/ListView) by fetching from data source</td>
+    </tr>
+  </tbody>
+</table>
 
+<table border=1>
+  <tbody>
+    <tr>
+      <th>Method Name</th>
+      <td>cancel()<br /></td>
+    </tr>
+    <tr>
+      <th>Input Params</th>
+      <td>None<br /></td>
+    </tr>
+    <tr>
+      <th>Output</th>
+      <td>None<br /></td>
+    </tr>
+    <tr>
+      <th>Desctiption</th>
+      <td>This is when to hook up the search charm.  For example:<br />Windows.ApplicationModel.Search.SearchPane.getForCurrentView().onquerysubmitted = function(args) { … } <br /> <br />This is called when application is ready.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border=1>
+  <tbody>
+    <tr>
+      <th>Method Name</th>
+      <td>getLiveTileList()<br /></td>
+    </tr>
+    <tr>
+      <th>Input Params</th>
+      <td>None<br /></td>
+    </tr>
+    <tr>
+      <th>Output</th>
+      <td>None<br /></td>
+    </tr>
+    <tr>
+      <th>Desctiption</th>
+      <td>This is called from a background task in (Worker scope).  Fetch and return a list of data in this format:<br />{<br />imgUrl: “”<br />title : “”<br />}</td>
+    </tr>
+  </tbody>
+</table>
   [1]: https://lh4.googleusercontent.com/9EXeWB41_clwNQILjpqcfqI9LunZoDd75XE6W3rC688-SZzyIQ7XMikuQAQf3tshG6dJ1n-_iUeqB6YOu_SrVdUqT5RWCPBvXk2KQr14L33e_h1yylAg0gMBRsc378Cmbbc
   [2]: https://lh6.googleusercontent.com/Fl-ah70aavCp2zG3ObCOnk2lE6Yz-9sDF_VLHZIXD0cxNEjzTLgSHBGppZwvXlPo9iTskQQG6qnpquK3lgCvvPtBYS0vXdibIvDDilq8D4llPjVs3U5nCinzBC8ca-TkGHQ
