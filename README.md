@@ -621,7 +621,9 @@ The CCS styling rules govern the look and feel of MetroPress. It is important th
 
 <h3>6.1 Application-Specific CSS: Default.css</h3>
 
-Default.css defines the positioning, layout of the application, common controls, and HTML elements.  Default.css have rules specific to different application View State (i.e. snapped). Default.css is less likely to be modified, it is recommended that styles are changed in Theme CSS.
+Default.css defines the positioning, layout of the application, common controls, and HTML elements.  Default.css have 
+rules specific to different application View State (i.e. snapped). Default.css is less likely to be modified, it is 
+recommended that styles are changed in **Theme CSS**.
 
 <h3>6.2 Theme CSS: Custom.*.css</h3>
 
@@ -648,7 +650,7 @@ This is a breakdown of CSS classes that custom.*.css must define:
     </tr>
     <tr>
       <td>.mp-color-header	</td>
-      <td>Default font color for header and <h1> to <h6><br /></td>
+      <td>Default font color for header</td>
     </tr>
     <tr>
       <td>.mp-color-text	</td>
@@ -682,6 +684,9 @@ This is a breakdown of CSS classes that custom.*.css must define:
 </table>
 
 **Theme Custom.*.css Colors Diagram**
+
+<img src="https://lh6.googleusercontent.com/UZO8SX-6FrRMgjDkoVdhybmeb0SY2rC29uAJ0QuVSHpk05bDYl3Tc8Yg7vzSYJngUDaBvYQ0hL0KBmPxXMsGoRqici36Dvc_k5_Xa6c7npmIjseTQBZoyf-ZIKB5754sk9c"/>
+<img src="https://lh5.googleusercontent.com/wYN3_DH93pzhY7zwgEUl9-dLIX1l8kHbhbnwys3_ZskuM1cPap3ye400cFhRYS7qtrEYfL0RHPAw2efoA-sotnnw0PZ1IupTrOgPjMTC6NlZUKMeCplGy3zTCROzpLUMOLs"/>
 
 <h3>6.3 Module Specific CSS</h3>
 
@@ -720,7 +725,7 @@ The Html template is defined below:
 ```
 The normal.css control the layout of the tile using -ms-grid and related CSS rules.  
 
-1. Formats the tile into a square 220x220px, and 2 rows – one for image, one for the text section.
+* Formats the tile into a square 220x220px, and 2 rows – one for image, one for the text section.
 
 ```css
 .wp-list .wp-item {
@@ -732,7 +737,7 @@ The normal.css control the layout of the tile using -ms-grid and related CSS rul
    height: 220px;
 }
 ```
-2. Fit the image container into the first row, and assign 160px height to the image
+* Fit the image container into the first row, and assign 160px height to the image
 
 ```css
 .wp-list .wp-item .wp-image-container {
@@ -749,7 +754,7 @@ The normal.css control the layout of the tile using -ms-grid and related CSS rul
    background-size:cover;
 }
 ```
-3. Fit the text section into row 2
+* Fit the text section into row 2
 
 ```css
 .wp-list .wp-item .wp-text-section {
@@ -761,5 +766,7 @@ The normal.css control the layout of the tile using -ms-grid and related CSS rul
 }
 ```
 Here is a schematic look of the HTML and CSS classes:
+
+<img src="http://download-codeplex.sec.s-msft.com/Download?ProjectName=metropress&DownloadId=634043"/>
   [1]: https://lh4.googleusercontent.com/9EXeWB41_clwNQILjpqcfqI9LunZoDd75XE6W3rC688-SZzyIQ7XMikuQAQf3tshG6dJ1n-_iUeqB6YOu_SrVdUqT5RWCPBvXk2KQr14L33e_h1yylAg0gMBRsc378Cmbbc
   [2]: https://lh6.googleusercontent.com/Fl-ah70aavCp2zG3ObCOnk2lE6Yz-9sDF_VLHZIXD0cxNEjzTLgSHBGppZwvXlPo9iTskQQG6qnpquK3lgCvvPtBYS0vXdibIvDDilq8D4llPjVs3U5nCinzBC8ca-TkGHQ
