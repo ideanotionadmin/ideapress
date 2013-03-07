@@ -626,7 +626,7 @@ Default.css defines the positioning, layout of the application, common controls,
 <h3>6.2 Theme CSS: Custom.*.css</h3>
 
 The theme CSS defines the colors, font, and background of a MetroPress App. It also defines CSS classes and common 
-HTML elements such as <span><h1> to <h6>, <a>, <body>, etc"</span>.  
+HTML elements.  
 
 Few default themes were provided: custom.light.css, custom.dark.css, and custom.orange.css. They are a good starting 
 place to extend and customize your own MetroPress application.
