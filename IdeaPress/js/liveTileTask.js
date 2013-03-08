@@ -7,7 +7,7 @@ Description: handles the support of live tiles
 (function () {
     "use strict";
     importScripts("//Microsoft.WinJS.1.0/js/base.js");
-    importScripts("/js/ideaPress.js");
+    importScripts("/js/core.js");
     importScripts("/js/options.js");
 
     var backgroundTaskInstance = Windows.UI.WebUI.WebUIBackgroundTaskInstance.current;
