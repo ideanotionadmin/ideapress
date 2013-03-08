@@ -9,26 +9,25 @@ Description: Configures the application and the modules.  Please go to https://g
 
     ideaPress.importModulesAndSetOptions(
         /* import module */
-        ["/modules/wordpress/js/wp.module.js", "/modules/wordpressCom/js/wpcom.module.js"],
-
+        ["/modules/wordpress/js/wp.module.js"],
         function() {
             ideaPress.options = {
-                appTitleImage: null,                      // App title image (approx. 600px x 80px)
-                appTitle: "IdeaPress",                    // App title text
-                cacheTime: 3600000,                       // Global cache time to try fetch   
-                mainUrl: "http://ideanotion.net",         // Main promoting site
-                privacyUrl: "http://ideanotion.net",      // Privacy URL
+                appTitleImage: null,                       // App title image (approx. 600px x 80px)
+                appTitle: "Secrets Floral",                // App title text
+                cacheTime: 3600000,                        // Global cache time to try fetch   
+                mainUrl: "http://secretsfloral.com",       // Main promoting site
+                privacyUrl: "http://secretsfloral.com",    // Privacy URL
                 modules: [
-                    { name: wordpressModule, options: { apiUrl: 'http://ideanotion.net/', title: "Pages", typeId: wordpressModule.PAGES, pageIds: [2, 546, 565] } },
-                    { name: wordpressModule, options: { apiUrl: 'http://ideanotion.net/', title: "Recent News", typeId: wordpressModule.MOSTRECENT, hubItemsCount : 7 } },
-                    { name: wordpressModule, options: { apiUrl: 'http://ideanotion.net/', title: "Bookmark", typeId: wordpressModule.BOOKMARKS } },
-                    { name: wordpresscomModule, options: { siteDomain: 'wordpressmetro.wordpress.com', title: "Pages", typeId: wordpresscomModule.PAGES, pageIds: [2, 9], clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } },
-                    { name: wordpresscomModule, options: { siteDomain: 'wordpressmetro.wordpress.com', title: "Recent News", typeId: wordpresscomModule.MOSTRECENT, clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } },
-                    { name: wordpresscomModule, options: { siteDomain: 'wordpressmetro.wordpress.com', title: "Tech", typeId: wordpresscomModule.CATEGORY, categoryId: "tech", clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } },
-                    { name: wordpresscomModule, options: { siteDomain: 'wordpressmetro.wordpress.com', title: "Bookmark", typeId: wordpresscomModule.BOOKMARKS, clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } }
+                    { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "Pages", typeId: wordpressModule.PAGES, pageIds: [37, 39, 31] } },
+                    { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "What Is New?", typeId: wordpressModule.MOSTRECENT, hubItemsCount: 12 } },
+                    { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "Real Wedding", typeId: wordpressModule.CATEGORY, categoryId: 4 } },
+                    { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "Special Offers", typeId: wordpressModule.CATEGORY, categoryId: 39 } },
+                    { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "Useful Tips", typeId: wordpressModule.CATEGORY, categoryId: 40 } },
+                    { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "Bookmark", typeId: wordpressModule.BOOKMARKS } },
                 ],
-                searchModule: { name: wordpressModule, options: { apiUrl: 'http://ideanotion.net/', title: "Search" } },
-                liveTileModule: { name: wordpressModule, options: { apiUrl: 'http://ideanotion.net/', title: "Live Tile" } },
+                searchModule: { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "Search" } },
+                liveTileModule: { name: wordpressModule, options: { apiUrl: 'http://secretsfloral.com/', title: "Live Tile" } },
             };
+
         });
 })();

@@ -1,42 +1,56 @@
 ﻿
 /* colors */
 h1, h2, h3, h4, h5, h6, .mp-color-header {
-    color: #000;
+    color: #fff;
 }
 
 body, .mp-color-text {
-    color:#000;
+    color:#fff;
 }
 .mp-color-title, progress.win-ring
 {
-    color: #3bb1ff;
+    color: #f4389d;
 }
 
 .mp-color-link, .a, a:link {
-    color: #3bb1ff;
+    color: #888;
 }
 
 .mp-color-subtitle, a:visited, a:active, article a:hover {
-    color: #666;
+    color: #888;
 }
 
 body, .mp-bg-main {
-    background-color:#fff !important;
+    background-color:#f598b0 !important;
 }
 
 .mp-bg-overlay {
-    background-color:#000;
+    background-color:#fff;
 }
 
 .win-backbutton {
-    border-color: #000;
-    color: #000;
+    border-color: #f4389d;
+    color: #f4389d;
 }
 
 .win-backbutton:hover {
-    background-color:#ccc;
+    background-color:#fff;
 }
 
 .win-container:hover {
-    outline-color: #3bb1ff;
+    outline-color: transparent;
 }
+
+.win-listview .win-item {
+    border-radius: 20px;   
+    border: 4px solid #fad0e0;
+}
+
+.win-listview .win-container {
+    background-color: transparent !important;
+}
+
+/*#766128*/
+/*#f4389d*/
+/*#f598b0*/
+/*#fad0e0*/

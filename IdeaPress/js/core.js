@@ -6,7 +6,7 @@ Description: Control and maintain core logics of the application
 */
 var ideaPress = {
     // Change Storage Version to empty the local storage
-    localStorageSchemaVersion: '20130201-1',
+    localStorageSchemaVersion: '20130201-2',
     modules: [],
     initialized: false,
     accessToken: null,
@@ -46,7 +46,7 @@ var ideaPress = {
             elem.style.msGridColumns = elem.style.msGridColumns + " auto";            
             var container = document.createElement("div");
             container.style.msGridColumn = count++;
-            container.className = "mp-module";
+            container.className = "mp-module mp-module-" + i;
             elem.appendChild(container);            
             promises.push(this.modules[i].render(container));
         }
@@ -240,9 +240,8 @@ var ideaPress = {
     // Scroll background image
     scrollBackground: function () {
         var elem = this;
-        var percent = elem.scrollLeft / (elem.scrollWidth - elem.clientWidth) * 100;                
+        var percent = elem.scrollLeft / (elem.scrollWidth - elem.clientWidth) * 100;
         document.body.style.backgroundPositionX = percent + '%';
-
     },
 
     // Set access token

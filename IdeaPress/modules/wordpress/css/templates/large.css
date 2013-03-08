@@ -1,4 +1,4 @@
-﻿.wp-list .wp-item {
+﻿:not(.mp-module-0).mp-module .wp-list .wp-item {
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr;
@@ -7,25 +7,36 @@
     height: 220px;
 }
 
-.wp-list .wp-item .wp-image-container {
+.mp-module .wp-graident {
+    background-image: url('../../../../images/Gradient.png');
+    background-size:100% 100%;
+    z-index: 1000;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+}
+
+:not(.mp-module-0).mp-module .wp-list .wp-item .wp-image-container {
     overflow: hidden;
     position: relative;
     -ms-grid-row: 1;
     -ms-grid-row-span: 1;
 }
 
-.wp-list .wp-item .wp-image-container .wp-image{
+:not(.mp-module-0).mp-module .wp-list .wp-item .wp-image-container .wp-image{
     height:160px;
     width:220px;
     background-position: center;
     background-size:cover;
 }
 
-.wp-list .wp-item .wp-title-count {
+:not(.mp-module-0).mp-module .wp-list .wp-item .wp-title-count {
     font-size: 11pt !important;
 }
 
-.wp-list .wp-item .wp-text-section {
+:not(.mp-module-0).mp-module .wp-list .wp-item .wp-text-section {
     padding: 4px 12px 8px;
     -ms-grid-row: 2;
     z-index: 1;
@@ -33,7 +44,7 @@
     height: 100%;    
 }
 
-.wp-list .wp-item-0 {
+:not(.mp-module-0).mp-module .wp-list .wp-item-0 {
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-rows: 1fr 100px;
@@ -42,7 +53,7 @@
     height: 460px;
 }
 
-.wp-list .wp-item-0 .wp-image-container .wp-image{
+:not(.mp-module-0).mp-module .wp-list .wp-item-0 .wp-image-container .wp-image{
     height:380px;
     width:460px;
 }

@@ -1,4 +1,4 @@
-﻿.mp-module-0  .wp-list .wp-item {
+﻿.wp-list .wp-item {
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr 100px;
@@ -6,17 +6,17 @@
     width: 460px;
     height: 100px;
 }
-.mp-module-0  .wp-list .wp-item .wp-image-container {
+.wp-list .wp-item .wp-image-container {
     -ms-grid-row: 1;
     -ms-grid-column: 2;
 }
-.mp-module-0  .wp-list .wp-item .wp-text-section {
+.wp-list .wp-item .wp-text-section {
     -ms-grid-row: 1;
     -ms-grid-column: 1;
     padding: 8px 12px 8px;
 }
 
-.mp-module-0  .wp-list .wp-item .wp-image-container .wp-image{
+.wp-list .wp-item .wp-image-container .wp-image{
     height:100px;
     width:100px;
     background-position: center;
@@ -24,7 +24,7 @@
 }
 
 @media screen and (-ms-view-state: snapped) {
-    .mp-module-0  .wp-list .wp-item {
+    .wp-list .wp-item {
         overflow: hidden;
         display: -ms-grid;
         -ms-grid-columns: 1fr;
@@ -32,14 +32,14 @@
         height: 220px;
     }
 
-    .mp-module-0  .wp-list .wp-item .wp-image-container {
+    .wp-list .wp-item .wp-image-container {
         overflow: hidden;
         position: relative;
         -ms-grid-row: 1;        
         -ms-grid-column: 1;
     }
 
-    .mp-module-0  .wp-list .wp-item .wp-text-section {
+    .wp-list .wp-item .wp-text-section {
         -ms-grid-row: 2;
         -ms-grid-column: 1;
         padding: 8px 12px 8px;
