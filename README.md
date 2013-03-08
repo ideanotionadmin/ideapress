@@ -13,7 +13,6 @@ Building on the foundation of version 1 and the feedback from the community, ver
    on WordPress.com are now supported as
    well
  - Theme/Template System
-   
     - Offers easy and flexible customization
     - Has a number of default color themes and templates to choose from
  - Live Tile Support – display new posts
@@ -71,7 +70,7 @@ IdeaPress v2 offers the following set of features:
 <h2>3 Building Your First IdeaPress App Using Your WordPress Website</h2>
 <h3>3.1 Download IdeaPress</h3>
 
-Download IdeaPress from CodePlex: https://metropress.codeplex.com
+Download IdeaPress from GitHub: https://github.com/ideanotion/ideapress
 
 <h3>3.2 Compile The VS Solution</h3>
 
@@ -85,12 +84,11 @@ If your WordPress site is self-hosted, make sure that you have the plugin JSON A
 
 <h3>3.4 Self-Hosted WordPress or WordPress.com</h3>
 
-If WordPress is self-hosted, include only **wp.module.js** on line 6 and remove lines 19 to 22. 
-If you WordPress is at WordPress.com, use **wpcom.module.js** instead, and remove lines 16 to 18. 
+The default options included both Self-hosted WordPress and WordPress.com modules. If WordPress is self-hosted, please include only **wp.module.js** and remove anything associated to ** wordpresscomModule**.  Otherwise if you WordPress is at WordPress.com, use **wpcom.module.js** and remove anything associated to **wordpressModule**.
 
 <h3>3.5 Update Page Title</h3>
 
-Change the App Title to your own on **line 11**. Or if you wish to use an image instead, specify the image URL on **line 10**.
+Use your own App Title by specifying the value in **appTitle**. Or if you wish to use an image instead, specify the image URL using *appTitleImage*.
 
 ![image alt][1]
 
@@ -98,25 +96,30 @@ Change the App Title to your own on **line 11**. Or if you wish to use an image 
 <h3>3.6 Add Categories, Pages, Most Recent Posts, and Bookmarks</h3>
 
 Each item in the modules array (line 15) represents a module for the App to load.  
-{name: wordpressModule, options: {apiUrl: ‘http://ideanotion.net’, title: “Pages”, categoryId: wordpersssModule.PAGES, pagesIds: [2, 546, 565]}}
+{name: wordpressModule, options: {apiUrl: ‘http://ideanotion.net’, title: “Pages”, typeId: wordpersssModule.PAGES, pagesIds: [2, 546, 565]}}
 The following sets up the categories and pages to display from your wordpress site.
-<h4>3.6.1 Add Categories</h4>
+<h4>3.6.1 Add a Category</h4>
 
-Assign an array of category IDs to **categoryId**. For example: categoryIds: [3, 5, 19]
+Assign **wordpressModule.CATEGORY** to **typeId**, choose a title, and assign the category Id to **categoryId**. For example: typeId: wordpressModule.CATEGORY, categoryId: 45, title: "Tech"
+
+> **NOTE** For Self-Hosted WordPress, you can find your categoryId by going to the WordPress admin.  When you edit your category, the tag ID is shown on the URL.
+95![image alt][2]
+
+> **NOTE**: For WordPress.com hosted sites, use **slug** instead of Category ID.
+
 <h4>3.6.2 Add Pages</h4>
 
-Assign **wordpressModule.PAGES** to **categoryId** and assign an array of page IDs to **pageIds**. For example: categoryId: wordpressModule.PAGES, pageIds: [2, 243, 33]
+Assign **wordpressModule.PAGES** to **typeId** and assign an array of page IDs to **pageIds**. For example: typeId: wordpressModule.PAGES, pageIds: [2, 243, 33]
 
-To find your pageIDs goto WordPress admin, when you edit your page the post ID is shown on the URL.
-95![image alt][2]
+To find your pageIDs, please goto WordPress admin.  When you edit your page, the post ID is shown on the URL.
+95![image alt][3]
 
 <h4>3.6.3 Add Recent Posts</h4>
 
-Assign **wordpressModule.MOSTRECENT** to **categoryId**. 
+Assign **wordpressModule.MOSTRECENT** to **typeId**. 
 <h4>3.6.4 Add Bookmarks</h4>
 
-Assign **wordpressModule.BOOKMARKS** to **categoryId**.<br/>
-> **NOTE**: For WordPress.com hosted sites, use **slug** instead of ID.
+Assign **wordpressModule.BOOKMARKS** to **typeId**.<br/>
 
 <h4>3.6.5 Compile</h4>
 
@@ -126,11 +129,11 @@ Assign **wordpressModule.BOOKMARKS** to **categoryId**.<br/>
 <br/>
 <h2>4 Solution Breakdowns</h2>
 
-This section will provide a brief breakdown of the Visual Studio solution for IdeaPress v2. Whether you download the release version or directly sync from source on CodePlex, you will find a **trunk** folder that contains a **IdeaPress.sln** file and a **IdeaPress** folder. If desired, you may rename the solution file from IdeaPress.sln to your own project name.
-<img src="http://oi48.tinypic.com/25q83g0.jpg" />
+This section will provide a brief breakdown of the Visual Studio solution for IdeaPress v2. Whether you download the release version or clone from github, you will find a **IdeaPress.sln** file and a **IdeaPress** folder. If desired, you may rename the solution file from IdeaPress.sln to your own project name.<br/>
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/solution.png" />
 
 You need Visual Studio 2012 to open the solution. Upon opening it, you will see the following files and folder:
-<img src="http://oi46.tinypic.com/30mlrps.jpg" />
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/solution-structure.png" />
 <br/>
 <h3>4.1 css folder</h3>
 
@@ -145,9 +148,9 @@ The images folder stores the required images of the App, as well as any other cu
 The js folder contains the core JavaScript files for the App. The main file that needs to be edited is **options.js** which is used for configuring the App.
 
  - default.js – starting point of the App 
- - hub.js – loads up hub.html and sets things up by calling functions defined in ideapress.js (Section 4.2)  
+ - hub.js – loads up hub.html and sets things up by calling functions defined in core.js (Section 4.5.1)  
  - liveTileTask.js – handles the support of live tiles 
- - ideaPress.js – contains core logics of the application 
+ - core.js – contains core logics of the application 
  - navigator.js – controls the navigational behaviors of the App 
  - options.js – configures the application and the modules (Section 4.3) 
  - share-source.js – handles the Sharing functionality  
@@ -173,7 +176,7 @@ If you wish to extend or implement a new module, please refer to Section 4.1 Mod
 
 The file **about-flyout.html** is defined for the About page specified in the Settings Charm (Section 4.8).
 
-<img src="https://lh5.googleusercontent.com/jydxo_w5FrYOSYvf8MiIHVr3sqfJhiGd4NlFWLjYCE1T8VA7727V9qlfkdHgO4qfMBH8nZVq0PpTrKMexekkDoQgkw6ajiMzMond-7ILqhB9vsNznWFxiqLR5ZPRnrXUMWo"/>
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image28.png"/>
 
 <h3>4.6 default.html</h3>
 
@@ -199,13 +202,13 @@ Each module consists of its own HTML, CSS, and JavaScript files. A module serves
     maintains its own data access,
     caching, and rendering of content.
 
-Modules are selected in **options.js**. The main application (Hub page, Section 4.2) interacts with each module by 
+Modules are selected in **options.js**. The main application (Hub page, Section 4.5.1) interacts with each module by 
 a set of basic functions such as Render(), Update(), Refresh(), Cancel(), and other functions that handle Search and 
 Live Tiles. To perform functions, each module needs to be instantiated with a specific task. **The application can include 
 multiple instances of modules, each managing or manipulating module data in a different ways. For example, showing 
 recent posts vs. showing pages of the website or producing YouTube playlist vs. pulling the latest videos**.
 
-<img src="https://lh5.googleusercontent.com/QGlfthqwQtA1P73V9w6YqGWQLd2ZN2qnLIEr_5VZtv5wqnsHs8yBuTueTwxkqTLPsC1mmiD1RZ0m9dsmYfhDol1Rwa_SzCoP_t4zXOmsSGnkL0KpNr3jsr0zq6kzGSi0i_4" />
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image09.jpg" />
 
 To implement a module that the Hub page consumes, one constructor and six methods must be implemented.
 
@@ -353,19 +356,23 @@ In options.js, instance of module can be configured by these parameters:
     </tr>
     <tr>
       <td>title	</td>
-      <td>Title to display in the Hub Page on top of its GridView<br />If categoryId is set to wordpresscomModule.PAGES, title will not be displayed.</td>
+      <td>Title to display in the Hub Page on top of its GridView<br />If typeId is set to wordpresscomModule.PAGES, title will not be displayed.</td>
     </tr>
     <tr>
       <td>siteDomain</td>
       <td>User’s WordPress.com site domain URL.  Do not include “http://” prefix.  <br />i.e. (ideapress.wordpress.com)</td>
     </tr>
+	<tr>
+      <td>typeId</td>
+      <td>Defines the type of this module.  It can be one of the following values: <br />wordpresscomModule.CATEGORY:  category<br />wordpresscomModule.PAGES:  pages<br />wordpresscomModule.BOOKMARK: bookmarked pages or posts<br />wordpresscomModule.MOSTRECENT: most recent posts</td>
+    </tr>
     <tr>
       <td>categoryId</td>
-      <td>Defines the category this module will fetch from user’s WordPress.Com website.  Use category slur in string (i.e. “Tech”)<br /> <br />Or, use of the predefined values:<br />wordpresscomModule.PAGES:  pages<br />wordpresscomModule.BOOKMARK: bookmarked pages or posts<br />wordpresscomModule.MOSTRECENT: most recent posts</td>
+      <td>Defines the category this module will fetch from user’s WordPress.Com website.  Use category slur in string (i.e. “Tech”). This is only applicable if typeId = wordpresscomModule.CATEGORY.<br /> <br />i.e. "Tech"</td>
     </tr>
     <tr>
       <td>pageIds</td>
-      <td>Array of page ID to fetch from user’s WordPress.com website.  This is only applicable if categoryId = wordpresscomModule.PAGES.<br /> <br />i.e. ([1,2,8])</td>
+      <td>Array of page ID to fetch from user’s WordPress.com website.  This is only applicable if typeId = wordpresscomModule.PAGES.<br /> <br />i.e. ([1,2,8])</td>
     </tr>
     <tr>
       <td>clientId</td>
@@ -396,19 +403,23 @@ In options.js, instance of module can be configured by these parameters:
     </tr>
     <tr>
       <td>title	</td>
-      <td>Title to display in the Hub Page on top of its GridView<br />If categoryId is set to wordpressModule.PAGES, title will not be displayed.</td>
+      <td>Title to display in the Hub Page on top of its GridView<br />If typeId is set to wordpressModule.PAGES, title will not be displayed.</td>
     </tr>
     <tr>
       <td>apiURL</td>
       <td>User’s self-hosted WordPress website URL.  Please use full url in this format “http://www.ideanotion.com/”</td>
     </tr>
+	<tr>
+      <td>typeId</td>
+      <td>Defines the type of this module.  It can be one of the following values: <br />wordpressModule.CATEGORY:  category<br />wordpressModule.PAGES:  pages<br />wordpressModule.BOOKMARK: bookmarked pages or posts<br />wordpressModule.MOSTRECENT: most recent posts</td>
+    </tr>
     <tr>
       <td>categoryId</td>
-      <td>Defines the category ID this module will fetch from user’s website.  Use category id in integer type format (i.e. 6)<br /><br />Or, use of the predefined values:<br />wordpressModule.PAGES:  pages<br />wordpressModule.BOOKMARK: bookmarked pages or posts<br />wordpressModule.MOSTRECENT: most recent posts</td>
+      <td>Defines the category this module will fetch from user’s WordPress website.  This is only applicable if typeId = wordpressModule.CATEGORY.<br /> <br />i.e. 6</td>
     </tr>
     <tr>
       <td>pageIds</td>
-      <td>Array of page ID to fetch from user’s WordPress.com website.  This is only applicable if categoryId = wordpresscomModule.PAGES.<br /><br />i.e. ([1,2,8])</td>
+      <td>Array of page ID to fetch from user’s WordPress website.  This is only applicable if typeId = wordpressModule.PAGES.<br /> <br />i.e. ([1,2,8])</td>
     </tr>
   </tbody>
 </table>
@@ -417,7 +428,7 @@ In options.js, instance of module can be configured by these parameters:
 
 The Hub Page (~/pages/hub.html) is the landing page when the application launches. **hub.js** will initialize each 
 module, and trigger the module to render and update its content on the Hub Content Area. 
-<img src="https://lh4.googleusercontent.com/5FdqJeH5Vz1BRYarILdN34XnAS0Fnb-BtCoXSYLV0OM0_P26i4Wl9AvcxYalFBWgeraoCIfXnx8vWOpIg9gWzEMIWoYLBeHTtU4YaK5DSD4apZ-1mNiF-zYrlrNQz7vWatc"/>
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image15.png" />
 
 <h3>5.3 Options.js</h3>
 
@@ -524,7 +535,7 @@ The following are the default set of images for the App.
 
 Both modules can be configured in options.js to handle Search Charm.  When user enters a query into the search charm, 
 the application navigates to the module’s search page displaying the results.
-<img src="https://lh5.googleusercontent.com/k5BplnZ_axmFdZUCudlLS5cfsd6j78UqoE64JEFLrC7ED2lhwH1vJ8BxkP42zvZ8VfxxVnhq6FonRYP0tE9V-5xH9X5SbFcAAhX45ScqHHtAJsEHL9Ns4TBAqlr12PXMW3w"/>
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image29.png" />
 
 <h3>5.6 Share Charm</h3>
 
@@ -540,13 +551,13 @@ has a special Div element:
 
 The Share Charm will use the title, permalink and div inner Html as description. The class mp-share will by default keep
 the element hidden.
-<img src="https://lh5.googleusercontent.com/ugtlonHlJC3ekeOGhXL9pPLRLI_5r_QALjjxDj7Ri8gf-yHllrTVNYagceJi8fbKtAsLUr8jtNn-bdKjhaoasScs_uWbEV2OFlTmv2cJXAqG9m1VA5lFZFJp3RI4tXRyJf0"/>
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image32.png" />
 
 <h3>5.7 Live Tiles</h3>
 
 Live Tiles is improved in version 2 by using background task to update the tile. Both modules can be configured in 
 options.js to handle Live Tiles. Live tiles will show the latest 5 posts. This is the general flow:
-<img src="https://docs.google.com/a/ideanotion.net/drawings/d/smfSlZM0F1W2FNP_HcLY84w/image?w=648&h=129&rev=1&ac=1"/>
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/download1.png" />
 
 <h3>5.8 Settings Charm</h3>
 
@@ -554,13 +565,13 @@ Two menu items were added to the Settings Charm.
 
  * About Us flyout defined in /html/About-flyout.html
  * Privacy Policy will launch Internet Explorer to display the privacy URL defined in options.j
-<img src="http://oi49.tinypic.com/iclr3d.jpg" />
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image31.png" />
 
 <h3>5.9 Bookmarking</h3>
 
 User can bookmark any post or page to view it at a later time.  Bookmarked items will only be shown at the Hub page if one instance of the module is configured as Bookmark type. 
 
-<img src="http://oi46.tinypic.com/358qqu8.jpg" />
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image33.png" />
 
 <h3>5.10 LocalStorage Caching</h3>
 
@@ -683,8 +694,8 @@ This is a breakdown of CSS classes that custom.*.css must define:
 
 **Theme Custom.*.css Colors Diagram**
 
-<img src="https://lh6.googleusercontent.com/UZO8SX-6FrRMgjDkoVdhybmeb0SY2rC29uAJ0QuVSHpk05bDYl3Tc8Yg7vzSYJngUDaBvYQ0hL0KBmPxXMsGoRqici36Dvc_k5_Xa6c7npmIjseTQBZoyf-ZIKB5754sk9c"/>
-<img src="https://lh5.googleusercontent.com/wYN3_DH93pzhY7zwgEUl9-dLIX1l8kHbhbnwys3_ZskuM1cPap3ye400cFhRYS7qtrEYfL0RHPAw2efoA-sotnnw0PZ1IupTrOgPjMTC6NlZUKMeCplGy3zTCROzpLUMOLs"/>
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image35.png" />
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/image36.png" />
 
 <h3>6.3 Module Specific CSS</h3>
 
@@ -765,6 +776,7 @@ The normal.css control the layout of the tile using -ms-grid and related CSS rul
 ```
 Here is a schematic look of the HTML and CSS classes:
 
-<img src="http://download-codeplex.sec.s-msft.com/Download?ProjectName=metropress&DownloadId=634043"/>
-  [1]: https://lh4.googleusercontent.com/9EXeWB41_clwNQILjpqcfqI9LunZoDd75XE6W3rC688-SZzyIQ7XMikuQAQf3tshG6dJ1n-_iUeqB6YOu_SrVdUqT5RWCPBvXk2KQr14L33e_h1yylAg0gMBRsc378Cmbbc
-  [2]: https://lh6.googleusercontent.com/Fl-ah70aavCp2zG3ObCOnk2lE6Yz-9sDF_VLHZIXD0cxNEjzTLgSHBGppZwvXlPo9iTskQQG6qnpquK3lgCvvPtBYS0vXdibIvDDilq8D4llPjVs3U5nCinzBC8ca-TkGHQ
+<img src="http://ideanotion.net/wp-content/uploads/2013/03/schematic.png" />
+  [1]: http://ideanotion.net/wp-content/uploads/2013/03/image20.png
+  [2]: http://ideanotion.net/wp-content/uploads/2013/03/image07.png
+  [3]: http://ideanotion.net/wp-content/uploads/2013/03/image08.png
