@@ -47,6 +47,7 @@ var ideaPress = {
             var container = document.createElement("div");
             container.style.msGridColumn = count++;
             container.className = "mp-module mp-module-" + i;
+            container.className = "mp-module mp-module-" + i;
             elem.appendChild(container);            
             promises.push(this.modules[i].render(container));
         }

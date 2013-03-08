@@ -47,6 +47,9 @@ Author: IdeaNotion
         // scroll background
         document.querySelector('.contentArea').addEventListener("scroll", ideaPress.scrollBackground);
 
+        // scroll background
+        document.querySelector('.contentArea').addEventListener("scroll", ideaPress.scrollBackground);
+
         // Catch link clicks and iframe them.
         ideaPress.iframePostLinks();
         

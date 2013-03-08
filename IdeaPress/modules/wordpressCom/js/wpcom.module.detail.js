@@ -103,7 +103,7 @@ Author: IdeaNotion
 
                     var comments = '';
 
-                    for (var i = 0; i < data.found; i++) {
+                    for (var i = 0; i < data.comments.length; i++) {
                         comments += '<div class="item"><div class="wpc-caption-text">';
                         comments += data.comments[i].content + '</div>';
                         comments += '<p style="float:right;">Posted by ' + data.comments[i].author.name + ' ';
