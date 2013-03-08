@@ -44,6 +44,9 @@ Author: IdeaNotion
             document.querySelector('.contentArea').scrollLeft += delta;
         });
 
+        // scroll background
+        document.querySelector('.contentArea').addEventListener("scroll", ideaPress.scrollBackground);
+
         // Catch link clicks and iframe them.
         ideaPress.iframePostLinks();
         
