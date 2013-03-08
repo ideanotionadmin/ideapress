@@ -1,14 +1,20 @@
-﻿(function () {
+﻿/*
+IdeaPress Version 2.0
+File: options.js
+Author: IdeaNotion
+Description: Configures the application and the modules.  Please go to https://github.com/ideanotion/ideapress for how to apply the options
+*/
+(function () {
     "use strict";
 
-    metroPress.importModulesAndSetOptions(
+    ideaPress.importModulesAndSetOptions(
         /* import module */
         ["/modules/wordpress/js/wp.module.js", "/modules/wordpressCom/js/wpcom.module.js"],
-        /* MetroPress options */
+
         function() {
-            metroPress.options = {
-                appTitleImage: null,                      // App title image
-                appTitle: "Metro Press",                  // App title text
+            ideaPress.options = {
+                appTitleImage: null,                      // App title image (approx. 600px x 80px)
+                appTitle: "IdeaPress",                    // App title text
                 cacheTime: 3600000,                       // Global cache time to try fetch   
                 mainUrl: "http://ideanotion.net",         // Main promoting site
                 privacyUrl: "http://ideanotion.net",      // Privacy URL

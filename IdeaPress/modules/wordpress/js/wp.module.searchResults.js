@@ -1,4 +1,8 @@
-﻿(function () {
+﻿/*
+IdeaPress Wordpress JSON API module
+Author: IdeaNotion
+*/
+(function () {
     "use strict";
 
     WinJS.Binding.optimizeBindingReferences = true;
@@ -25,7 +29,7 @@
             document.getElementById("home").addEventListener("click", function () { nav.back(nav.history.backStack.length); }, false);
 
             var wc = document.querySelector('.wp-list').winControl;
-            wc.addEventListener("mousewheel", metroPress.scrollBackground);
+            wc.addEventListener("mousewheel", ideaPress.scrollBackground);
         },
 
         // This function updates the page layout in response to viewState changes.
@@ -79,13 +83,13 @@
             this._generateFilters();
 
             self.loader = element.querySelector("progress");
-            metroPress.toggleElement(self.loader, "show");
+            ideaPress.toggleElement(self.loader, "show");
             this._searchData(args.queryText).then(function (originalResults) {
                 if (originalResults.length === 0) {
                     document.querySelector('.resultsmessage').style.display = "block";
                 }
                 
-                metroPress.toggleElement(self.loader, "hide");
+                ideaPress.toggleElement(self.loader, "hide");
                 self._populateFilterBar(element, originalResults);
                 self._applyFilter(self._filters[0], originalResults);
             }, function () { }, function () {  });
@@ -105,7 +109,7 @@
         },
 
         _itemInvoked: function (args) {
-            metroPress.searchModule.showPost(args);
+            ideaPress.searchModule.showPost(args);
         },
 
         // This function colors the search term. Referenced in /searchResults.html
@@ -132,7 +136,7 @@
         // provided query.
         _searchData: function (queryText) {
            
-            return metroPress.searchModule.search(queryText);
+            return ideaPress.searchModule.search(queryText);
         }
     });
 

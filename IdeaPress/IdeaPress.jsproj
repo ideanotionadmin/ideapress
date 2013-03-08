@@ -44,7 +44,7 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>MetroPress_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>IdeaPress_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <PackageCertificateThumbprint>F71EC6F5FD088AB7B83DE514EA717EAE772386F2</PackageCertificateThumbprint>
   </PropertyGroup>
@@ -68,7 +68,7 @@
     <Content Include="js\default.js" />
     <Content Include="js\hub.js" />
     <Content Include="js\navigator.js" />
-    <Content Include="js\metroPress.js" />
+    <Content Include="js\core.js" />
     <Content Include="default.html" />
     <Content Include="js\options.js" />
     <Content Include="js\share-source.js" />
@@ -103,7 +103,7 @@
     <Content Include="modules\wordpress\pages\wp.module.section.html" />
     <Content Include="pages\about-flyout.html" />
     <Content Include="pages\hub.html" />
-    <None Include="MetroPress_TemporaryKey.pfx" />
+    <None Include="IdeaPress_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />

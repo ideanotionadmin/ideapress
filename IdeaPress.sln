@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 11
-Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "MetroPress", "MetroPress\MetroPress.jsproj", "{B0D292F6-2BA4-40F4-A1EB-97DF50B68BED}"
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "IdeaPress", "IdeaPress\IdeaPress.jsproj", "{B0D292F6-2BA4-40F4-A1EB-97DF50B68BED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

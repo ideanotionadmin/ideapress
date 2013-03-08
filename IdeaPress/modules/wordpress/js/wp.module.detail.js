@@ -1,4 +1,8 @@
-﻿(function () {
+﻿/*
+IdeaPress Wordpress JSON API module
+Author: IdeaNotion
+*/
+(function () {
     "use strict";
 
     var item;
@@ -14,7 +18,7 @@
         document.getElementById("commentFlyout").addEventListener("afterhide", onDismiss, false);
 
         // Populate the page with Blog info
-        document.title = metroPress.decodeEntities(item.title);
+        document.title = ideaPress.decodeEntities(item.title);
         document.querySelector('.wp-post').setAttribute('id', item.id);
         document.querySelector('.wp-post').setAttribute('permalink', item.permalink);
 
@@ -22,7 +26,7 @@
 
         WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector('.content'), item.content);
 
-        document.querySelector('.meta').innerHTML += '<div class="meta-txt"><em>by ' + item.authorName + '</em><br />Posted ' + metroPress.timeSince(item.date) + ' ago</div>';
+        document.querySelector('.meta').innerHTML += '<div class="meta-txt"><em>by ' + item.authorName + '</em><br />Posted ' + ideaPress.timeSince(item.date) + ' ago</div>';
 
         // setup sharing
         document.querySelector('.mp-share').innerText = document.querySelector('.content').innerText.substr(0, 50);
@@ -41,7 +45,7 @@
         });
 
         // Catch link clicks and iframe them.
-        metroPress.iframePostLinks();
+        ideaPress.iframePostLinks();
         
         // Comments
         // Loop through all comments
@@ -101,14 +105,14 @@
         var hour = lsPostDateString.substring(11, 13);
         var minute = lsPostDateString.substring(14, 16);
         var milli = lsPostDateString.substring(17);
-        return metroPress.timeSince(new Date(year, month, day, hour, minute, milli, 0));
+        return ideaPress.timeSince(new Date(year, month, day, hour, minute, milli, 0));
     }
 
     function viewBlog() {
         if (WinJS.Utilities.hasClass(document.querySelector("button#viewblog"), 'open-in-browser'))
             top.location.href = item.permalink;
         else
-            metroPress.renderIframeView(item.permalink);
+            ideaPress.renderIframeView(item.permalink);
     }
 
     function updateLayout(element, viewState) {

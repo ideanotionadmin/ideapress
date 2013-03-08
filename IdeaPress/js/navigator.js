@@ -1,13 +1,16 @@
-﻿(function () {
+﻿/*
+IdeaPress Version 2.0
+File: navigator.js
+Author: IdeaNotion
+Description: Controls the navigational behaviors of the App 
+*/
+(function () {
     "use strict";
 
     var appView = Windows.UI.ViewManagement.ApplicationView;
-    var displayProps = Windows.Graphics.Display.DisplayProperties;
     var nav = WinJS.Navigation;
-    var ui = WinJS.UI;
-    var utils = WinJS.Utilities;
 
-    WinJS.Namespace.define("MetroPress", {
+    WinJS.Namespace.define("IdeaPress", {
         PageControlNavigator: WinJS.Class.define(
             // Define the constructor function for the PageControlNavigator.
             function PageControlNavigator(element, options) {
@@ -65,8 +68,8 @@
                 },
 
                 _navigating: function (args) {
-                    if (metroPress.initialized) {
-                        metroPress.cancel();
+                    if (ideaPress.initialized) {
+                        ideaPress.cancel();
                     }
                 },
 

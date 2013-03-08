@@ -1,8 +1,10 @@
 ﻿/*
-MetroPress Version 2.0
-
+IdeaPress Version 2.0
+File: core.js
+Author: IdeaNotion
+Description: Control and maintain core logics of the application
 */
-var metroPress = {
+var ideaPress = {
     // Change Storage Version to empty the local storage
     localStorageSchemaVersion: '20130201-1',
     modules: [],
@@ -60,19 +62,19 @@ var metroPress = {
 
     // Call each module to refresh its content or data store
     refresh: function () {
-        for (var i in metroPress.modules) {
-            metroPress.modules[i].refresh(Windows.UI.ViewManagement.ApplicationView.value);
+        for (var i in ideaPress.modules) {
+            ideaPress.modules[i].refresh(Windows.UI.ViewManagement.ApplicationView.value);
         }
         document.getElementById('appbar').winControl.hide();
     },
 
     // Call each module to cancel any operation    
     cancel: function () {
-        for (var i in metroPress.modules) {
-            metroPress.modules[i].cancel();
+        for (var i in ideaPress.modules) {
+            ideaPress.modules[i].cancel();
         }
-        if (metroPress.searchModule)
-            metroPress.searchModule.cancel();
+        if (ideaPress.searchModule)
+            ideaPress.searchModule.cancel();
     },
 
     // Override the onClick for all the links and launch content in an iframe 
@@ -85,7 +87,7 @@ var metroPress = {
                 if (Windows.UI.ViewManagement.ApplicationView.value == Windows.UI.ViewManagement.ApplicationViewState.snapped)
                     top.location.href = this.getAttribute('href');
                 else
-                    metroPress.renderIframeView(this.getAttribute('href'));
+                    ideaPress.renderIframeView(this.getAttribute('href'));
             });
         }
     },
@@ -114,8 +116,8 @@ var metroPress = {
         backbar.appendChild(backlink);
         backlink.setAttribute('class', 'win-backbutton');
 
-        metroPress.toggleElement(document.getElementById('like'), 'hide');
-        metroPress.toggleElement(document.getElementById('home'), 'hide');
+        ideaPress.toggleElement(document.getElementById('like'), 'hide');
+        ideaPress.toggleElement(document.getElementById('home'), 'hide');
 
         document.querySelector("button#viewblog span.win-label").innerHTML = 'View in Browser';
         WinJS.Utilities.addClass(document.querySelector("button#viewblog"), 'open-in-browser');
@@ -129,8 +131,8 @@ var metroPress = {
             iframe.removeNode();
             backbar.removeNode();
             loader.removeNode();
-            metroPress.toggleElement(document.getElementById('like'), 'show');
-            metroPress.toggleElement(document.getElementById('home'), 'show');
+            ideaPress.toggleElement(document.getElementById('like'), 'show');
+            ideaPress.toggleElement(document.getElementById('home'), 'show');
 
             document.querySelector("button#viewblog span.win-label").innerHTML = 'View Blog';
             WinJS.Utilities.removeClass(document.querySelector("button#viewblog"), 'open-in-browser');
@@ -145,7 +147,7 @@ var metroPress = {
     // Check local storage schema version
     checkLocalStorageSchemaVersion: function () {
         if (null == localStorage || null == localStorage.schemaVersion || localStorage.schemaVersion != this.localStorageSchemaVersion)
-            metroPress.clearLocalStorage();
+            ideaPress.clearLocalStorage();
     },
 
     // Clear all local storage
@@ -176,19 +178,17 @@ var metroPress = {
     // Register Live Tile background task 
     registerTask: function (taskName) {
         var background = Windows.ApplicationModel.Background;        
-        if (!metroPress.getRegisteredTask(taskName)) {
+        if (!ideaPress.getRegisteredTask(taskName)) {
             var taskBuilder = new background.BackgroundTaskBuilder();
 
             // poll for data
             var hourlyTrigger = new background.MaintenanceTrigger(15, false);            
-            var userCondition = new background.SystemCondition(background.SystemConditionType.userPresent);
             var internetCondition = new background.SystemCondition(background.SystemConditionType.internetAvailable);
 
             taskBuilder.setTrigger(hourlyTrigger);
             taskBuilder.taskEntryPoint = "js\\liveTileTask.js";
             taskBuilder.name = taskName;
-            //taskBuilder.addCondition(internetCondition);
-            //taskBuilder.addCondition(userCondition);
+            taskBuilder.addCondition(internetCondition);            
 
             try {
                 taskBuilder.register();

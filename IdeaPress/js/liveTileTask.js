@@ -1,7 +1,13 @@
-﻿(function () {
+﻿/*
+IdeaPress Version 2.0
+File: liveTileTask.js
+Author: IdeaNotion
+Description: handles the support of live tiles
+*/
+(function () {
     "use strict";
     importScripts("//Microsoft.WinJS.1.0/js/base.js");
-    importScripts("/js/metroPress.js");
+    importScripts("/js/ideaPress.js");
     importScripts("/js/options.js");
 
     var backgroundTaskInstance = Windows.UI.WebUI.WebUIBackgroundTaskInstance.current;
@@ -14,7 +20,7 @@
     backgroundTaskInstance.addEventListener("canceled", onCanceled);
     
     function doWork() {
-        metroPress.getLiveTile().then(function (liveTiles) {            
+        ideaPress.getLiveTile().then(function (liveTiles) {            
             var tileUpdateManager = Windows.UI.Notifications.TileUpdateManager.createTileUpdaterForApplication();
             tileUpdateManager.enableNotificationQueue(true);
             

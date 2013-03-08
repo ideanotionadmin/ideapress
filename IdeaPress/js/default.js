@@ -1,5 +1,9 @@
-﻿// For an introduction to the Grid template, see the following documentation:
-// http://go.microsoft.com/fwlink/?LinkID=232446
+﻿/*
+IdeaPress Version 2.0
+File: default.js
+Author: IdeaNotion
+Description: Starting point of the App
+*/
 (function () {
     "use strict";
 
@@ -9,23 +13,23 @@
 
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
-            metroPress.checkLocalStorageSchemaVersion();
+            ideaPress.checkLocalStorageSchemaVersion();
             WinJS.UI.processAll();
         }
     });
     
     WinJS.Application.onsettings = function (e) {
 
-        //Adding the About page
+        // Adding the About Page to the Settings Charm
         e.detail.applicationcommands = {
             "help": { title: "About Us", href: "/pages/about-flyout.html" }
         };
         WinJS.UI.SettingsFlyout.populateSettings(e);
 
-        //Adding the Privacy Policy        
+        // Adding the Privacy Policy to the Settings Charm
         var appCommands = e.detail.e.request.applicationCommands;
         var appCmdPrivacy = new Windows.UI.ApplicationSettings.SettingsCommand("privacy", "Privacy Policy", function () {
-            window.open(metroPress.options.privacyUrl);
+            window.open(ideaPress.options.privacyUrl);
         });
         appCommands.append(appCmdPrivacy);       
     };

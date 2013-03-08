@@ -1,4 +1,8 @@
-﻿(function () {
+﻿/*
+IdeaPress Wordpress.COM API module
+Author: IdeaNotion
+*/
+(function () {
     "use strict";
     
     var item;
@@ -6,13 +10,13 @@
     function hideLoader() {
         if (fetching === false) { 
             var loader = document.querySelector("progress");
-            metroPress.toggleElement(loader, "hide");
+            ideaPress.toggleElement(loader, "hide");
         }
     }
 
     function showLoader() {
         var loader = document.querySelector("progress");
-        metroPress.toggleElement(loader, "show");
+        ideaPress.toggleElement(loader, "show");
     }
 
     function getOlderPosts() {
@@ -66,7 +70,7 @@
 
 
             // scroll background
-            wc.addEventListener("mousewheel", metroPress.scrollBackground);
+            wc.addEventListener("mousewheel", ideaPress.scrollBackground);
 
         },
 
