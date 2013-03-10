@@ -53,6 +53,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="css\default.css" />
+    <Content Include="css\themes\custom.css" />
     <Content Include="css\themes\custom.orange.css" />
     <Content Include="css\themes\custom.dark.css" />
     <Content Include="css\themes\custom.light.css" />
@@ -73,6 +74,7 @@
     <Content Include="js\options.js" />
     <Content Include="js\share-source.js" />
     <Content Include="js\liveTileTask.js" />
+    <Content Include="modules\wordpressCom\css\templates\custrom.css" />
     <Content Include="modules\wordpressCom\css\templates\large.css" />
     <Content Include="modules\wordpressCom\css\templates\normal.css" />
     <Content Include="modules\wordpressCom\css\templates\wide.css" />
@@ -87,6 +89,7 @@
     <Content Include="modules\wordpressCom\pages\wpcom.module.detail.html" />
     <Content Include="modules\wordpressCom\pages\wpcom.module.html" />
     <Content Include="modules\wordpressCom\pages\wpcom.module.section.html" />
+    <Content Include="modules\wordpress\css\templates\custom.css" />
     <Content Include="modules\wordpress\css\templates\wide.css" />
     <Content Include="modules\wordpress\css\templates\large.css" />
     <Content Include="modules\wordpress\css\templates\normal.css" />
