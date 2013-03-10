@@ -11,7 +11,7 @@ html {
 }
 
 body {
-	background-image: url('/images/background.png');
+	background-image: url('/images/BackgroundPic.png');
 	background-size: cover;
     background-position: 0 center;
     height: 100%;
