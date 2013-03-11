@@ -57,6 +57,7 @@
     <Content Include="css\themes\custom.orange.css" />
     <Content Include="css\themes\custom.dark.css" />
     <Content Include="css\themes\custom.light.css" />
+    <Content Include="images\BackgroundPic.png" />
     <Content Include="images\badgelogo.png" />
     <Content Include="images\blank.png" />
     <Content Include="images\logo.png" />
