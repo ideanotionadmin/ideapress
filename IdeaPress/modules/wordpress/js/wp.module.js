@@ -558,14 +558,14 @@ wordpressModule.prototype.convertItem = function(item, type) {
 
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
+    res.imgThumbUrl = 'ms-appx:/images/blank.png';
 
-
-    for (var i in item.attachments) {
-        if (item.attachments[i].url != "") {
-            res.imgUrl = item.attachments[i].url;
-            break;
-        } else if (item.attachments[i].images != null) {
+    for (var i in item.attachments) {        
+        if (item.attachments[i].images != null) {
             res.imgUrl = item.attachments[i].images.full.url;
+            if (item.attachments[i].images.medium) {
+                res.imgThumbUrl = item.attachments[i].images.medium.url;
+            }
             break;
         }
     }
@@ -606,11 +606,11 @@ wordpressModule.prototype.convertPage = function(item, parentId) {
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
     for (var i in item.attachments) {
-        if (item.attachments[i].url != "") {
-            res.imgUrl = item.attachments[i].url;
-            break;
-        } else if (item.attachments[i].images != null) {
+        if (item.attachments[i].images != null) {
             res.imgUrl = item.attachments[i].images.full.url;
+            if (item.attachments[i].images.medium) {
+                res.imgThumbUrl = item.attachments[i].images.medium.url;
+            }
             break;
         }
     }

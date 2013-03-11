@@ -35,7 +35,7 @@ Description: handles the support of live tiles
                     var template = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
                     var tileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
                     var tileImageElements = tileXml.getElementsByTagName("image");
-                    tileImageElements[0].setAttribute("src", post.imgUrl);
+                    tileImageElements[0].setAttribute("src", post.imgThumbUrl);
                     tileImageElements[0].setAttribute("alt", "Post Image");
 
                     var tileTextElements = tileXml.getElementsByTagName("text");
@@ -45,7 +45,7 @@ Description: handles the support of live tiles
                     template = Windows.UI.Notifications.TileTemplateType.tileSquareImage;
                     var squareTileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
                     var squareTileImageElements = squareTileXml.getElementsByTagName("image");
-                    squareTileImageElements[0].setAttribute("src", post.imgUrl);
+                    squareTileImageElements[0].setAttribute("src", post.imgThumbUrl);
                     squareTileImageElements[0].setAttribute("alt", "Post Image");
 
                     // Add Square to Long tile
