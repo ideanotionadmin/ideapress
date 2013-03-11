@@ -195,7 +195,7 @@ wordpresscomModule.prototype.fetch = function(page) {
         if (self.typeId == wordpresscomModule.PAGES) {
             self.getPages(page).then(function() {
                 comp(0);
-            }, function() {
+            }, function(m) {
                 var storage = self.loadFromStorage();
                 if (localStorageObject != null && storage.pages != null) {
                     var pages = storage.pages;
