@@ -89,8 +89,8 @@ wordpressModule.prototype.update = function(viewState) {
         var titleCount = self.container.querySelector(".wp-title-count");        
 
         // no header for page
+        title.textContent = self.title;
         if (self.typeId !== wordpressModule.PAGES) {
-            title.textContent = self.title;
             titleCount.textContent = Math.max(self.list.length, self.totalCount);
         }        
 
