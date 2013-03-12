@@ -339,7 +339,7 @@ wordpressModule.prototype.getPages = function () {
             for (var i in self.pageIds) {
                 promises.push(WinJS.xhr({ type: 'GET', url: fullUrl + self.pageIds[i], headers: headers }).then(function(r) {
                     var data = JSON.parse(r.responseText);
-                    pageData.push(data.page);
+                    if (data.page) { pageData.push(data.page); }
                     ideaPress.toggleElement(self.loader, "hide");
                 }, function() { err(); }, function() { prog(); }));
             }
