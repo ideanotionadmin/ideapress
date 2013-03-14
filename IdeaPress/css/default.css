@@ -67,7 +67,8 @@ header[role=banner].showImage .pagetitle {
 }
 
 header[role=banner] .titlearea {
-    overflow: visible;
+    width:1200px;
+    position:relative;
 }
 
 header[role=banner] .titlearea .pagetitle {

@@ -87,8 +87,8 @@ wordpresscomModule.prototype.update = function(viewState) {
         var titleCount = self.container.querySelector(".wpc-title-count");
 
         // no header for page
+        title.textContent = self.title;
         if (self.typeId !== wordpresscomModule.PAGES) {
-            title.textContent = self.title;            
             titleCount.textContent = Math.max(self.list.length, self.totalCount);
         }
 
@@ -195,7 +195,7 @@ wordpresscomModule.prototype.fetch = function(page) {
         if (self.typeId == wordpresscomModule.PAGES) {
             self.getPages(page).then(function() {
                 comp(0);
-            }, function() {
+            }, function(m) {
                 var storage = self.loadFromStorage();
                 if (localStorageObject != null && storage.pages != null) {
                     var pages = storage.pages;
@@ -441,12 +441,12 @@ wordpresscomModule.prototype.convertPage = function(item, list, parentId) {
 
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
+    res.imgThumbUrl = 'ms-appx:/images/blank.png';
+
     for (var i in item.attachments) {
-        if (item.attachments[i].URL != "") {
+        if (item.attachments[i].URL) {
             res.imgUrl = item.attachments[i].URL;
-            break;
-        } else if (item.attachments[i].images != null) {
-            res.imgUrl = item.attachments[i].images.full.url;
+            res.imgThumbUrl = item.attachments[i].URL;
             break;
         }
     }
@@ -483,13 +483,12 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
 
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
+    res.imgThumbUrl = 'ms-appx:/images/blank.png';
 
     for (var i in item.attachments) {
-        if (item.attachments[i].url != "") {
+        if (item.attachments[i].URL) {
             res.imgUrl = item.attachments[i].URL;
-            break;
-        } else if (item.attachments[i].images != null) {
-            res.imgUrl = item.attachments[i].images.full.URL;
+            res.imgThumbUrl = item.attachments[i].URL;
             break;
         }
     }
