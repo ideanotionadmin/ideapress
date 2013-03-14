@@ -189,7 +189,7 @@ var ideaPress = {
             taskBuilder.setTrigger(hourlyTrigger);
             taskBuilder.taskEntryPoint = "js\\liveTileTask.js";
             taskBuilder.name = taskName;
-            taskBuilder.addCondition(internetCondition);            
+            //taskBuilder.addCondition(internetCondition);            
 
             try {
                 taskBuilder.register();

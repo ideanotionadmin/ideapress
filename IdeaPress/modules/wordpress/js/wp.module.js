@@ -568,6 +568,10 @@ wordpressModule.prototype.convertItem = function(item, type) {
             res.imgUrl = item.attachments[i].images.full.url;
             break;
         }
+        if (item.attachments[i].images != null && item.attachments[i].images.medium) {
+            res.imgThumbUrl = item.attachments[i].images.medium.url;
+            break;
+        }
     }
 
 
@@ -611,6 +615,10 @@ wordpressModule.prototype.convertPage = function(item, parentId) {
             break;
         } else if (item.attachments[i].images != null) {
             res.imgUrl = item.attachments[i].images.full.url;
+            break;
+        }
+        if (item.attachments[i].images != null && item.attachments[i].images.medium) {
+            res.imgThumbUrl = item.attachments[i].images.medium.url;
             break;
         }
     }

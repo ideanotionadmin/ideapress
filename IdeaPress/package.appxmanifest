@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="IdeaPress" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="IdeaPress" ForegroundText="dark" BackgroundColor="#ffffff">
+      <VisualElements DisplayName="SecretsFloral" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="IdeaPress" ForegroundText="dark" BackgroundColor="#ffffff">
         <DefaultTile ShowName="noLogos" WideLogo="images\widelogo.png" ShortName="IdeaPress" />
         <SplashScreen Image="images\splashscreen.png" BackgroundColor="#ffffff" />
         <InitialRotationPreference>
