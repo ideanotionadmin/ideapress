@@ -7,16 +7,16 @@
     <body>
         <!-- BEGINSETTINGFLYOUT -->
         <div data-win-control="WinJS.UI.SettingsFlyout" aria-label="Help settings flyout" data-win-options="{settingsCommandId:'help',width:'wide'}">
-            <div class="win-header mp-color-text mp-bg-main">
-               <button type="button" onclick="WinJS.UI.SettingsFlyout.show()" class="win-backbutton"></button>
-               <div class="win-label mp-color-text mp-bg-main">About Us</div>
+            <div class="win-header mp-bg-overlay mp-color-title">
+               <button type="button" onclick="WinJS.UI.SettingsFlyout.show()" class="win-backbutton mp-color-title"></button>
+               <div class="win-label mp-bg-overlay mp-color-title">About Us</div>
             </div>
-            <div class="win-content mp-color-text mp-bg-main">
+            <div class="win-content mp-color-text mp-bg-plain">
                 <div class="win-settings-section">
                     <a onclick=" ideaPress.showUrl('http://https://github.com/ideanotion/ideapress')">github.com/ideanotion/ideapress</a>
                     <p>IdeaPress is a Windows Store app template for Wordpress Websites.</p>
                     <br />
-                    <p>Developed by <a onclick=" ideaPress.showUrl('http://www.ideanotion.net')">IdeaNotion</a></p>
+                    <p>Powered by <a onclick=" ideaPress.showUrl('http://www.ideanotion.net')">IdeaNotion</a></p>
                 </div>
             </div>
         </div>

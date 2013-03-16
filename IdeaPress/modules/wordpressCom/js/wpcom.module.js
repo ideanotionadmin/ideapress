@@ -23,6 +23,13 @@ var wordpresscomModule = function (ideaPress, options) {
     this.clientId = options.clientId;
     this.clientSecret = options.clientSecret;
     this.hubItemsCount = options.hubItemsCount;
+    this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
+    this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
+    if (options.wideTileType)
+        this.wideTileType = options.wideTileType;
+    if (options.squareTileType)
+        this.squareTileType = options.squareTileType;
+
 
     // set constants
     this.defaultCount = 32;
@@ -723,7 +730,7 @@ wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, 
                 var callbackUrl = "http://www.wordpress.org/";
                 var fullUrl = 'https://public-api.wordpress.com/oauth2/token';
                 var postData = 'client_id=' + self.clientId + '&client_secret=' + self.clientSecret + '&redirect_uri=' + encodeURIComponent(callbackUrl) + '&grant_type=authorization_code&code=' + code;
-                var headers = { "User-Agent": 'wp-window8', "Content-type": "application/x-www-form-urlencoded" }; //WPApi.userAgent()
+                var headers = { "User-Agent": 'wp-window8', "Content-type": "application/x-www-form-urlencoded" }; 
 
                 WinJS.xhr({ type: "POST", url: fullUrl, headers: headers, data: postData }).done(
                     function (r) {
