@@ -47,7 +47,7 @@ header[role=banner] .win-backbutton {
 header[role=banner] .titlearea {
     -ms-grid-column: 2;
     margin-top: 48px;
-    height: 72px;
+    height: 80px;
     margin-right: 35px;
     margin-left:  -4px;
 }
