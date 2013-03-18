@@ -4,12 +4,12 @@ h1, h2, h3, h4, h5, h6, .mp-color-header {
 }
 
 body, .mp-color-text {
-    color:#fff !important;
+    color:#fff;
 }
 .mp-color-title, progress.win-ring
 {
-    color: #3bb1ff !important;
-    border-color: #3bb1ff !important;
+    color: #3bb1ff;
+    border-color: #3bb1ff;
 }
 
 .mp-color-link, .a, a:link {
@@ -25,12 +25,12 @@ body, .mp-bg-main, .mp-bg-plain {
 }
 
 .mp-bg-overlay {
-    background-color:#666 !important;
+    background-color:#666;
 }
 
 header.win-backbutton {
-    border-color: #fff !important;
-    color: #fff !important;
+    border-color: #fff;
+    color: #fff;
 }
 
 header.win-backbutton:hover {
