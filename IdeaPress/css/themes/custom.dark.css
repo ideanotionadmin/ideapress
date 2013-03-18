@@ -28,12 +28,12 @@ body, .mp-bg-main, .mp-bg-plain {
     background-color:#666;
 }
 
-header.win-backbutton {
+header .win-backbutton {
     border-color: #fff;
     color: #fff;
 }
 
-header.win-backbutton:hover {
+header .win-backbutton:hover {
     background-color:#666;
 }
 
