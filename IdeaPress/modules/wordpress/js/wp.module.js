@@ -180,7 +180,6 @@ wordpressModule.prototype.getLiveTileList = function () {
     return new WinJS.Promise(function (comp, err, prog) {
 
         WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
-            //var data = JSON.parse(r.responseText);
             var data = self.getJsonFromResponse(r.responseText);
             if (data.status != "ok" || data.count <= 0) {
                 err();
@@ -386,7 +385,8 @@ wordpressModule.prototype.getPages = function () {
                 for (var index = 0; index < numFetch; index++) {
                     var id = pagesToFetch.shift();
                     promises.push(WinJS.xhr({ type: 'GET', url: fullUrl + id, headers: headers }).then(function (r) {
-                        var data = JSON.parse(r.responseText);
+                        
+                        var data = self.getJsonFromResponse(r.responseText);
                         if (data.page) { pageData.push(data.page); }
                     }, function () { err(); }, function () { prog(); }));
                 }
@@ -421,15 +421,6 @@ wordpressModule.prototype.getPages = function () {
 };
 
 wordpressModule.prototype.getJsonFromResponse = function (responseText) {
-    /*var cIndex = responseText.indexOf("<!--");
-    if (cIndex > 0)
-    {
-        var latestCommentIndex = cIndex;
-        while (latestCommentIndex > 0) {
-            latestCommentIndex = responseText.substring(latestCommentIndex + 3, responseText.length - latestCommentIndex - 3).indexOf("<!--");
-            cIndex = latestCommentIndex;
-        }
-    }*/
     var lIndex = responseText.split("").reverse().join("").indexOf(">--");
     var fIndex = responseText.split("").reverse().join("").indexOf("--!<");
 
@@ -458,7 +449,6 @@ wordpressModule.prototype.search = function (query) {
 
         self.fetching =
             WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
-                //var data = JSON.parse(r.responseText);
                 var data = self.getJsonFromResponse(r.responseText);
                 self.list = new WinJS.Binding.List();
                 self.addItemsToList(data.posts);
