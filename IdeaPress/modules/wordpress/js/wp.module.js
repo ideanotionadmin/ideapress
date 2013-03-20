@@ -180,7 +180,8 @@ wordpressModule.prototype.getLiveTileList = function () {
     return new WinJS.Promise(function (comp, err, prog) {
 
         WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
-            var data = JSON.parse(r.responseText);
+            //var data = JSON.parse(r.responseText);
+            var data = self.getJsonFromResponse(r.responseText);
             if (data.status != "ok" || data.count <= 0) {
                 err();
                 return;
@@ -295,7 +296,8 @@ wordpressModule.prototype.fetch = function (page) {
 
             if (self.shouldFetch(localStorageObject, page)) {
                 WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
-                    var data = JSON.parse(r.responseText);
+                    //var data = JSON.parse(r.responseText);
+                    var data = self.getJsonFromResponse(r.responseText);
                     if (data.status != "ok" || data.count == 0) {
                         // no data
                         self.maxPagingIndex = 0;
@@ -418,6 +420,26 @@ wordpressModule.prototype.getPages = function () {
 
 };
 
+wordpressModule.prototype.getJsonFromResponse = function (responseText) {
+    /*var cIndex = responseText.indexOf("<!--");
+    if (cIndex > 0)
+    {
+        var latestCommentIndex = cIndex;
+        while (latestCommentIndex > 0) {
+            latestCommentIndex = responseText.substring(latestCommentIndex + 3, responseText.length - latestCommentIndex - 3).indexOf("<!--");
+            cIndex = latestCommentIndex;
+        }
+    }*/
+    var lIndex = responseText.split("").reverse().join("").indexOf(">--");
+    var fIndex = responseText.split("").reverse().join("").indexOf("--!<");
+
+    if (fIndex > 0) {
+        return JSON.parse(responseText.substring(0, responseText.length - fIndex - 4) + responseText.substring(responseText.length - lIndex, responseText.length));
+    } else {
+        return JSON.parse(responseText);
+    }
+};
+
 // Search text using JSON API 
 wordpressModule.prototype.search = function (query) {
     var self = this;
@@ -436,7 +458,8 @@ wordpressModule.prototype.search = function (query) {
 
         self.fetching =
             WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
-                var data = JSON.parse(r.responseText);
+                //var data = JSON.parse(r.responseText);
+                var data = self.getJsonFromResponse(r.responseText);
                 self.list = new WinJS.Binding.List();
                 self.addItemsToList(data.posts);
 
