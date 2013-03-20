@@ -132,6 +132,8 @@ wordpresscomModule.prototype.update = function(viewState) {
         self.fetching = false;
     }, function() {
     });
+
+    return self.fetching;
 };
 // Refresh data and update UI
 wordpresscomModule.prototype.refresh = function(viewState) {
