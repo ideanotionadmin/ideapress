@@ -9,6 +9,7 @@ body, .mp-color-text {
 .mp-color-title, progress.win-ring
 {
     color: #3bb1ff;
+    border-color: #3bb1ff;
 }
 
 .mp-color-link, .a, a:link {
@@ -19,7 +20,7 @@ body, .mp-color-text {
     color: #ccc;
 }
 
-body, .mp-bg-main {
+body, .mp-bg-main, .mp-bg-plain {
     background-color:#000;
 }
 
@@ -27,12 +28,12 @@ body, .mp-bg-main {
     background-color:#666;
 }
 
-.win-backbutton {
+header .win-backbutton {
     border-color: #fff;
     color: #fff;
 }
 
-.win-backbutton:hover {
+header .win-backbutton:hover {
     background-color:#666;
 }
 
