@@ -639,10 +639,14 @@ wordpressModule.prototype.convertItem = function (item, type) {
         }
     }
 
-    // fix wordpress hard code img src with "/" relative path
-    res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
+    // Workaround: fix-up img src is not using absolute paths "/" 
+    if (self.document) {
+        res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
+    }
 
-    if (!found) {
+    // Workaround: some wordpress post do not have attachment, 
+    // - this fix do not work for live tile because there is no document for background thread
+    if (!found && self.document) {
         var div = document.createElement("div");
         WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
         var imgs = div.getElementsByTagName("img");
@@ -651,7 +655,6 @@ wordpressModule.prototype.convertItem = function (item, type) {
             res.imgThumbUrl = imgs[0].src;
         }
     }
-
 
     var imgUrlStyle = res.imgUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
@@ -702,10 +705,14 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
         }
     }
 
-    // fix wordpress hard code img src with "/" relative path
-    res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
-
-    if (!found) {
+    // Workaround: fix-up img src is not using absolute paths "/" 
+    if (self.document) {
+        res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
+    }
+    
+    // Workaround: some wordpress post do not have attachment, 
+    // - this fix do not work for live tile because there is no document for background thread
+    if (!found && self.document) {
         var div = document.createElement("div");
         WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
         var imgs = div.getElementsByTagName("img");
