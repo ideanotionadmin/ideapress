@@ -10,6 +10,14 @@ var wordpresscomModule = function (ideaPress, options) {
     this.userAgent = 'wpc-windows8';
     this.fetching = false;
 
+    // set constants
+    this.defaultCount = 32;
+    this.numberOfRelatedPosts = 4;
+    this.maxPagingIndex = -1;
+    this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
+    this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
+
+
     // set options
     this.title = options.title;
     this.siteDomain = options.siteDomain;
@@ -23,18 +31,14 @@ var wordpresscomModule = function (ideaPress, options) {
     this.clientId = options.clientId;
     this.clientSecret = options.clientSecret;
     this.hubItemsCount = options.hubItemsCount;
-    this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
-    this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
     if (options.wideTileType)
         this.wideTileType = options.wideTileType;
     if (options.squareTileType)
         this.squareTileType = options.squareTileType;
-
-
-    // set constants
-    this.defaultCount = 32;
-    this.numberOfRelatedPosts = 4;
-    this.maxPagingIndex = -1;
+    if (options.defaultCount)
+        this.defaultCount = options.defaultCount;
+    if (options.numberOfRelatedPosts)
+        this.numberOfRelatedPosts = options.numberOfRelatedPosts;
 
     return this;
 };

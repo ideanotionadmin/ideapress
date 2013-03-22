@@ -10,6 +10,13 @@ var wordpressModule = function (ideaPress, options) {
     this.bookmarks = null;
     this.fetching = false;
 
+    // set constant
+    this.defaultCount = 32;
+    this.numberOfRelatedPosts = 4;
+    this.maxPagingIndex = -1;
+    this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
+    this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
+
     // set options
     this.title = options.title;
     this.typeId = options.typeId;
@@ -21,17 +28,16 @@ var wordpressModule = function (ideaPress, options) {
     this.pageIds = options.pageIds;
     this.apiURL = options.apiUrl;
     this.hubItemsCount = options.hubItemsCount;
-    this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
-    this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
     if (options.wideTileType)
         this.wideTileType = options.wideTileType;
     if (options.squareTileType)
         this.squareTileType = options.squareTileType;
+    if (options.defaultCount)
+        this.defaultCount = options.defaultCount;
+    if (options.numberOfRelatedPosts)
+        this.numberOfRelatedPosts = options.numberOfRelatedPosts;
 
-    // set constant
-    this.defaultCount = 32;
-    this.numberOfRelatedPosts = 4;
-    this.maxPagingIndex = -1;
+
 
     return this;
 };

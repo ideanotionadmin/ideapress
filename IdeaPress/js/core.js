@@ -14,6 +14,7 @@ var ideaPress = {
     globalFetch: false,
     loadRemaining: false,
     useSnapEffect: false,
+    disableIframe: true,
 
     // Initialize all modules
     initModules: function () {
@@ -127,6 +128,10 @@ var ideaPress = {
     // Render content in an iframe
     renderIframeView: function (href) {
         document.getElementById('appbar').winControl.hide();
+        if (ideaPress.disableIframe) {
+            top.location.href = href;
+            return;
+        }
 
         var iframe = document.createElement("iframe");
         var backbar = document.createElement("div");
