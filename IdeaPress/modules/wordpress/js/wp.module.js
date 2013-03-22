@@ -385,9 +385,11 @@ wordpressModule.prototype.getPages = function () {
                 for (var index = 0; index < numFetch; index++) {
                     var id = pagesToFetch.shift();
                     promises.push(WinJS.xhr({ type: 'GET', url: fullUrl + id, headers: headers }).then(function (r) {
-                        
+
                         var data = self.getJsonFromResponse(r.responseText);
-                        if (data.page) { pageData.push(data.page); }
+                        if (data.page) {
+                            pageData[self.pageIds.indexOf(data.page.id)] = data.page;
+                        }
                     }, function () { err(); }, function () { prog(); }));
                 }
 
@@ -709,7 +711,7 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
     if (self.document) {
         res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
     }
-    
+
     // Workaround: some wordpress post do not have attachment, 
     // - this fix do not work for live tile because there is no document for background thread
     if (!found && self.document) {

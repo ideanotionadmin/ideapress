@@ -10,8 +10,9 @@ var ideaPress = {
     modules: [],
     initialized: false,
     accessToken: null,
-    maxConcurrent: 4,
+    maxConcurrent: 6,
     globalFetch: false,
+    loadRemaining: false,
 
     // Initialize all modules
     initModules: function () {
@@ -57,23 +58,33 @@ var ideaPress = {
     },
 
     // Call each module to update its content on hub.html
-    update: function (element, viewState, num) {
-        if (!num) {
-            num = 0
-        }
-
+    update: function (element, viewState) {
         var promises = new Array();
-        for (var i = num; i < Math.min(num + ideaPress.maxConcurrent, this.modules.length) ; i++) {
+        var m = this.modules.length;
+        if (!ideaPress.loadRemaining)
+            m = Math.min(ideaPress.maxConcurrent, this.modules.length);
+
+        for (var i = 0; i < m; i++) {
             promises.push(this.modules[i].update(viewState));
         }
         ideaPress.globalFetch = WinJS.Promise.join(promises).then(function () {
-            if (i < ideaPress.modules.length) {
-                ideaPress.update(element, viewState, i);
-            }
-            else {
-                ideaPress.globalFetch = false;
-            }
+            ideaPress.globalFetch = false;
         });
+    },
+
+
+    // Call each module to update its content on hub.html
+    updateRemaining: function (element, viewState) {
+        if (!ideaPress.loadRemaining && this.modules.length > ideaPress.maxConcurrent) {
+            ideaPress.loadRemaining = true;
+            var promises = new Array();
+            for (var i = ideaPress.maxConcurrent; i < this.modules.length; i++) {
+                promises.push(this.modules[i].update(viewState));
+            }
+            ideaPress.globalFetch = WinJS.Promise.join(promises).then(function () {
+                ideaPress.globalFetch = false;
+            });
+        }
     },
 
     // Call each module to refresh its content or data store
