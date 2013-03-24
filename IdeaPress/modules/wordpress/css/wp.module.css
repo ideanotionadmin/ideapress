@@ -5,6 +5,10 @@
 /* @import url('templates/wide.css'); */
 
 
+.wp-title-count {
+    font-size: 11pt !important;
+}
+
 @media screen and (-ms-view-state: snapped) {    
     .wp-list .wp-item {
         height: 220px;

@@ -520,7 +520,7 @@ wordpressModule.prototype.getHubList = function () {
     var l = 6;
     if (h > 1919)
         l = 12;
-    else if (h > 1199)
+    else if (h > 1079)
         l = 8;
 
     // override

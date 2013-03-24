@@ -4,6 +4,10 @@
 /* @import url('templates/large.css'); */
 /* @import url('templates/wide.css'); */
 
+.wpc-title-count {
+    font-size: 11pt !important;
+}
+
 
 @media screen and (-ms-view-state: snapped) {    
     .wpc-list .wpc-item {

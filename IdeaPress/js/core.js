@@ -13,6 +13,7 @@ var ideaPress = {
     maxConcurrent: 6,
     globalFetch: false,
     loadRemaining: false,
+    useSnapEffect: false,
 
     // Initialize all modules
     initModules: function () {
@@ -38,6 +39,8 @@ var ideaPress = {
         else {
             this.unregisterTask("Live Tile");
         }
+
+        this.useSnapEffect = this.options.useSnapEffect;
     },
 
     // Call each module to render its content on hub.html
@@ -364,5 +367,17 @@ var ideaPress = {
     // Show URL in a browser
     showUrl: function (url) {
         Windows.System.Launcher.launchUriAsync(Windows.Foundation.Uri(url));
+    },
+    
+    // snap effect
+    snapEffect: function () {
+        if (ideaPress.useSnapEffect) {            
+            var modules = document.getElementsByClassName("mp-module");
+            for (var i in modules) {
+                if (Math.abs(document.querySelector('#hub-content').scrollLeft - modules[i].offsetLeft) < 60) {
+                    document.querySelector('#hub-content').scrollLeft = modules[i].offsetLeft - 116;
+                }
+            }
+        }
     }
 }

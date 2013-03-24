@@ -21,10 +21,6 @@
     background-size:cover;
 }
 
-.wp-list .wp-item .wp-title-count {
-    font-size: 11pt !important;
-}
-
 .wp-list .wp-item .wp-text-section {
     padding: 4px 12px 8px;
     -ms-grid-row: 2;
@@ -45,4 +41,9 @@
 .wp-list .wp-item-0 .wp-image-container .wp-image{
     height:380px;
     width:460px;
+}
+
+
+.wp-list .wp-item-0 .wp-text-section {
+    font-size: 160%;
 }

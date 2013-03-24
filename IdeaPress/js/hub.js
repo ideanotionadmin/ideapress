@@ -55,6 +55,7 @@ Description: Controls the hub.html page, and intialize the modules.
                 document.querySelector('#hub-content').scrollTop / document.querySelector('#hub-content').offsetHeight > 0.5) {
                 ideaPress.updateRemaining(element, Windows.UI.ViewManagement.ApplicationView.value);
             }
+            ideaPress.snapEffect();
         }
     });
 })();
