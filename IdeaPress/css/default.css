@@ -83,7 +83,6 @@ section[role=main] {
 	-ms-grid-row: 2;
 }
 
-
 /* controls, icons and buttons */
 
 .win-body {
@@ -331,7 +330,7 @@ div.error {
 #hub-content .mp-module {
     display:-ms-grid;  
     -ms-grid-row:1;
-    -ms-grid-rows: 80px 1fr;  
+    -ms-grid-rows: 45px 1fr;  
     padding-right: 116px;
     min-width:400px;
     min-height:200px;
