@@ -31,9 +31,9 @@
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr 200px;
-    -ms-grid-rows: 160px;
+    -ms-grid-rows: 140px;
     width: 440px;
-    height: 160px;
+    height: 140px;
 }
 
 .wp-list .wp-item .wp-image-container {
@@ -46,18 +46,20 @@
     padding: 8px 12px 8px;    
 }
 .wp-list .wp-item h3 {
-    text-overflow: clip;
-    word-wrap: break-word;
-    font-size: 160%;
+    text-overflow: clip !important;
+    word-wrap:normal;
+    white-space: normal;
+    font-size: 140%;
 }
 .wp-list .wp-item h5 {
-    text-overflow: clip;
-    word-wrap: break-word;
+    text-overflow: clip !important;
+    word-wrap:normal;
+    white-space: normal;
 }
 
 
 .wp-list .wp-item .wp-image-container .wp-image{
-    height:160px;
+    height:140px;
     width:200px;
     background-position: center;
     background-size:cover;
