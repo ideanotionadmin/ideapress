@@ -426,7 +426,7 @@ wordpressModule.prototype.getJsonFromResponse = function (responseText) {
     var lIndex = responseText.split("").reverse().join("").indexOf(">--");
     var fIndex = responseText.split("").reverse().join("").indexOf("--!<");
 
-    if (fIndex > 0) {
+    if (fIndex >= 0 && lIndex >= 0) {
         return JSON.parse(responseText.substring(0, responseText.length - fIndex - 4) + responseText.substring(responseText.length - lIndex, responseText.length));
     } else {
         return JSON.parse(responseText);
@@ -591,6 +591,9 @@ wordpressModule.prototype.addPagesToList = function (jsonPages) {
 
 
     for (var index in jsonPages) {
+        if (!jsonPages[index])
+            continue;
+
         var item = self.convertPage(jsonPages[index]);
         item.module = self;
 

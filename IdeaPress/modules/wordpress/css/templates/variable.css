@@ -84,44 +84,83 @@
     }
 
 
-
-.wp-list .wp-item-4 {
-    overflow: hidden;
-    display: -ms-grid;
-    -ms-grid-rows: 1fr 180px;
-    -ms-grid-columns: 1fr;
-    width: 220px;
-    height: 460px;
-}
-
-
-    .wp-list .wp-item-4 .wp-image-container .wp-image {
-        height: 280px;
-        width: 220px;
-    }
-
-
-    .wp-list .wp-item-4 .wp-image-container {
+@media screen and (max-device-height: 800px) {
+    .wp-list .wp-item-4 {
         overflow: hidden;
-        position: relative;
-        -ms-grid-column: 1;
-        -ms-grid-row: 1;
+        display: -ms-grid;
+        -ms-grid-rows: 1fr 180px;
+        -ms-grid-columns: 1fr;
+        width: 220px;
+        height: 460px;
     }
 
-    .wp-list .wp-item-4 .wp-text-section {
-        padding: 4px 12px 8px;
-        -ms-grid-column: 1;
-        -ms-grid-row: 2;
-        z-index: 1;
-        width: calc(100% - 24px);
-        height: 100%;
-    }
 
-        .wp-list .wp-item-4 .wp-text-section h3 {
-            text-overflow: clip !important;
-            word-wrap: break-word !important;
+        .wp-list .wp-item-4 .wp-image-container .wp-image {
+            height: 280px;
+            width: 220px;
         }
 
+
+        .wp-list .wp-item-4 .wp-image-container {
+            overflow: hidden;
+            position: relative;
+            -ms-grid-column: 1;
+            -ms-grid-row: 1;
+        }
+
+        .wp-list .wp-item-4 .wp-text-section {
+            padding: 4px 12px 8px;
+            -ms-grid-column: 1;
+            -ms-grid-row: 2;
+            z-index: 1;
+            width: calc(100% - 24px);
+            height: 100%;
+        }
+
+            .wp-list .wp-item-4 .wp-text-section h3 {
+                text-overflow: clip !important;
+                word-wrap: break-word !important;
+            }
+}
+
+@media screen and (min-device-height: 801px) {
+    .wp-list .wp-item-5 {
+        overflow: hidden;
+        display: -ms-grid;
+        -ms-grid-rows: 1fr 180px;
+        -ms-grid-columns: 1fr;
+        width: 220px;
+        height: 460px;
+    }
+
+
+        .wp-list .wp-item-5 .wp-image-container .wp-image {
+            height: 280px;
+            width: 220px;
+        }
+
+
+        .wp-list .wp-item-5 .wp-image-container {
+            overflow: hidden;
+            position: relative;
+            -ms-grid-column: 1;
+            -ms-grid-row: 1;
+        }
+
+        .wp-list .wp-item-5 .wp-text-section {
+            padding: 4px 12px 8px;
+            -ms-grid-column: 1;
+            -ms-grid-row: 2;
+            z-index: 1;
+            width: calc(100% - 24px);
+            height: 100%;
+        }
+
+            .wp-list .wp-item-5 .wp-text-section h3 {
+                text-overflow: clip !important;
+                word-wrap: break-word !important;
+            }
+}
 
         
 @media screen and (-ms-view-state: snapped) {
