@@ -32,8 +32,7 @@ Description: Controls the hub.html page, and intialize the modules.
                 setTimeout(function () { self.updateLayout(element, Windows.UI.ViewManagement.ApplicationView.value); }, 1000);
 
                 // scroll background
-                document.getElementById('hub-content').addEventListener("scroll", self.scrolling);
-
+                document.getElementById('hub-content').addEventListener("scroll", self.scrolling);                               
             });
 
             self.loadingComplete(element, options);
@@ -49,13 +48,22 @@ Description: Controls the hub.html page, and intialize the modules.
             ideaPress.update(element, viewState);
         },
 
+        timeoutHandle : null,
+        
         scrolling: function (element) {
-            ideaPress.scrollBackground();
+            ideaPress.scrollBackground(element);
             if (document.querySelector('#hub-content').scrollLeft / document.querySelector('#hub-content').offsetWidth > 0.5 ||
                 document.querySelector('#hub-content').scrollTop / document.querySelector('#hub-content').offsetHeight > 0.5) {
                 ideaPress.updateRemaining(element, Windows.UI.ViewManagement.ApplicationView.value);
             }
-            ideaPress.snapEffect();
-        }
+            if (this.timeoutHandle)
+                window.clearTimeout(this.timeoutHandle);
+
+            var self = this;
+            this.timeoutHandle = setTimeout(function () {
+                ideaPress.snapEffect();
+                self.timeoutHandle = null;
+            }, 200);
+        },        
     });
 })();

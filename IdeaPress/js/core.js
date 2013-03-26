@@ -274,10 +274,19 @@ var ideaPress = {
     },
 
     // Scroll background image
-    scrollBackground: function () {
-        var elem = this;
+    scrollBackground: function (e) {
+        var elem = e.currentTarget;
+        var original = document.body.style.backgroundPositionX;
         var percent = elem.scrollLeft / (elem.scrollWidth - elem.clientWidth) * 100;
-        document.body.style.backgroundPositionX = percent + '%';
+        WinJS.UI.executeTransition(document.body,
+            {
+                property: "background-position-x",
+                delay: 0,
+                duration: 100,
+                timing: "linear",
+                from: original,
+                to: percent + '%'
+            });
 
     },
 
@@ -379,7 +388,7 @@ var ideaPress = {
         if (ideaPress.useSnapEffect) {            
             var modules = document.getElementsByClassName("mp-module");
             for (var i in modules) {
-                if (Math.abs(document.querySelector('#hub-content').scrollLeft - modules[i].offsetLeft) < 60) {
+                if (Math.abs(document.querySelector('#hub-content').scrollLeft - modules[i].offsetLeft + 116) < 60) {
                     document.querySelector('#hub-content').scrollLeft = modules[i].offsetLeft - 116;
                 }
             }
