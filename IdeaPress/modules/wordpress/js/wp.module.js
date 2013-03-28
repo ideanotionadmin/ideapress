@@ -651,9 +651,9 @@ wordpressModule.prototype.convertItem = function (item, type) {
     }
 
     // Workaround: fix-up img src is not using absolute paths "/" 
-    if (self.document) {
+    /*if (self.document) {
         res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
-    }
+    }*/
 
     // Workaround: some wordpress post do not have attachment, 
     // - this fix do not work for live tile because there is no document for background thread
@@ -717,9 +717,9 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
     }
 
     // Workaround: fix-up img src is not using absolute paths "/" 
-    if (self.document) {
+    /*if (self.document) {
         res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
-    }
+    }*/
 
     // Workaround: some wordpress post do not have attachment, 
     // - this fix do not work for live tile because there is no document for background thread
