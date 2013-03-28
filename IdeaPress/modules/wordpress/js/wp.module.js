@@ -657,7 +657,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
 
     // Workaround: some wordpress post do not have attachment, 
     // - this fix do not work for live tile because there is no document for background thread
-    if (!found && self.document) {
+    /*if (!found && self.document) {
         var div = document.createElement("div");
         WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
         var imgs = div.getElementsByTagName("img");
@@ -665,7 +665,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
             res.imgUrl = imgs[0].src;
             res.imgThumbUrl = imgs[0].src;
         }
-    }
+    }*/
 
     var imgUrlStyle = res.imgUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
@@ -723,7 +723,7 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
 
     // Workaround: some wordpress post do not have attachment, 
     // - this fix do not work for live tile because there is no document for background thread
-    if (!found && self.document) {
+    /*if (!found && self.document) {
         var div = document.createElement("div");
         WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
         var imgs = div.getElementsByTagName("img");
@@ -731,7 +731,7 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
             res.imgUrl = imgs[0].src;
             res.imgThumbUrl = imgs[0].src;
         }
-    }
+    }*/
 
     var imgUrlStyle = res.imgUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
