@@ -183,6 +183,36 @@ wordpresscomModule.prototype.getLiveTileList = function () {
             }
 
             var items = self.addItemsToList(data.posts);
+            for (var i in items) {
+                var post = items[i];
+
+                // Setup Wide Tile
+                var template = self.wideTileType;
+                var tileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
+                var tileImageElements = tileXml.getElementsByTagName("image");
+                tileImageElements[0].setAttribute("src", post.imgThumbUrl);
+                tileImageElements[0].setAttribute("alt", "Post Image");
+                var tileTextElements = tileXml.getElementsByTagName("text");
+                if (tileTextElements && tileTextElements.length > 0)
+                    tileTextElements[0].appendChild(tileXml.createTextNode(post.title));
+
+                // Setup Square Tile
+                template = self.squareTileType;
+                var squareTileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
+                var squareTileImageElements = squareTileXml.getElementsByTagName("image");
+                squareTileImageElements[0].setAttribute("src", post.imgThumbUrl);
+                squareTileImageElements[0].setAttribute("alt", "Post Image");
+                var squareTileTextElements = squareTileXml.getElementsByTagName("text");
+                if (squareTileTextElements && squareTileTextElements.length > 0)
+                    squareTileTextElements[0].appendChild(squareTileXml.createTextNode(post.title));
+
+                // Add Square to Long tile
+                var binding = squareTileXml.getElementsByTagName("binding").item(0);
+                var node = tileXml.importNode(binding, true);
+                tileXml.getElementsByTagName("visual").item(0).appendChild(node);
+
+                items[i].tile = new Windows.UI.Notifications.TileNotification(tileXml);
+            }
             comp(items);
         },
         function (m) {
