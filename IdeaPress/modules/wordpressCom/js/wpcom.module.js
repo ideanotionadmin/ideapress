@@ -486,15 +486,21 @@ wordpresscomModule.prototype.convertPage = function(item, list, parentId) {
     res.imgUrl = 'ms-appx:/images/blank.png';
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
 
-    for (var i in item.attachments) {
-        if (item.attachments[i].URL) {
-            res.imgUrl = item.attachments[i].URL;
-            res.imgThumbUrl = item.attachments[i].URL;
-            break;
+    if (item.featured_image) {
+        res.imgUrl = item.featured_image;
+        res.imgThumbUrl = item.featured_image + "?fit=300,300";  // TODO: resize based on CSS size?
+    }
+    else {
+        for (var i in item.attachments) {
+            if (item.attachments[i].URL) {
+                res.imgUrl = item.attachments[i].URL;
+                res.imgThumbUrl = item.attachments[i].URL + "?fit=300,300";  // TODO: resize based on CSS size?
+                break;
+            }
         }
     }
 
-    var imgUrlStyle = res.imgUrl;
+    var imgUrlStyle = res.imgThumbUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
 
     // we are ok as long as Wordpress doesn't allow cyclic parent-children relationship!

@@ -15,6 +15,7 @@ var ideaPress = {
     loadRemaining: false,
     useSnapEffect: false,
     disableIframe: true,
+    useScrollingBackground: false,
 
     // Initialize all modules
     initModules: function () {
@@ -42,6 +43,7 @@ var ideaPress = {
         }
 
         this.useSnapEffect = this.options.useSnapEffect;
+        this.useScrollingBackground = this.options.useScrollingBackground;
     },
 
     // Call each module to render its content on hub.html
@@ -275,19 +277,20 @@ var ideaPress = {
 
     // Scroll background image
     scrollBackground: function (e) {
-        var elem = e.currentTarget;
-        var original = document.body.style.backgroundPositionX;
-        var percent = elem.scrollLeft / (elem.scrollWidth - elem.clientWidth) * 100;
-        WinJS.UI.executeTransition(document.body,
-            {
-                property: "background-position-x",
-                delay: 0,
-                duration: 100,
-                timing: "linear",
-                from: original,
-                to: percent + '%'
-            });
-
+        if (ideaPress.useScrollingBackground) {
+            var elem = e.currentTarget;
+            var original = document.body.style.backgroundPositionX;
+            var percent = elem.scrollLeft / (elem.scrollWidth - elem.clientWidth) * 100;
+            WinJS.UI.executeTransition(document.body,
+                {
+                    property: "background-position-x",
+                    delay: 0,
+                    duration: 100,
+                    timing: "linear",
+                    from: original,
+                    to: percent + '%'
+                });
+        }
     },
 
     // Set access token
