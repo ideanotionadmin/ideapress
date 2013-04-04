@@ -488,13 +488,13 @@ wordpresscomModule.prototype.convertPage = function(item, list, parentId) {
 
     if (item.featured_image) {
         res.imgUrl = item.featured_image;
-        res.imgThumbUrl = item.featured_image + "?fit=300,300";  // TODO: resize based on CSS size?
+        res.imgThumbUrl = item.featured_image + "?h=220";  // TODO: resize based on CSS size?
     }
     else {
         for (var i in item.attachments) {
             if (item.attachments[i].URL) {
                 res.imgUrl = item.attachments[i].URL;
-                res.imgThumbUrl = item.attachments[i].URL + "?fit=300,300";  // TODO: resize based on CSS size?
+                res.imgThumbUrl = item.attachments[i].URL + "?h=220";  // TODO: resize based on CSS size?
                 break;
             }
         }
@@ -536,13 +536,13 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
 
     if (item.featured_image) {
         res.imgUrl = item.featured_image;
-        res.imgThumbUrl = item.featured_image + "?fit=300,300";  // TODO: resize based on CSS size?
+        res.imgThumbUrl = item.featured_image + "?h=220";  // TODO: resize based on CSS size?
     }
     else {
         for (var i in item.attachments) {
             if (item.attachments[i].URL) {
                 res.imgUrl = item.attachments[i].URL;
-                res.imgThumbUrl = item.attachments[i].URL + "?fit=300,300";  // TODO: resize based on CSS size?
+                res.imgThumbUrl = item.attachments[i].URL + "?h=220";  // TODO: resize based on CSS size?
                 break;
             }
         }
