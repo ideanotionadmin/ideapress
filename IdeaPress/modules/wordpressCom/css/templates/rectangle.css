@@ -86,4 +86,14 @@
         -ms-grid-column: 1;
         padding: 8px 12px 8px;
     }
+
+    .wpc-list .wpc-item .wpc-text-section h3 {
+        text-overflow:ellipsis;
+        word-wrap:normal;
+    }
+
+    .wpc-list .wpc-item .wpc-text-section h5 {
+        text-overflow:ellipsis;
+        word-wrap:normal;
+    }
 }

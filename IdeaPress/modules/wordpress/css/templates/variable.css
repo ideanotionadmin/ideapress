@@ -79,8 +79,8 @@
     height: 100%;    
 }
     .wp-list .wp-item-1 .wp-text-section h3 {
-        text-overflow: clip !important;
-        word-wrap: break-word !important;
+        text-overflow: clip;
+        word-wrap: break-word;
     }
 
 
@@ -118,8 +118,8 @@
         }
 
             .wp-list .wp-item-4 .wp-text-section h3 {
-                text-overflow: clip !important;
-                word-wrap: break-word !important;
+                text-overflow: clip;
+                word-wrap: break-word;
             }
 }
 
@@ -157,8 +157,8 @@
         }
 
             .wp-list .wp-item-5 .wp-text-section h3 {
-                text-overflow: clip !important;
-                word-wrap: break-word !important;
+                text-overflow: clip;
+                word-wrap: break-word;
             }
 }
 
@@ -186,6 +186,12 @@
         opacity: 1;
         margin-top: 0px;
     }
+
+    .wp-list .wp-item .wp-text-section h3 {
+        text-overflow:ellipsis;
+        word-wrap:normal;
+    }
+
     .wp-list .wp-item .wp-text-section h5 {
         display: block;
     }

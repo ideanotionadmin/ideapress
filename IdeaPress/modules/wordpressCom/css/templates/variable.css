@@ -79,8 +79,8 @@
     height: 100%;    
 }
     .wpc-list .wpc-item-1 .wpc-text-section h3 {
-        text-overflow: clip !important;
-        word-wrap: break-word !important;
+        text-overflow: clip;
+        word-wrap: break-word;
     }
 
 
@@ -118,8 +118,8 @@
         }
 
             .wpc-list .wpc-item-4 .wpc-text-section h3 {
-                text-overflow: clip !important;
-                word-wrap: break-word !important;
+                text-overflow: clip;
+                word-wrap: break-word;
             }
 }
 
@@ -157,8 +157,8 @@
         }
 
             .wpc-list .wpc-item-5 .wpc-text-section h3 {
-                text-overflow: clip !important;
-                word-wrap: break-word !important;
+                text-overflow: clip;
+                word-wrap: break-word;
             }
 }
 
@@ -186,6 +186,11 @@
         opacity: 1;
         margin-top: 0px;
     }
+    .wpc-list .wpc-item .wpc-text-section h3 {
+        text-overflow:ellipsis;
+        word-wrap:normal;
+    }
+
     .wpc-list .wpc-item .wpc-text-section h5 {
         display: block;
     }
