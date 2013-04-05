@@ -7,4 +7,4 @@ MakeCert /n "%1=%2" /r /h 0 /eku "1.3.6.1.5.5.7.3.3,1.3.6.1.4.1.311.10.3.13" /e 
 Certutil -addStore TrustedPeople c:\builds\key\AppFactory.cer
 Pvk2Pfx /f /pvk c:\builds\key\AppFactory.pvk /spc c:\builds\key\AppFactory.cer /pfx c:\builds\key\IdeaPress.pfx
 
-copy c:\builds\key\IdeaPress.pfx c:\builds\template\af.2.0.6\IdeaPress\IdeaPress.pfx
+copy c:\builds\key\IdeaPress.pfx c:\builds\template\af.2.0.7\IdeaPress\IdeaPress.pfx
