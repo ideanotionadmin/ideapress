@@ -1,4 +1,4 @@
-﻿/*
+/*
 IdeaPress Wordpress JSON API module
 Author: IdeaNotion
 */
@@ -667,7 +667,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
         }
     }*/
 
-    var imgUrlStyle = res.imgUrl;
+    var imgUrlStyle = res.imgThumbUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
 
     var subtitle = '';
@@ -733,7 +733,7 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
         }
     }*/
 
-    var imgUrlStyle = res.imgUrl;
+    var imgUrlStyle = res.imgThumbUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
     res.subtitle = "";
 
