@@ -1,4 +1,4 @@
-/*
+﻿/*
 IdeaPress Wordpress JSON API module
 Author: IdeaNotion
 */
