@@ -1,4 +1,4 @@
-/*
+﻿/*
 IdeaPress Wordpress.COM API module
 Author: IdeaNotion
 */
@@ -16,7 +16,6 @@ var wordpresscomModule = function (ideaPress, options) {
     this.maxPagingIndex = -1;
     this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
     this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
-
 
     // set options
     this.title = options.title;
@@ -53,18 +52,18 @@ wordpresscomModule.BOOKMARKS = 3;
 ============================================================================     External Methods     =============================================================//
 */
 // Render main section with html
-wordpresscomModule.prototype.render = function(elem) {
+wordpresscomModule.prototype.render = function (elem) {
     var self = this;
     this.container = elem;
-    return new WinJS.Promise(function(comp, err, prog) {
+    return new WinJS.Promise(function (comp, err, prog) {
         WinJS.UI.Fragments.renderCopy("/modules/wordpressCom/pages/wpcom.module.html", elem).done(
-            function() {
+            function () {
                 WinJS.UI.processAll(elem);
                 self.loader = elem.querySelector("progress");
                 ideaPress.toggleElement(self.loader, "show");
                 comp();
             },
-            function() {
+            function () {
                 err();
             }, function () {
                 prog();
@@ -73,13 +72,13 @@ wordpresscomModule.prototype.render = function(elem) {
     });
 };
 // Fetch data and update UI
-wordpresscomModule.prototype.update = function(viewState) {
+wordpresscomModule.prototype.update = function (viewState) {
     var self = this;
     if (false !== self.fetching) {
         self.fetching.cancel();
     }
 
-    self.fetching = self.fetch(0).then(function() {
+    self.fetching = self.fetch(0).then(function () {
         if (self.typeId == wordpresscomModule.BOOKMARKS) {
             if (self.list.length == 0) {
                 var content = self.container.querySelector(".mp-module-content");
@@ -92,7 +91,7 @@ wordpresscomModule.prototype.update = function(viewState) {
         // set module title
         var title = self.container.querySelector(".wpc-title");
 
-        title.onclick = WinJS.Utilities.markSupportedForProcessing(function() {
+        title.onclick = WinJS.Utilities.markSupportedForProcessing(function () {
             self.showCategory();
         });
         var titleCount = self.container.querySelector(".wpc-title-count");
@@ -110,7 +109,7 @@ wordpresscomModule.prototype.update = function(viewState) {
             listViewLayout = new WinJS.UI.ListLayout();
         } else {
             listViewLayout = new WinJS.UI.GridLayout({
-                groupInfo: function() {
+                groupInfo: function () {
                     return {
                         enableCellSpanning: true,
                         cellWidth: 10,
@@ -134,13 +133,13 @@ wordpresscomModule.prototype.update = function(viewState) {
         self.fetching = false;
     }, function () {
         self.fetching = false;
-    }, function() {
+    }, function () {
     });
 
     return self.fetching;
 };
 // Refresh data and update UI
-wordpresscomModule.prototype.refresh = function(viewState) {
+wordpresscomModule.prototype.refresh = function (viewState) {
     var self = this;
 
     self.cancel();
@@ -155,14 +154,14 @@ wordpresscomModule.prototype.refresh = function(viewState) {
     self.update(viewState);
 };
 // Cancel any WinJS.xhr in progress
-wordpresscomModule.prototype.cancel = function() {
+wordpresscomModule.prototype.cancel = function () {
     if (this.fetching)
         this.fetching.cancel();
 };
 // Search Charm initialization
 wordpresscomModule.prototype.searchInit = function () {
     var appModel = Windows.ApplicationModel;
-    var nav = WinJS.Navigation;    
+    var nav = WinJS.Navigation;
     appModel.Search.SearchPane.getForCurrentView().onquerysubmitted = function (args) { nav.navigate('/modules/wordpressCom/pages/wpcom.module.searchResults.html', args); };
 
 };
@@ -229,27 +228,27 @@ wordpresscomModule.prototype.getLiveTileList = function () {
 */
 
 // Fetch pages, posts or bookmarks
-wordpresscomModule.prototype.fetch = function(page) {
+wordpresscomModule.prototype.fetch = function (page) {
     var self = this;
-    return new WinJS.Promise(function(comp, err, prog) {
+    return new WinJS.Promise(function (comp, err, prog) {
         var url = self.apiURL;
         var queryString;
 
         if (self.typeId == wordpresscomModule.PAGES) {
-            self.getPages(page).then(function() {
+            self.getPages(page).then(function () {
                 comp(0);
-            }, function(m) {
+            }, function (m) {
                 var storage = self.loadFromStorage();
                 if (localStorageObject != null && storage.pages != null) {
                     var pages = storage.pages;
                     self.addPagesToList(pages);
-                }                
+                }
 
                 comp();
                 ideaPress.toggleElement(self.loader, "hide");
                 err(m);
             },
-                function(p) {
+                function (p) {
                     prog(p);
                 });
             return;
@@ -287,7 +286,7 @@ wordpresscomModule.prototype.fetch = function(page) {
         var localStorageObject = self.loadFromStorage();
 
         if (self.shouldFetch(localStorageObject, page)) {
-            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function(r) {
+            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
                 var data = JSON.parse(r.responseText);
                 if (data.found == undefined || data.found == "0") {
                     self.maxPagingIndex = page;
@@ -311,7 +310,7 @@ wordpresscomModule.prototype.fetch = function(page) {
                 comp(0);
                 ideaPress.toggleElement(self.loader, "hide");
             },
-                function(m) {
+                function (m) {
                     localStorageObject = self.loadFromStorage();
                     if (localStorageObject != null && localStorageObject.posts != null)
                         self.addItemsToList(localStorageObject.posts);
@@ -319,7 +318,7 @@ wordpresscomModule.prototype.fetch = function(page) {
                     ideaPress.toggleElement(self.loader, "hide");
                     err(m);
                 },
-                function(p) {
+                function (p) {
                     prog(p);
                 });
         } else {
@@ -339,7 +338,7 @@ wordpresscomModule.prototype.fetch = function(page) {
 };
 
 // Check if module show call API or read from local storage
-wordpresscomModule.prototype.shouldFetch = function(localStorageObject, page) {
+wordpresscomModule.prototype.shouldFetch = function (localStorageObject, page) {
     if (localStorageObject) {
         if (page && page > this.maxPagingIndex) {
             return true;
@@ -390,7 +389,7 @@ wordpresscomModule.prototype.showCategory = function () {
 };
 
 // generate the list for hub page
-wordpresscomModule.prototype.getHubList = function() {
+wordpresscomModule.prototype.getHubList = function () {
     var hubList = new WinJS.Binding.List();
 
     var h = window.innerHeight;
@@ -404,14 +403,14 @@ wordpresscomModule.prototype.getHubList = function() {
     if (this.hubItemsCount)
         l = this.hubItemsCount;
 
-    for (var i = 0; i < Math.min(l, this.list.length); i++)
+    for (var i = 0; i < Math.min(l, this.list.length) ; i++)
         hubList.push(this.list.getAt(i));
 
     return hubList;
 };
 
 // Add post to list
-wordpresscomModule.prototype.addItemsToList = function(jsonPosts) {
+wordpresscomModule.prototype.addItemsToList = function (jsonPosts) {
     var self = this;
     var itemArray = new Array();
     for (var key in jsonPosts) {
@@ -423,7 +422,7 @@ wordpresscomModule.prototype.addItemsToList = function(jsonPosts) {
         item.className = "wpc-item wpc-item-" + key;
 
         var insert = true;
-        self.list.forEach(function(value) {
+        self.list.forEach(function (value) {
             if (value.id == item.id) {
                 insert = false;
             }
@@ -450,7 +449,7 @@ wordpresscomModule.prototype.addPagesToList = function (jsonPages) {
         item.className = "wpc-item wpc-item-" + index;
 
         var insert = true;
-        self.list.forEach(function(value) {
+        self.list.forEach(function (value) {
             if (value.id == item.id) {
                 insert = false;
             }
@@ -466,7 +465,7 @@ wordpresscomModule.prototype.addPagesToList = function (jsonPages) {
 };
 
 // Translate page to local object
-wordpresscomModule.prototype.convertPage = function(item, list, parentId) {
+wordpresscomModule.prototype.convertPage = function (item, list, parentId) {
     var res = {
         type: 'page',
         title: ideaPress.decodeEntities(item.title),
@@ -530,7 +529,7 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
         comments: item.comments
     };
 
-   // get the first image from attachments
+    // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
 
@@ -564,7 +563,7 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
 // Fetch pages from API
 wordpresscomModule.prototype.getPages = function (page) {
     var self = this;
-    return new WinJS.Promise(function(comp, err, prog) {        
+    return new WinJS.Promise(function (comp, err, prog) {
 
         var url = self.apiURL;
         var queryString = 'rest/v1/sites/' + self.siteDomain + '/posts/';
@@ -591,29 +590,29 @@ wordpresscomModule.prototype.getPages = function (page) {
             ideaPress.toggleElement(self.loader, "hide");
 
         } else {
-            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function() {
+            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function () {
                 var localPages = new Array();
 
                 var promises = new Array();
                 var data = [];
                 for (var j = 0; j < self.pageIds.length; j++) {
-                    promises.push(WinJS.xhr({ type: 'GET', url: url + queryString + self.pageIds[j], headers: headers }).then(function(r) {
+                    promises.push(WinJS.xhr({ type: 'GET', url: url + queryString + self.pageIds[j], headers: headers }).then(function (r) {
                         data.push(JSON.parse(r.responseText));
 
                         self.pagesFetched = new Date();
                     },
                             // If no internet connection, let it go, later will fetch it
-                            function(f) {
+                            function (f) {
                                 err(f);
                             },
-                            function(p) {
+                            function (p) {
                                 prog(p);
                             })
                     );
                 }
 
                 // Wait for all fetch to complete
-                WinJS.Promise.join(promises).then(function() {
+                WinJS.Promise.join(promises).then(function () {
                     for (var k in data) {
                         self.convertPage(data[k], localPages, 0);
                     }
@@ -629,10 +628,10 @@ wordpresscomModule.prototype.getPages = function (page) {
                     self.postsFetched = new Date();
                     ideaPress.toggleElement(self.loader, "hide");
                     comp();
-                }, function(e) { err(e); }, function(p) { prog(p); });
+                }, function (e) { err(e); }, function (p) { prog(p); });
             },
                 // If no internet connection, try to fetch from the localStorage
-                function() {
+                function () {
                     localStorageObject = self.loadFromStorage();
                     if (localStorageObject != null && localStorageObject.pages != null) {
                         pages = localStorageObject.pages;
@@ -643,7 +642,7 @@ wordpresscomModule.prototype.getPages = function (page) {
                     comp();
                     ideaPress.toggleElement(self.loader, "hide");
                 },
-                function(p) {
+                function (p) {
                     prog(p);
                 });
         }
@@ -652,7 +651,7 @@ wordpresscomModule.prototype.getPages = function (page) {
 };
 
 // Get Bookmarks from local storage
-wordpresscomModule.prototype.getBookmarks = function() {
+wordpresscomModule.prototype.getBookmarks = function () {
     var self = this;
     if (!localStorage[self.localStorageBookmarkKey]) {
         localStorage[self.localStorageBookmarkKey] = JSON.stringify({ 'post_count': 0, 'posts': [], 'lastFetched': new Date() });
@@ -663,7 +662,7 @@ wordpresscomModule.prototype.getBookmarks = function() {
 };
 
 // Check if a post has been bookmarked
-wordpresscomModule.prototype.checkIsBookmarked = function(id) {
+wordpresscomModule.prototype.checkIsBookmarked = function (id) {
     var bookmarks = this.getBookmarks();
     for (var index in bookmarks.posts) {
         if (id == bookmarks.posts[index].id)
@@ -673,7 +672,7 @@ wordpresscomModule.prototype.checkIsBookmarked = function(id) {
 };
 
 // Add post to bookmark
-wordpresscomModule.prototype.addBookmark = function(item) {
+wordpresscomModule.prototype.addBookmark = function (item) {
     var self = this;
 
     var bookmarks = self.getBookmarks();
@@ -689,7 +688,7 @@ wordpresscomModule.prototype.addBookmark = function(item) {
 };
 
 // Remove post to bookmark
-wordpresscomModule.prototype.removeBookmark = function(id) {
+wordpresscomModule.prototype.removeBookmark = function (id) {
     var self = this;
     var bookmarks = self.getBookmarks();
     for (var index in bookmarks.posts) {
@@ -703,7 +702,7 @@ wordpresscomModule.prototype.removeBookmark = function(id) {
 };
 
 // Submit Comment Without Access Token
-wordpresscomModule.prototype.submitCommentWithoutToken = function(callback) {
+wordpresscomModule.prototype.submitCommentWithoutToken = function (callback) {
     // This will be the function to call back when we get token (or not)
     var self = this;
 
@@ -720,8 +719,8 @@ wordpresscomModule.prototype.submitCommentWithoutToken = function(callback) {
         Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAsync(
             Windows.Security.Authentication.Web.WebAuthenticationOptions.none,
             startUri,
-            endUri).then(function(result) { self.callbackWordPressWebAuth(result, self, callback); }, function(err) { self.callbackWordPressWebAuthError(err); });
-    } catch (e) {        
+            endUri).then(function (result) { self.callbackWordPressWebAuth(result, self, callback); }, function (err) { self.callbackWordPressWebAuthError(err); });
+    } catch (e) {
         return;
     }
 };
@@ -749,8 +748,8 @@ wordpresscomModule.prototype.submitCommentWithToken = function (accessToken, pos
                     msg = JSON.parse(result.responseText).message;
                 }
             }
-            catch(e) {
-                
+            catch (e) {
+
             }
             r(msg);
             self.fetching = false;
@@ -778,7 +777,7 @@ wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, 
                 var callbackUrl = "http://www.wordpress.org/";
                 var fullUrl = 'https://public-api.wordpress.com/oauth2/token';
                 var postData = 'client_id=' + self.clientId + '&client_secret=' + self.clientSecret + '&redirect_uri=' + encodeURIComponent(callbackUrl) + '&grant_type=authorization_code&code=' + code;
-                var headers = { "User-Agent": 'wp-window8', "Content-type": "application/x-www-form-urlencoded" }; 
+                var headers = { "User-Agent": 'wp-window8', "Content-type": "application/x-www-form-urlencoded" };
 
                 WinJS.xhr({ type: "POST", url: fullUrl, headers: headers, data: postData }).done(
                     function (r) {
@@ -789,15 +788,15 @@ wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, 
                             // Store the Access Token
                             ideaPress.setAccessToken(data.access_token);
                             callback(data.access_token);
-                            
+
                         } catch (e) {
                             callback(null, "");
                         }
                     },
-                    function () {                        
+                    function () {
                         callback(null, "");
                     },
-                    function () {                        
+                    function () {
                     }
                 );
             }
@@ -812,7 +811,7 @@ wordpresscomModule.prototype.callbackWordPressWebAuthError = function () {
 };
 
 // Get comments for a post thru API
-wordpresscomModule.prototype.getComments = function(postId, c, r, p) {
+wordpresscomModule.prototype.getComments = function (postId, c, r, p) {
 
     //https://public-api.wordpress.com/rest/v1/sites/$site/posts/$postId/replies/
 
@@ -838,7 +837,7 @@ wordpresscomModule.prototype.getComments = function(postId, c, r, p) {
 wordpresscomModule.prototype.search = function (query) {
     var self = this;
 
-    return new WinJS.Promise(function(comp, err, prog) {
+    return new WinJS.Promise(function (comp, err, prog) {
         prog();
 
         //var queryString = '?json=get_search_results&search=' + query;
@@ -852,13 +851,13 @@ wordpresscomModule.prototype.search = function (query) {
         }
 
         self.fetching =
-            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function(r) {
+            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
                 var data = JSON.parse(r.responseText);
                 self.list = new WinJS.Binding.List();
                 self.addItemsToList(data.posts);
 
                 self.fetching = false;
                 comp(self.list);
-            }, function(e) { err(e); }, function(p) { prog(p); });
+            }, function (e) { err(e); }, function (p) { prog(p); });
     });
 };
