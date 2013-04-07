@@ -1,5 +1,5 @@
 ﻿/* Import rules for custom themes */
-@import url('themes/custom.light.css');
+@import url('themes/custom.css');
 
 /* @import url('themes/custom.dark.css'); */
 /* @import url('themes/custom.orange.css'); */
@@ -11,11 +11,14 @@ html {
 }
 
 body {
-	background-image: url('/images/background.png');
+	background-image: url('/images/BackgroundPic.png');
 	background-size: cover;
     background-position: 0 center;
     height: 100%;
     width: 100%;
+    transition-property: background-position-x;
+    transition-timing-function: ease;
+    transition-duration: 0.8s;
 }
 
 #contenthost {
@@ -47,7 +50,7 @@ header[role=banner] .win-backbutton {
 header[role=banner] .titlearea {
     -ms-grid-column: 2;
     margin-top: 48px;
-    height: 72px;
+    height: 80px;
     margin-right: 35px;
     margin-left:  -4px;
 }
@@ -82,7 +85,6 @@ section[role=main] {
     width: 100%;
 	-ms-grid-row: 2;
 }
-
 
 /* controls, icons and buttons */
 
@@ -331,7 +333,7 @@ div.error {
 #hub-content .mp-module {
     display:-ms-grid;  
     -ms-grid-row:1;
-    -ms-grid-rows: 80px 1fr;  
+    -ms-grid-rows: 45px 1fr;  
     padding-right: 116px;
     min-width:400px;
     min-height:200px;

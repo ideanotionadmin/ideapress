@@ -1,0 +1,198 @@
+﻿.wp-list .wp-item {
+    overflow: hidden;  
+    display: -ms-grid;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 160px 60px;
+    width: 220px;
+    height: 220px;
+}
+
+.wp-list .wp-item .wp-image-container {
+    overflow: hidden;
+    position: relative;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+}
+
+.wp-list .wp-item .wp-image-container .wp-image{
+    height:160px;
+    width:220px;
+    background-position: center;
+    background-size:cover;
+}
+
+.wp-list .wp-item .wp-text-section {
+    padding: 4px 12px 8px;
+    -ms-grid-row: 2;
+    z-index: 1;
+    width: calc(100% - 24px);
+    height: 100%;    
+}
+
+.wp-list .wp-item-0 {
+    overflow: hidden;  
+    display: -ms-grid;
+    -ms-grid-rows: 1fr 100px;
+    -ms-grid-columns: 1fr;    
+    width: 460px;
+    height: 460px;
+}
+
+.wp-list .wp-item-0 .wp-image-container .wp-image{
+    height:380px;
+    width:460px;
+}
+
+
+.wp-list .wp-item-0 .wp-text-section {
+    font-size: 160%;
+}
+
+.wp-list .wp-item-1 {
+    overflow: hidden;  
+    display: -ms-grid;
+    -ms-grid-rows: 1fr;
+    -ms-grid-columns: 1fr 160px;    
+    width: 460px;
+    height: 220px;
+}
+
+.wp-list .wp-item-1 .wp-image-container .wp-image{
+    height:220px;
+    width:300px;
+}
+
+
+.wp-list .wp-item-1 .wp-image-container {
+    overflow: hidden;
+    position: relative;
+    -ms-grid-column: 1;    
+    -ms-grid-row: 1;   
+}
+
+.wp-list .wp-item-1 .wp-text-section {
+    padding: 4px 12px 8px;
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;   
+    z-index: 1;
+    width: calc(100% - 24px);
+    height: 100%;    
+}
+    .wp-list .wp-item-1 .wp-text-section h3 {
+        text-overflow: clip;
+        word-wrap: break-word;
+    }
+
+
+@media screen and (max-device-height: 800px) {
+    .wp-list .wp-item-4 {
+        overflow: hidden;
+        display: -ms-grid;
+        -ms-grid-rows: 1fr 180px;
+        -ms-grid-columns: 1fr;
+        width: 220px;
+        height: 460px;
+    }
+
+
+        .wp-list .wp-item-4 .wp-image-container .wp-image {
+            height: 280px;
+            width: 220px;
+        }
+
+
+        .wp-list .wp-item-4 .wp-image-container {
+            overflow: hidden;
+            position: relative;
+            -ms-grid-column: 1;
+            -ms-grid-row: 1;
+        }
+
+        .wp-list .wp-item-4 .wp-text-section {
+            padding: 4px 12px 8px;
+            -ms-grid-column: 1;
+            -ms-grid-row: 2;
+            z-index: 1;
+            width: calc(100% - 24px);
+            height: 100%;
+        }
+
+            .wp-list .wp-item-4 .wp-text-section h3 {
+                text-overflow: clip;
+                word-wrap: break-word;
+            }
+}
+
+@media screen and (min-device-height: 801px) {
+    .wp-list .wp-item-5 {
+        overflow: hidden;
+        display: -ms-grid;
+        -ms-grid-rows: 1fr 180px;
+        -ms-grid-columns: 1fr;
+        width: 220px;
+        height: 460px;
+    }
+
+
+        .wp-list .wp-item-5 .wp-image-container .wp-image {
+            height: 280px;
+            width: 220px;
+        }
+
+
+        .wp-list .wp-item-5 .wp-image-container {
+            overflow: hidden;
+            position: relative;
+            -ms-grid-column: 1;
+            -ms-grid-row: 1;
+        }
+
+        .wp-list .wp-item-5 .wp-text-section {
+            padding: 4px 12px 8px;
+            -ms-grid-column: 1;
+            -ms-grid-row: 2;
+            z-index: 1;
+            width: calc(100% - 24px);
+            height: 100%;
+        }
+
+            .wp-list .wp-item-5 .wp-text-section h3 {
+                text-overflow: clip;
+                word-wrap: break-word;
+            }
+}
+
+        
+@media screen and (-ms-view-state: snapped) {
+    .wp-list .wp-item {
+        overflow: hidden;
+        display: -ms-grid;
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: 160px 60px;
+        height: 220px;
+    }
+
+    .wp-list .wp-item .wp-image-container {
+        overflow: hidden;
+        position: relative;
+        -ms-grid-row: 1;        
+        -ms-grid-column: 1;
+    }
+
+    .wp-list .wp-item .wp-text-section {
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
+        padding: 8px 12px 8px;
+        opacity: 1;
+        margin-top: 0px;
+    }
+
+    .wp-list .wp-item .wp-text-section h3 {
+        text-overflow:ellipsis;
+        word-wrap:normal;
+    }
+
+    .wp-list .wp-item .wp-text-section h5 {
+        display: block;
+    }
+}

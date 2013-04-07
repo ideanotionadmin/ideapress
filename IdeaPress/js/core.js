@@ -6,20 +6,26 @@ Description: Control and maintain core logics of the application
 */
 var ideaPress = {
     // Change Storage Version to empty the local storage
-    localStorageSchemaVersion: '20130201-1',
+    localStorageSchemaVersion: '20130201-2',
     modules: [],
     initialized: false,
     accessToken: null,
+    maxConcurrent: 6,
+    globalFetch: false,
+    loadRemaining: false,
+    useSnapEffect: false,
+    disableIframe: true,
+    useScrollingBackground: false,
 
     // Initialize all modules
     initModules: function () {
         // register all the modules defined in options.js
-        for(var i in this.options.modules) {
+        for (var i in this.options.modules) {
             var module = this.options.modules[i].name;
-            var options =  this.options.modules[i].options;
-            this.modules.push( new module(this, options));
+            var options = this.options.modules[i].options;
+            this.modules.push(new module(this, options));
         }
-        
+
         // register search module
         if (this.options.searchModule) {
             module = this.options.searchModule.name;
@@ -35,6 +41,10 @@ var ideaPress = {
         else {
             this.unregisterTask("Live Tile");
         }
+
+        this.useSnapEffect = this.options.useSnapEffect;
+        if (this.options.useScrollingBackground != undefined)
+            this.useScrollingBackground = this.options.useScrollingBackground;
     },
 
     // Call each module to render its content on hub.html
@@ -43,12 +53,12 @@ var ideaPress = {
         var count = 1;
         elem.style.msGridColumns = "";
         for (var i in this.modules) {
-            elem.style.msGridColumns = elem.style.msGridColumns + " auto";            
+            elem.style.msGridColumns = elem.style.msGridColumns + " auto";
             var container = document.createElement("div");
             container.style.msGridColumn = count++;
             container.className = "mp-module";
             container.className = "mp-module mp-module-" + i;
-            elem.appendChild(container);            
+            elem.appendChild(container);
             promises.push(this.modules[i].render(container));
         }
         return promises;
@@ -56,8 +66,31 @@ var ideaPress = {
 
     // Call each module to update its content on hub.html
     update: function (element, viewState) {
-        for (var i in this.modules) {
-            this.modules[i].update(viewState);
+        var promises = new Array();
+        var m = this.modules.length;
+        if (!ideaPress.loadRemaining)
+            m = Math.min(ideaPress.maxConcurrent, this.modules.length);
+
+        for (var i = 0; i < m; i++) {
+            promises.push(this.modules[i].update(viewState));
+        }
+        ideaPress.globalFetch = WinJS.Promise.join(promises).then(function () {
+            ideaPress.globalFetch = false;
+        });
+    },
+
+
+    // Call each module to update its content on hub.html
+    updateRemaining: function (element, viewState) {
+        if (!ideaPress.loadRemaining && this.modules.length > ideaPress.maxConcurrent) {
+            ideaPress.loadRemaining = true;
+            var promises = new Array();
+            for (var i = ideaPress.maxConcurrent; i < this.modules.length; i++) {
+                promises.push(this.modules[i].update(viewState));
+            }
+            ideaPress.globalFetch = WinJS.Promise.join(promises).then(function () {
+                ideaPress.globalFetch = false;
+            });
         }
     },
 
@@ -76,6 +109,8 @@ var ideaPress = {
         }
         if (ideaPress.searchModule)
             ideaPress.searchModule.cancel();
+        if (ideaPress.globalFetch)
+            ideaPress.globalFetch.cancel();
     },
 
     // Override the onClick for all the links and launch content in an iframe 
@@ -96,6 +131,10 @@ var ideaPress = {
     // Render content in an iframe
     renderIframeView: function (href) {
         document.getElementById('appbar').winControl.hide();
+        if (ideaPress.disableIframe) {
+            top.location.href = href;
+            return;
+        }
 
         var iframe = document.createElement("iframe");
         var backbar = document.createElement("div");
@@ -178,23 +217,22 @@ var ideaPress = {
 
     // Register Live Tile background task 
     registerTask: function (taskName) {
-        var background = Windows.ApplicationModel.Background;        
+        var background = Windows.ApplicationModel.Background;
         if (!ideaPress.getRegisteredTask(taskName)) {
             var taskBuilder = new background.BackgroundTaskBuilder();
 
             // poll for data
-            var hourlyTrigger = new background.MaintenanceTrigger(15, false);            
+            var hourlyTrigger = new background.MaintenanceTrigger(15, false);
             var internetCondition = new background.SystemCondition(background.SystemConditionType.internetAvailable);
 
             taskBuilder.setTrigger(hourlyTrigger);
             taskBuilder.taskEntryPoint = "js\\liveTileTask.js";
             taskBuilder.name = taskName;
-            taskBuilder.addCondition(internetCondition);            
+            taskBuilder.addCondition(internetCondition);
 
             try {
                 taskBuilder.register();
-            } catch (e)
-            {
+            } catch (e) {
                 if (WinJS.log)
                     WinJS.log("error " + e.message);
             }
@@ -205,8 +243,8 @@ var ideaPress = {
     unregisterTask: function () {
         var task = getRegisteredTask();
         if (task) {
-            task.unregister(true);            
-        } else {            
+            task.unregister(true);
+        } else {
         }
     },
 
@@ -230,7 +268,7 @@ var ideaPress = {
         return new WinJS.Promise(function (comp, err, prog) {
             var module = self.options.liveTileModule.name;
             var options = self.options.liveTileModule.options;
-            var liveModule = new module(this, options);                        
+            var liveModule = new module(this, options);
 
             liveModule.getLiveTileList().then(function (r) {
                 comp(r);
@@ -239,11 +277,15 @@ var ideaPress = {
     },
 
     // Scroll background image
-    scrollBackground: function () {
-        var elem = this;
-        var percent = elem.scrollLeft / (elem.scrollWidth - elem.clientWidth) * 100;                
-        document.body.style.backgroundPositionX = percent + '%';
+    scrollBackground: function (e) {
+        if (ideaPress.useScrollingBackground) {
 
+            var elem = e.currentTarget;
+            var percent = elem.scrollLeft / (elem.scrollWidth - elem.clientWidth) * 100;
+            setImmediate(function () {
+                document.body.style["background-position-x"] = percent + "%";
+            });
+        }
     },
 
     // Set access token
@@ -297,10 +339,10 @@ var ideaPress = {
         }
         var str, temp = document.createElement('p');
         temp.innerHTML = s;
-        str = temp.textContent || temp.innerText;        
+        str = temp.textContent || temp.innerText;
         return str;
     },
-    
+
     // Helper method to toggle element visibility
     toggleElement: function (e, status) {
         if (null == e)
@@ -315,9 +357,39 @@ var ideaPress = {
             WinJS.Utilities.addClass(e, 'show');
         }
     },
-    
+
+    // Helper method to clean img src
+    cleanImageTag: function (content, url) {
+        try {
+            var div = document.createElement("div");
+            WinJS.Utilities.setInnerHTMLUnsafe(div, content);
+            var imgs = div.getElementsByTagName("img");
+            for (var i = 0; i < imgs.length; i++) {
+                if (imgs[i].src.indexOf("ms-appx://") > -1) {
+                    imgs[i].src = url + imgs[i].src.substring(imgs[i].src.indexOf("/", 10));
+                }
+            }
+            return div.innerHTML;
+        }
+        catch (e) {
+            return content;
+        }
+    },
+
     // Show URL in a browser
-    showUrl : function (url) {
+    showUrl: function (url) {
         Windows.System.Launcher.launchUriAsync(Windows.Foundation.Uri(url));
+    },
+    
+    // snap effect
+    snapEffect: function () {
+        if (ideaPress.useSnapEffect) {            
+            var modules = document.getElementsByClassName("mp-module");
+            for (var i in modules) {
+                if (Math.abs(document.querySelector('#hub-content').scrollLeft - modules[i].offsetLeft + 116) < 60) {
+                    document.querySelector('#hub-content').scrollLeft = modules[i].offsetLeft - 116;
+                }
+            }
+        }
     }
 }

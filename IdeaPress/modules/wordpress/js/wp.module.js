@@ -10,6 +10,13 @@ var wordpressModule = function (ideaPress, options) {
     this.bookmarks = null;
     this.fetching = false;
 
+    // set constant
+    this.defaultCount = 32;
+    this.numberOfRelatedPosts = 4;
+    this.maxPagingIndex = -1;
+    this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
+    this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
+
     // set options
     this.title = options.title;
     this.typeId = options.typeId;
@@ -21,11 +28,16 @@ var wordpressModule = function (ideaPress, options) {
     this.pageIds = options.pageIds;
     this.apiURL = options.apiUrl;
     this.hubItemsCount = options.hubItemsCount;
+    if (options.wideTileType)
+        this.wideTileType = options.wideTileType;
+    if (options.squareTileType)
+        this.squareTileType = options.squareTileType;
+    if (options.defaultCount)
+        this.defaultCount = options.defaultCount;
+    if (options.numberOfRelatedPosts)
+        this.numberOfRelatedPosts = options.numberOfRelatedPosts;
 
-    // set constant
-    this.defaultCount = 32;
-    this.numberOfRelatedPosts = 4;
-    this.maxPagingIndex = -1;
+
 
     return this;
 };
@@ -41,19 +53,19 @@ wordpressModule.BOOKMARKS = 3;
 */
 
 // Render main section with html
-wordpressModule.prototype.render = function(elem) {
+wordpressModule.prototype.render = function (elem) {
     var self = this;
     this.container = elem;
-    return new WinJS.Promise(function(comp, err, prog) {
+    return new WinJS.Promise(function (comp, err, prog) {
         var pageLocation = "/modules/wordpress/pages/wp.module.html";
         WinJS.UI.Fragments.renderCopy(pageLocation, elem).done(
-            function() {
+            function () {
                 WinJS.UI.processAll(elem);
                 self.loader = elem.querySelector("progress");
                 ideaPress.toggleElement(self.loader, "show");
                 comp();
             },
-            function() {
+            function () {
                 err();
             }, function () {
                 prog();
@@ -63,13 +75,13 @@ wordpressModule.prototype.render = function(elem) {
 };
 
 // Fetch data and update UI
-wordpressModule.prototype.update = function(viewState) {
+wordpressModule.prototype.update = function (viewState) {
     var self = this;
-    
+
     if (false !== self.fetching) {
         self.fetching.cancel();
     }
-    
+
     self.fetching = self.fetch(0).then(function () {
         var listViewLayout;
 
@@ -83,16 +95,16 @@ wordpressModule.prototype.update = function(viewState) {
 
         // set module title
         var title = self.container.querySelector(".wp-title");
-        title.onclick = WinJS.Utilities.markSupportedForProcessing(function() {
+        title.onclick = WinJS.Utilities.markSupportedForProcessing(function () {
             self.showCategory();
         });
-        var titleCount = self.container.querySelector(".wp-title-count");        
+        var titleCount = self.container.querySelector(".wp-title-count");
 
         // no header for page
         title.textContent = self.title;
         if (self.typeId !== wordpressModule.PAGES) {
             titleCount.textContent = Math.max(self.list.length, self.totalCount);
-        }        
+        }
 
         // set layout type
         if (viewState === Windows.UI.ViewManagement.ApplicationViewState.snapped) {
@@ -101,7 +113,7 @@ wordpressModule.prototype.update = function(viewState) {
             listViewLayout = new WinJS.UI.ListLayout();
         } else {
             listViewLayout = new WinJS.UI.GridLayout({
-                groupInfo: function() {
+                groupInfo: function () {
                     return {
                         enableCellSpanning: true,
                         cellWidth: 10,
@@ -120,18 +132,18 @@ wordpressModule.prototype.update = function(viewState) {
             swipeBehavior: 'none',
             layout: listViewLayout,
             item: self
-        });               
+        });
         listview.oniteminvoked = function (e) { self.showPost(e); };
         self.fetching = false;
     }, function () {
         self.fetching = false;
     }, function () {
     });
-
+    return self.fetching;
 };
 
 // Refresh data and update UI
-wordpressModule.prototype.refresh = function(viewState) {
+wordpressModule.prototype.refresh = function (viewState) {
     var self = this;
 
     self.cancel();
@@ -150,7 +162,7 @@ wordpressModule.prototype.refresh = function(viewState) {
 };
 
 // Cancel any WinJS.xhr in progress
-wordpressModule.prototype.cancel = function() {
+wordpressModule.prototype.cancel = function () {
     if (this.fetching)
         this.fetching.cancel();
 };
@@ -164,6 +176,8 @@ wordpressModule.prototype.searchInit = function () {
 };
 
 // Live Tile
+// Supports: TileSquarePeekImageAndText04, TileSquareText04 
+//           TileWideImageAndText01, TileWideText03 TileWideSmallImageAndText01 TileWidePeekImageAndText01 TileWidePeekImage03
 wordpressModule.prototype.getLiveTileList = function () {
     var queryString = '?json=get_recent_posts&count=5&page=1';
     var fullUrl = this.apiURL + queryString;
@@ -172,13 +186,44 @@ wordpressModule.prototype.getLiveTileList = function () {
     return new WinJS.Promise(function (comp, err, prog) {
 
         WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
-            var data = JSON.parse(r.responseText);
+            var data = self.getJsonFromResponse(r.responseText);
             if (data.status != "ok" || data.count <= 0) {
                 err();
                 return;
             }
 
             var items = self.addItemsToList(data.posts);
+
+            for (var i in items) {
+                var post = items[i];
+
+                // Setup Wide Tile
+                var template = self.wideTileType;
+                var tileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
+                var tileImageElements = tileXml.getElementsByTagName("image");
+                tileImageElements[0].setAttribute("src", post.imgThumbUrl);
+                tileImageElements[0].setAttribute("alt", "Post Image");
+                var tileTextElements = tileXml.getElementsByTagName("text");
+                if (tileTextElements && tileTextElements.length > 0)
+                    tileTextElements[0].appendChild(tileXml.createTextNode(post.title));
+
+                // Setup Square Tile
+                template = self.squareTileType;
+                var squareTileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
+                var squareTileImageElements = squareTileXml.getElementsByTagName("image");
+                squareTileImageElements[0].setAttribute("src", post.imgThumbUrl);
+                squareTileImageElements[0].setAttribute("alt", "Post Image");
+                var squareTileTextElements = squareTileXml.getElementsByTagName("text");
+                if (squareTileTextElements && squareTileTextElements.length > 0)
+                    squareTileTextElements[0].appendChild(squareTileXml.createTextNode(post.title));
+
+                // Add Square to Long tile
+                var binding = squareTileXml.getElementsByTagName("binding").item(0);
+                var node = tileXml.importNode(binding, true);
+                tileXml.getElementsByTagName("visual").item(0).appendChild(node);
+
+                items[i].tile = new Windows.UI.Notifications.TileNotification(tileXml);
+            }
             comp(items);
         },
             function (e) {
@@ -196,16 +241,16 @@ wordpressModule.prototype.getLiveTileList = function () {
 
 
 // Fetch pages, posts or bookmarks
-wordpressModule.prototype.fetch = function(page) {
-    var self = this;       
+wordpressModule.prototype.fetch = function (page) {
+    var self = this;
 
-    return new WinJS.Promise(function(comp, err, prog) {
+    return new WinJS.Promise(function (comp, err, prog) {
         var url = self.apiURL;
         var queryString;
 
         // branch off to get pages, posts or bookmark based on categoryId
         if (self.typeId == wordpressModule.PAGES) {
-            self.getPages().then(function() {
+            self.getPages().then(function () {
                 comp();
                 return;
             }, function () {
@@ -219,9 +264,9 @@ wordpressModule.prototype.fetch = function(page) {
                 comp();
                 ideaPress.toggleElement(self.loader, "hide");
             },
-            function(p) {
-                    prog(p);
-                });
+            function (p) {
+                prog(p);
+            });
             return;
         } else if (self.typeId == wordpressModule.BOOKMARKS) {
 
@@ -255,8 +300,9 @@ wordpressModule.prototype.fetch = function(page) {
             var localStorageObject = self.loadFromStorage();
 
             if (self.shouldFetch(localStorageObject, page)) {
-                WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function(r) {
-                    var data = JSON.parse(r.responseText);
+                WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
+                    //var data = JSON.parse(r.responseText);
+                    var data = self.getJsonFromResponse(r.responseText);
                     if (data.status != "ok" || data.count == 0) {
                         // no data
                         self.maxPagingIndex = 0;
@@ -280,20 +326,20 @@ wordpressModule.prototype.fetch = function(page) {
                         self.saveToStorage(localStorageObject);
                         self.maxPagingIndex = page;
                     }
-                                        
+
                     comp();
                     ideaPress.toggleElement(self.loader, "hide");
                     return;
                 },
-                function(m) {
+                function (m) {
                     localStorageObject = self.loadFromStorage();
                     if (localStorageObject != null && localStorageObject.posts != null)
                         self.addItemsToList(localStorageObject.posts);
-                    
+
                     ideaPress.toggleElement(self.loader, "hide");
                     err(m);
                 },
-                function(p) {
+                function (p) {
                     prog(p);
                 });
             } else {
@@ -305,7 +351,7 @@ wordpressModule.prototype.fetch = function(page) {
                 self.addItemsToList(localStorageObject.posts);
 
                 self.lastFetched = localStorageObject.lastFetched;
-                self.totalCount = localStorageObject.post_count;                
+                self.totalCount = localStorageObject.post_count;
                 comp();
                 ideaPress.toggleElement(self.loader, "hide");
             }
@@ -329,39 +375,68 @@ wordpressModule.prototype.getPages = function () {
             self.addPagesToList(localStorageObject.pages);
 
             self.lastFetched = localStorageObject.lastFetched;
-            self.totalCount = localStorageObject.page_count;            
+            self.totalCount = localStorageObject.page_count;
             comp();
             ideaPress.toggleElement(self.loader, "hide");
 
         } else {
             var promises = [];
             var pageData = new Array();
+            var pagesToFetch = new Array();
             for (var i in self.pageIds) {
-                promises.push(WinJS.xhr({ type: 'GET', url: fullUrl + self.pageIds[i], headers: headers }).then(function(r) {
-                    var data = JSON.parse(r.responseText);
-                    if (data.page) { pageData.push(data.page); }
-                    ideaPress.toggleElement(self.loader, "hide");
-                }, function() { err(); }, function() { prog(); }));
+                pagesToFetch.push(self.pageIds[i]);
             }
-            WinJS.Promise.join(promises).then(function () {
-                if (pageData.length > 0) {
-                    localStorageObject = { 'page_count': pageData.length, 'pages': pageData, 'lastFetched': new Date() };
+            var toFetch = function () {
+                var numFetch = Math.min(pagesToFetch.length, ideaPress.maxConcurrent);
+                for (var index = 0; index < numFetch; index++) {
+                    var id = pagesToFetch.shift();
+                    promises.push(WinJS.xhr({ type: 'GET', url: fullUrl + id, headers: headers }).then(function (r) {
 
-
-                    self.addPagesToList(pageData);
-                    self.saveToStorage(localStorageObject);
+                        var data = self.getJsonFromResponse(r.responseText);
+                        if (data.page) {
+                            pageData[self.pageIds.indexOf(data.page.id)] = data.page;
+                        }
+                    }, function () { err(); }, function () { prog(); }));
                 }
-                comp();
-            },
-            function () {
-                err();
-            },
-            function(p) {
-                prog(p);
-            });
+
+                WinJS.Promise.join(promises).then(function () {
+                    if (pagesToFetch.length > 0) {
+                        toFetch();
+                        return;
+                    }
+
+                    if (pageData.length > 0) {
+                        localStorageObject = { 'page_count': pageData.length, 'pages': pageData, 'lastFetched': new Date() };
+
+                        ideaPress.toggleElement(self.loader, "hide");
+
+                        self.addPagesToList(pageData);
+                        self.saveToStorage(localStorageObject);
+                    }
+                    comp();
+                },
+                function () {
+                    err();
+                },
+                function (p) {
+                    prog(p);
+                });
+            };
+            toFetch();
         }
     });
 
+};
+
+wordpressModule.prototype.getJsonFromResponse = function (responseText) {
+    var lIndex = responseText.split("").reverse().join("").indexOf(">--");
+    var fIndex = responseText.split("").reverse().join("").indexOf("--!<");
+
+    if (fIndex >= 0 && lIndex >= 0) {
+        return JSON.parse(responseText.substring(0, responseText.length - fIndex - 4) + responseText.substring(responseText.length - lIndex, responseText.length));
+    } else {
+        return JSON.parse(responseText);
+    }
 };
 
 // Search text using JSON API 
@@ -382,7 +457,7 @@ wordpressModule.prototype.search = function (query) {
 
         self.fetching =
             WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
-                var data = JSON.parse(r.responseText);
+                var data = self.getJsonFromResponse(r.responseText);
                 self.list = new WinJS.Binding.List();
                 self.addItemsToList(data.posts);
 
@@ -393,7 +468,7 @@ wordpressModule.prototype.search = function (query) {
 };
 
 // Check if the app should fetch data
-wordpressModule.prototype.shouldFetch = function (localStorageObject, page) {    
+wordpressModule.prototype.shouldFetch = function (localStorageObject, page) {
     if (localStorageObject) {
         if (page && (page > this.maxPagingIndex)) {
             return true;
@@ -417,7 +492,7 @@ wordpressModule.prototype.shouldFetch = function (localStorageObject, page) {
 };
 
 // Load from local storage
-wordpressModule.prototype.loadFromStorage = function() {
+wordpressModule.prototype.loadFromStorage = function () {
     if (localStorage[this.localStorageKey] != null) {
         var localStorageObject = JSON.parse(localStorage[this.localStorageKey]);
         self.lastFetched = localStorageObject.lastFetched;
@@ -427,48 +502,48 @@ wordpressModule.prototype.loadFromStorage = function() {
 };
 
 // Save to the local storage
-wordpressModule.prototype.saveToStorage = function(data) {
+wordpressModule.prototype.saveToStorage = function (data) {
 
     localStorage[this.localStorageKey] = JSON.stringify(data);
 };
 
 // Navigate to Detail page
-wordpressModule.prototype.showPost = function(eventObject) {
+wordpressModule.prototype.showPost = function (eventObject) {
     var i = this.list.getAt(eventObject.detail.itemIndex);
     WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.detail.html", { item: i });
 };
 
 // Navigate to Section page
-wordpressModule.prototype.showCategory = function() {
-    WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.section.html", { category: this });    
+wordpressModule.prototype.showCategory = function () {
+    WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.section.html", { category: this });
 };
 
 // Generate the list for hub page
-wordpressModule.prototype.getHubList = function() {
+wordpressModule.prototype.getHubList = function () {
     var hubList = new WinJS.Binding.List();
 
     var h = window.innerHeight;
     var l = 6;
     if (h > 1919)
         l = 12;
-    else if (h > 1199)
+    else if (h > 1079)
         l = 8;
 
     // override
     if (this.hubItemsCount)
         l = this.hubItemsCount;
 
-    for (var i = 0; i < Math.min(l, this.list.length); i++)
+    for (var i = 0; i < Math.min(l, this.list.length) ; i++)
         hubList.push(this.list.getAt(i));
 
     return hubList;
 };
 
 // Post Comment
-wordpressModule.prototype.submitComment = function(postId, name, email, url, comment, c, r, p) {
+wordpressModule.prototype.submitComment = function (postId, name, email, url, comment, c, r, p) {
     var fullUrl = this.apiURL + '?json=submit_comment&post_id=' + postId + '&name=' + encodeURI(name) + '&email=' + encodeURI(email) + '&content=' + encodeURI(comment);
     var headers = { "User-Agent": this.userAgent };
-    
+
 
     var self = this;
     if (false !== self.fetching) {
@@ -491,18 +566,18 @@ wordpressModule.prototype.submitComment = function(postId, name, email, url, com
 };
 
 // Add posts to the list
-wordpressModule.prototype.addItemsToList = function(jsonPosts) {
+wordpressModule.prototype.addItemsToList = function (jsonPosts) {
     var self = this;
     var itemArray = new Array();
     for (var key in jsonPosts) {
         var item = self.convertItem(jsonPosts[key]);
-        
+
         item.module = self;
         item.categories = jsonPosts[key].categories;
         item.className = "wp-item wp-item-" + key;
 
         var insert = true;
-        self.list.forEach(function(value) {
+        self.list.forEach(function (value) {
             if (value.id == item.id) {
                 insert = false;
             }
@@ -516,19 +591,22 @@ wordpressModule.prototype.addItemsToList = function(jsonPosts) {
 };
 
 // Add pages to the list
-wordpressModule.prototype.addPagesToList = function(jsonPages) {
+wordpressModule.prototype.addPagesToList = function (jsonPages) {
     var self = this;
     var itemArray = new Array();
 
 
     for (var index in jsonPages) {
+        if (!jsonPages[index])
+            continue;
+
         var item = self.convertPage(jsonPages[index]);
         item.module = self;
 
         item.className = "wp-item wp-item-" + index;
 
         var insert = true;
-        self.list.forEach(function(value) {
+        self.list.forEach(function (value) {
             if (value.id == item.id) {
                 insert = false;
             }
@@ -542,7 +620,7 @@ wordpressModule.prototype.addPagesToList = function(jsonPages) {
 };
 
 // Translate Post to local object
-wordpressModule.prototype.convertItem = function(item, type) {
+wordpressModule.prototype.convertItem = function (item, type) {
     var res = {
         type: type,
         title: ideaPress.decodeEntities(item.title),
@@ -560,18 +638,36 @@ wordpressModule.prototype.convertItem = function(item, type) {
     res.imgUrl = 'ms-appx:/images/blank.png';
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
 
+    var found = false;
     for (var i in item.attachments) {        
         if (item.attachments[i].images != null) {
             res.imgUrl = item.attachments[i].images.full.url;
             if (item.attachments[i].images.medium) {
                 res.imgThumbUrl = item.attachments[i].images.medium.url;
             }
+            found = true;
             break;
         }
     }
 
+    // Workaround: fix-up img src is not using absolute paths "/" 
+    /*if (self.document) {
+        res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
+    }*/
 
-    var imgUrlStyle = res.imgUrl;
+    // Workaround: some wordpress post do not have attachment, 
+    // - this fix do not work for live tile because there is no document for background thread
+    /*if (!found && self.document) {
+        var div = document.createElement("div");
+        WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
+        var imgs = div.getElementsByTagName("img");
+        if (imgs && imgs.length > 0) {
+            res.imgUrl = imgs[0].src;
+            res.imgThumbUrl = imgs[0].src;
+        }
+    }*/
+
+    var imgUrlStyle = res.imgThumbUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
 
     var subtitle = '';
@@ -587,7 +683,7 @@ wordpressModule.prototype.convertItem = function(item, type) {
 };
 
 // Translate Page to local object
-wordpressModule.prototype.convertPage = function(item, parentId) {
+wordpressModule.prototype.convertPage = function (item, parentId) {
     var res = {
         type: 'page',
         title: ideaPress.decodeEntities(item.title),
@@ -605,17 +701,39 @@ wordpressModule.prototype.convertPage = function(item, parentId) {
 
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
+    res.imgThumbUrl = 'ms-appx:/images/blank.png';
+
+
+    var found = false;
     for (var i in item.attachments) {
         if (item.attachments[i].images != null) {
             res.imgUrl = item.attachments[i].images.full.url;
             if (item.attachments[i].images.medium) {
                 res.imgThumbUrl = item.attachments[i].images.medium.url;
+                found = true;
             }
             break;
         }
     }
 
-    var imgUrlStyle = res.imgUrl;
+    // Workaround: fix-up img src is not using absolute paths "/" 
+    /*if (self.document) {
+        res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
+    }*/
+
+    // Workaround: some wordpress post do not have attachment, 
+    // - this fix do not work for live tile because there is no document for background thread
+    /*if (!found && self.document) {
+        var div = document.createElement("div");
+        WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
+        var imgs = div.getElementsByTagName("img");
+        if (imgs && imgs.length > 0) {
+            res.imgUrl = imgs[0].src;
+            res.imgThumbUrl = imgs[0].src;
+        }
+    }*/
+
+    var imgUrlStyle = res.imgThumbUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";
     res.subtitle = "";
 
@@ -623,7 +741,7 @@ wordpressModule.prototype.convertPage = function(item, parentId) {
 };
 
 // Get Bookmarks from local storage
-wordpressModule.prototype.getBookmarks = function() {
+wordpressModule.prototype.getBookmarks = function () {
     var self = this;
     if (!localStorage[self.localStorageBookmarkKey]) {
         localStorage[self.localStorageBookmarkKey] = JSON.stringify({ 'post_count': 0, 'posts': [], 'lastFetched': new Date() });
@@ -634,7 +752,7 @@ wordpressModule.prototype.getBookmarks = function() {
 };
 
 // Check if a post has been bookmarked
-wordpressModule.prototype.checkIsBookmarked = function(id) {
+wordpressModule.prototype.checkIsBookmarked = function (id) {
     var bookmarks = this.getBookmarks();
     for (var index in bookmarks.posts) {
         if (id == bookmarks.posts[index].id)
@@ -644,7 +762,7 @@ wordpressModule.prototype.checkIsBookmarked = function(id) {
 };
 
 // Add post to bookmark
-wordpressModule.prototype.addBookmark = function(item) {
+wordpressModule.prototype.addBookmark = function (item) {
     var self = this;
     var bookmarks = self.getBookmarks();
     for (var index in bookmarks.posts) {
@@ -659,7 +777,7 @@ wordpressModule.prototype.addBookmark = function(item) {
 };
 
 // Remove post to bookmark
-wordpressModule.prototype.removeBookmark = function(id) {
+wordpressModule.prototype.removeBookmark = function (id) {
     var self = this;
     var bookmarks = self.getBookmarks();
     for (var index in bookmarks.posts) {

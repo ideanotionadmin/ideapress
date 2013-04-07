@@ -274,11 +274,6 @@ margin-left:39px;
 /* --- */
 
 
-.wpc-post section[role=main] .image {
-    width: 460px;
-    height: 240px;
-    background: rgba(209, 211, 212, 1);
-}
 
 @media screen and (-ms-view-state: snapped) {    
     .wpc-post {
@@ -290,11 +285,6 @@ margin-left:39px;
     .wpc-post .win-contentTitle {
         font-size: 11pt;
         line-height: 15pt;
-    }
-
-    .wpc-post section[role=main] .image {
-        width: 260px;
-        height: 140px;
     }
 
     .wpc-post section[role=main] {

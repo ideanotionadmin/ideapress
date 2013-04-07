@@ -1,4 +1,4 @@
-﻿.wp-list .wp-item {
+﻿.mp-module-0 .wp-list .wp-item {
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr 100px;
@@ -6,6 +6,36 @@
     width: 460px;
     height: 100px;
 }
+.mp-module-0 .wp-list .wp-item .wp-image-container {
+    -ms-grid-row: 1;
+    -ms-grid-column: 2;
+}
+.mp-module-0 .wp-list .wp-item .wp-text-section {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    padding: 8px 12px 8px;
+}
+.mp-module-0 .wp-list .wp-item h3 {
+    padding-top: 10px;
+    font-size: 160%;
+}
+
+.mp-module-0 .wp-list .wp-item .wp-image-container .wp-image{
+    height:100px;
+    width:100px;
+    background-position: center;
+    background-size:cover;
+}
+
+.wp-list .wp-item {
+    overflow: hidden;  
+    display: -ms-grid;
+    -ms-grid-columns: 1fr 100px;
+    -ms-grid-rows: 100px;
+    width: 440px;
+    height: 100px;
+}
+
 .wp-list .wp-item .wp-image-container {
     -ms-grid-row: 1;
     -ms-grid-column: 2;
@@ -15,6 +45,15 @@
     -ms-grid-column: 1;
     padding: 8px 12px 8px;
 }
+.wp-list .wp-item h3 {
+    text-overflow: clip;
+    word-wrap: break-word;
+}
+.wp-list .wp-item h5 {
+    text-overflow: clip;
+    word-wrap: break-word;
+}
+
 
 .wp-list .wp-item .wp-image-container .wp-image{
     height:100px;

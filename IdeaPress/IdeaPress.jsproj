@@ -44,24 +44,26 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>IdeaPress_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>IdeaPress.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <PackageCertificateThumbprint>F71EC6F5FD088AB7B83DE514EA717EAE772386F2</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="css\default.css" />
+    <Content Include="css\themes\custom.css" />
     <Content Include="css\themes\custom.orange.css" />
     <Content Include="css\themes\custom.dark.css" />
     <Content Include="css\themes\custom.light.css" />
+    <Content Include="images\BackgroundPic.png" />
     <Content Include="images\badgelogo.png" />
     <Content Include="images\blank.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
+    <Content Include="images\titlePic.png" />
     <Content Include="images\title.png" />
     <Content Include="images\widelogo.png" />
     <Content Include="images\background.png" />
@@ -73,8 +75,12 @@
     <Content Include="js\options.js" />
     <Content Include="js\share-source.js" />
     <Content Include="js\liveTileTask.js" />
+    <Content Include="modules\wordpressCom\css\templates\custom.css" />
     <Content Include="modules\wordpressCom\css\templates\large.css" />
     <Content Include="modules\wordpressCom\css\templates\normal.css" />
+    <Content Include="modules\wordpressCom\css\templates\tight.css" />
+    <Content Include="modules\wordpressCom\css\templates\variable.css" />
+    <Content Include="modules\wordpressCom\css\templates\rectangle.css" />
     <Content Include="modules\wordpressCom\css\templates\wide.css" />
     <Content Include="modules\wordpressCom\css\wpcom.module.css" />
     <Content Include="modules\wordpressCom\css\wpcom.module.detail.css" />
@@ -87,6 +93,10 @@
     <Content Include="modules\wordpressCom\pages\wpcom.module.detail.html" />
     <Content Include="modules\wordpressCom\pages\wpcom.module.html" />
     <Content Include="modules\wordpressCom\pages\wpcom.module.section.html" />
+    <Content Include="modules\wordpress\css\templates\custom.css" />
+    <Content Include="modules\wordpress\css\templates\tight.css" />
+    <Content Include="modules\wordpress\css\templates\variable.css" />
+    <Content Include="modules\wordpress\css\templates\rectangle.css" />
     <Content Include="modules\wordpress\css\templates\wide.css" />
     <Content Include="modules\wordpress\css\templates\large.css" />
     <Content Include="modules\wordpress\css\templates\normal.css" />

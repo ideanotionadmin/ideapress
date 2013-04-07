@@ -1,14 +1,19 @@
 ﻿/* Import rules for GridView templates */
-@import url('templates/normal.css');
+@import url('templates/rectangle.css');
 
 /* @import url('templates/large.css'); */
 /* @import url('templates/wide.css'); */
+
+.wpc-title-count {
+    font-size: 11pt !important;
+}
 
 
 @media screen and (-ms-view-state: snapped) {    
     .wpc-list .wpc-item {
         height: 220px;
         width: 100%;
+        -ms-grid-rows: 160px 60px;
     }
 
     .wpc-list .wpc-item .wpc-image-container .wpc-image{

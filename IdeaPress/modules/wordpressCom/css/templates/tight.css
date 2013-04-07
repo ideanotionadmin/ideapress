@@ -1,0 +1,95 @@
+﻿.wpc-list .win-horizontal { overflow-x: hidden !important; }
+.wpc-list .win-vertical { overflow-y: hidden !important; }
+
+@media screen and (-ms-view-state: fullscreen-portrait),
+ screen and (-ms-view-state: fullscreen-landscape),
+ screen and (-ms-view-state: filled) {
+    .wpc-list .wpc-item {        
+        overflow: visible !important;
+        display: -ms-grid;
+        -ms-grid-columns: 240px;
+        -ms-grid-rows: 180px 60px;
+        width: 220px;
+        height: 220px;
+    }
+
+    .wpc-list .win-item {
+        overflow: visible !important;
+    }
+
+    .wpc-list .win-container {
+        width: 240px !important;
+        height: 240px !important;
+        overflow: hidden;
+    }
+
+    .wpc-list .wpc-item .wpc-image-container {
+        overflow: hidden;
+        position: relative;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 2;
+    }
+
+        .wpc-list .wpc-item .wpc-image-container .wpc-image {
+            height: 240px;
+            width: 240px;
+            background-position: center;
+            background-size: cover;
+        }
+
+
+    .wpc-list .wpc-item .wpc-text-section {
+        padding: 4px 12px 8px;
+        -ms-grid-row: 2;
+        z-index: 100;
+        width: 216px;
+        height: 60px;
+        position: absolute;
+        opacity: 0.6;
+        margin-top: 30px;
+        -ms-transition-property: margin-top, opacity;
+        -ms-transition-duration: 0.3s;
+        -ms-transition-timing-function: linear;
+    }
+
+        .wpc-list .wpc-item .wpc-text-section h5 {
+            display: none;
+        }
+
+    .wpc-list .wpc-item:hover .wpc-text-section {
+        opacity: 1;
+        margin-top: 0px;
+    }
+
+        .wpc-list .wpc-item:hover .wpc-text-section h5 {
+            display: block;
+        }
+}
+    
+@media screen and (-ms-view-state: snapped) {
+    .wpc-list .wpc-item {
+        overflow: hidden;
+        display: -ms-grid;
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: 160px 60px;
+        height: 220px;
+    }
+
+    .wpc-list .wpc-item .wpc-image-container {
+        overflow: hidden;
+        position: relative;
+        -ms-grid-row: 1;        
+        -ms-grid-column: 1;
+    }
+
+    .wpc-list .wpc-item .wpc-text-section {
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
+        padding: 8px 12px 8px;
+        opacity: 1;
+        margin-top: 0px;
+    }
+    .wpc-list .wpc-item .wpc-text-section h5 {
+        display: block;
+    }
+}
