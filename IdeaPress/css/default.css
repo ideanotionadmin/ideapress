@@ -16,6 +16,9 @@ body {
     background-position: 0 center;
     height: 100%;
     width: 100%;
+    transition-property: background-position-x;
+    transition-timing-function: ease;
+    transition-duration: 0.8s;
 }
 
 #contenthost {
