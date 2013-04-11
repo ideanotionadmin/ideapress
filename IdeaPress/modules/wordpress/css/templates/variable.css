@@ -81,6 +81,25 @@
     .wp-list .wp-item-1 .wp-text-section h3 {
         text-overflow: clip;
         word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+        .wp-list .wp-item-1 .wp-text-section h5 {
+        text-overflow: clip;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+            .wp-list .wp-item-5 .wp-text-section h3 {
+        text-overflow: clip;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+        .wp-list .wp-item-5 .wp-text-section h5 {
+        text-overflow: clip;
+        word-wrap: break-word;
+        white-space: pre-wrap;
     }
 
 
@@ -194,5 +213,30 @@
 
     .wp-list .wp-item .wp-text-section h5 {
         display: block;
+    }
+
+    .wp-list .wp-item-5 .wp-text-section h3 {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
+        word-wrap: normal;
+    }
+    .wp-list .wp-item-1 .wp-text-section h3 {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
+        word-wrap: normal;
+    }
+    .wp-list .wp-item-5 .wp-text-section h5 {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
+        word-wrap: normal;
+    }
+    .wp-list .wp-item-1 .wp-text-section h5 {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
+        word-wrap: normal;
     }
 }

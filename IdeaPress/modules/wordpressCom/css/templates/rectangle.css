@@ -90,10 +90,12 @@
     .wpc-list .wpc-item .wpc-text-section h3 {
         text-overflow:ellipsis;
         word-wrap:normal;
+        white-space: nowrap;
     }
 
     .wpc-list .wpc-item .wpc-text-section h5 {
         text-overflow:ellipsis;
         word-wrap:normal;
+        white-space: nowrap;
     }
 }
