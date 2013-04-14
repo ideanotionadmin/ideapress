@@ -101,7 +101,7 @@ wordpressModule.prototype.update = function (viewState) {
         var titleCount = self.container.querySelector(".wp-title-count");
 
         // no header for page
-        title.textContent = self.title;
+        title.textContent = ideaPress.decodeEntities(self.title);
         if (self.typeId !== wordpressModule.PAGES) {
             titleCount.textContent = Math.max(self.list.length, self.totalCount);
         }
