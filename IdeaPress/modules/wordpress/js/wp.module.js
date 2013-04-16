@@ -467,6 +467,34 @@ wordpressModule.prototype.search = function (query) {
     });
 };
 
+//function to call when module detail is clicked
+//Solution for read more
+wordpressModule.prototype.getPostContent = function (id, elem) {
+    var self = this;
+    ideaPress.toggleElement(self.loader, "show");
+    return new WinJS.Promise(function (comp, err, prog) {
+        prog(0);
+
+        var queryString = '?json=get_post&page_id=' + id;
+
+        var fullUrl = self.apiURL + queryString;
+        var headers = { "User-Agent": self.userAgent };
+
+        if (false !== self.fetching) {
+            self.fetching.cancel();
+        }
+
+        self.fetching =
+            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
+                var data = self.getJsonFromResponse(r.responseText);
+                WinJS.Utilities.setInnerHTMLUnsafe(elem, data.post.content);
+                ideaPress.toggleElement(self.loader, "hide");
+                self.fetching = false;
+                comp(self.list);
+            }, function (e) { err(e); }, function (p) { prog(p); });
+    });
+};
+
 // Check if the app should fetch data
 wordpressModule.prototype.shouldFetch = function (localStorageObject, page) {
     if (localStorageObject) {
@@ -622,7 +650,7 @@ wordpressModule.prototype.addPagesToList = function (jsonPages) {
 // Translate Post to local object
 wordpressModule.prototype.convertItem = function (item, type) {
     var res = {
-        type: type,
+        type: 'post',
         title: ideaPress.decodeEntities(item.title),
         id: item.id,
         content: item.content,
