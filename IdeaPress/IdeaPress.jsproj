@@ -63,7 +63,6 @@
     <Content Include="images\titlePic.png" />
     <Content Include="images\title.png" />
     <Content Include="images\widelogo.png" />
-    <Content Include="images\background.png" />
     <Content Include="js\default.js" />
     <Content Include="js\hub.js" />
     <Content Include="js\navigator.js" />
