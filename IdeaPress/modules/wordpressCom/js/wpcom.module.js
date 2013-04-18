@@ -17,6 +17,7 @@ var wordpresscomModule = function (ideaPress, options) {
     this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
     this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
 
+    this.callBackUrl = "http://www.ideanotion.net/";
     // set options
     this.title = options.title;
     this.siteDomain = options.siteDomain;
@@ -709,7 +710,7 @@ wordpresscomModule.prototype.submitCommentWithoutToken = function (callback) {
     // https://public-api.wordpress.com/oauth2/authorize?client_id=your_client_id&redirect_uri=your_url&response_type=code
 
     var authorizeUrl = "https://public-api.wordpress.com/oauth2/authorize?client_id=";
-    var callbackUrl = "http://www.ideanotion.net/";
+    var callbackUrl = this.callbackUrl ;
     authorizeUrl += this.clientId + "&redirect_uri=" + encodeURIComponent(callbackUrl) + "&response_type=code";
 
     try {
@@ -774,7 +775,7 @@ wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, 
                 // You are required to pass client_id, client_secret, and redirect_uri for web applications. 
                 // These parameters have to match the details for your application. grant_type has to be set to “authorization_code”. 
                 // code must match the code you received in the redirect.
-                var callbackUrl = "http://www.wordpress.org/";
+                var callbackUrl = this.callBackUrl;
                 var fullUrl = 'https://public-api.wordpress.com/oauth2/token';
                 var postData = 'client_id=' + self.clientId + '&client_secret=' + self.clientSecret + '&redirect_uri=' + encodeURIComponent(callbackUrl) + '&grant_type=authorization_code&code=' + code;
                 var headers = { "User-Agent": 'wp-window8', "Content-type": "application/x-www-form-urlencoded" };
