@@ -100,9 +100,10 @@ Description: Controls the hub.html page, and intialize the modules.
         });
 
         var encodedData = window.btoa(winStoreId + "::" + appname);
-
-        var querystring = '/v1/' + appId + '?winStoreId=' + encodedData + '&devId=' + machineId;
+        
+        var querystring = '/v1/' + appId + '?winStoreId=' + encodedData + '&devId=' + machineId + '&appUrl=' + ideaPress.options.mainUrl;
         var fullUrl = 'http://api.ideapress.me' + querystring;
+
         var headers = { "User-Agent": 'wp-window8' };
         try {
             WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
