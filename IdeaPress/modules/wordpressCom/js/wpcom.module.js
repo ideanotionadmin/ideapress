@@ -710,7 +710,7 @@ wordpresscomModule.prototype.submitCommentWithoutToken = function (callback) {
     // https://public-api.wordpress.com/oauth2/authorize?client_id=your_client_id&redirect_uri=your_url&response_type=code
 
     var authorizeUrl = "https://public-api.wordpress.com/oauth2/authorize?client_id=";
-    var callbackUrl = this.callbackUrl ;
+    var callbackUrl = this.callBackUrl;
     authorizeUrl += this.clientId + "&redirect_uri=" + encodeURIComponent(callbackUrl) + "&response_type=code";
 
     try {
