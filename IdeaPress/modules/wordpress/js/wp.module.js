@@ -306,6 +306,7 @@ wordpressModule.prototype.fetch = function (page) {
                     if (data.status != "ok" || data.count == 0) {
                         // no data
                         self.maxPagingIndex = 0;
+                        ideaPress.toggleElement(self.loader, "hide");
                         comp();
                         return;
                     }
@@ -429,14 +430,37 @@ wordpressModule.prototype.getPages = function () {
 };
 
 wordpressModule.prototype.getJsonFromResponse = function (responseText) {
-    var lIndex = responseText.split("").reverse().join("").indexOf(">--");
-    var fIndex = responseText.split("").reverse().join("").indexOf("--!<");
+    if (/^[\],:{}\s]*$/.test(responseText.replace(/\\["\\\/bfnrtu]/g, '@').
+        replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+        replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
-    if (fIndex >= 0 && lIndex >= 0) {
-        return JSON.parse(responseText.substring(0, responseText.length - fIndex - 4) + responseText.substring(responseText.length - lIndex, responseText.length));
-    } else {
+        //the json is ok
         return JSON.parse(responseText);
-    }
+    } else {
+
+        //the json is not ok
+        /*var lIndex = responseText.split("").reverse().join("").indexOf(">--");
+        var fIndex = resposeText.split("").reverse().join("").indexOf("--!<");
+
+        if (fIndex >= 0 && lIndex >= 0) {
+            return JSON.parse(responseText.substring(0, responseText.length - fIndex - 4) + responseText.substring(responseText.length - lIndex, responseText.length));
+        } else {
+            //fail
+            return JSON.parse(responseText);
+        }*/
+        var startIndex = responseText.indexOf('{"status"');
+
+        if (startIndex < 0)
+        {
+            return JSON.parse("{\"status\":\"fail\"}");
+        }
+        responseText = responseText.substring(startIndex);
+        
+        var regex = /<!--.+?-->/g;
+        responseText = responseText.replace(regex, '');
+        var responseText = responseText;
+        return JSON.parse(responseText);        
+    }    
 };
 
 // Search text using JSON API 
@@ -461,6 +485,34 @@ wordpressModule.prototype.search = function (query) {
                 self.list = new WinJS.Binding.List();
                 self.addItemsToList(data.posts);
 
+                self.fetching = false;
+                comp(self.list);
+            }, function (e) { err(e); }, function (p) { prog(p); });
+    });
+};
+
+//function to call when module detail is clicked
+//Solution for read more
+wordpressModule.prototype.getPostContent = function (id, elem) {
+    var self = this;
+    ideaPress.toggleElement(self.loader, "show");
+    return new WinJS.Promise(function (comp, err, prog) {
+        prog(0);
+
+        var queryString = '?json=get_post&page_id=' + id;
+
+        var fullUrl = self.apiURL + queryString;
+        var headers = { "User-Agent": self.userAgent };
+
+        if (false !== self.fetching) {
+            self.fetching.cancel();
+        }
+
+        self.fetching =
+            WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
+                var data = self.getJsonFromResponse(r.responseText);
+                WinJS.Utilities.setInnerHTMLUnsafe(elem, data.post.content);
+                ideaPress.toggleElement(self.loader, "hide");
                 self.fetching = false;
                 comp(self.list);
             }, function (e) { err(e); }, function (p) { prog(p); });
@@ -622,7 +674,7 @@ wordpressModule.prototype.addPagesToList = function (jsonPages) {
 // Translate Post to local object
 wordpressModule.prototype.convertItem = function (item, type) {
     var res = {
-        type: type,
+        type: 'post',
         title: ideaPress.decodeEntities(item.title),
         id: item.id,
         content: item.content,

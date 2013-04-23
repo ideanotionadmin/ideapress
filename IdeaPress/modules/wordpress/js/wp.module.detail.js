@@ -25,7 +25,11 @@ Author: IdeaNotion
         document.querySelector('.title').innerText = item.title;
 
         WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector('.content'), item.content);
-
+        // hot fix
+        
+        if (ideaPress.options.fetchOnPostInit && item.type == 'post')
+            item.module.getPostContent(item.id, document.querySelector('.content'));
+        
         document.querySelector('.meta').innerHTML += '<div class="meta-txt"><em>by ' + item.authorName + '</em><br />Posted ' + ideaPress.timeSince(item.date) + ' ago</div>';
 
         // setup sharing
