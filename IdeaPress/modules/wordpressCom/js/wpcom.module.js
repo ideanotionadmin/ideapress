@@ -14,8 +14,8 @@ var wordpresscomModule = function (ideaPress, options) {
     this.defaultCount = 32;
     this.numberOfRelatedPosts = 4;
     this.maxPagingIndex = -1;
-    this.wideTileType = 37;// Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
-    this.squareTileType = 2;// Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
+    this.wideTileType =  Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
+    this.squareTileType =  Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
 
     this.callBackUrl = "http://www.ideanotion.net/";
     // set options
