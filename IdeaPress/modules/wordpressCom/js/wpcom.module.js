@@ -14,8 +14,8 @@ var wordpresscomModule = function (ideaPress, options) {
     this.defaultCount = 32;
     this.numberOfRelatedPosts = 4;
     this.maxPagingIndex = -1;
-    this.wideTileType = Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
-    this.squareTileType = Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
+    this.wideTileType = 37;// Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01;
+    this.squareTileType = 2;// Windows.UI.Notifications.TileTemplateType.TileSquarePeekImageAndText04;
 
     this.callBackUrl = "http://www.ideanotion.net/";
     // set options
@@ -190,8 +190,10 @@ wordpresscomModule.prototype.getLiveTileList = function () {
                 var template = self.wideTileType;
                 var tileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
                 var tileImageElements = tileXml.getElementsByTagName("image");
-                tileImageElements[0].setAttribute("src", post.imgThumbUrl);
-                tileImageElements[0].setAttribute("alt", "Post Image");
+                if (tileImageElements && tileImageElements.length > 0) {
+                    tileImageElements[0].setAttribute("src", post.imgThumbUrl);
+                    tileImageElements[0].setAttribute("alt", "Post Image");
+                }
                 var tileTextElements = tileXml.getElementsByTagName("text");
                 if (tileTextElements && tileTextElements.length > 0)
                     tileTextElements[0].appendChild(tileXml.createTextNode(post.title));
@@ -200,8 +202,10 @@ wordpresscomModule.prototype.getLiveTileList = function () {
                 template = self.squareTileType;
                 var squareTileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
                 var squareTileImageElements = squareTileXml.getElementsByTagName("image");
-                squareTileImageElements[0].setAttribute("src", post.imgThumbUrl);
-                squareTileImageElements[0].setAttribute("alt", "Post Image");
+                if(squareTileImageElements && squareTileImageElements.length > 0){
+                    squareTileImageElements[0].setAttribute("src", post.imgThumbUrl);
+                    squareTileImageElements[0].setAttribute("alt", "Post Image");
+                }
                 var squareTileTextElements = squareTileXml.getElementsByTagName("text");
                 if (squareTileTextElements && squareTileTextElements.length > 0)
                     squareTileTextElements[0].appendChild(squareTileXml.createTextNode(post.title));
