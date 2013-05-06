@@ -12,6 +12,7 @@ html {
 
 body {
 	background-image: url('/images/BackgroundPic.png');
+    background-color:#fff;
 	background-size: cover;
     background-position: 0 center;
     height: 100%;

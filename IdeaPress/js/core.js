@@ -6,7 +6,7 @@ Description: Control and maintain core logics of the application
 */
 var ideaPress = {
     // Change Storage Version to empty the local storage
-    localStorageSchemaVersion: '20130201-1',
+    localStorageSchemaVersion: '20130201-2',
     modules: [],
     initialized: false,
     accessToken: null,
