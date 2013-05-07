@@ -1,8 +1,8 @@
 ﻿.mp-module-0 .wpc-list .wpc-item {
     overflow: hidden;  
     display: -ms-grid;
-    -ms-grid-columns: 1fr 100px;
-    -ms-grid-rows: 100px;
+    -ms-grid-columns: 1fr 0px;
+    -ms-grid-rows: 130px;
     width: 400px;
     height: 130px;
 }
@@ -26,8 +26,8 @@
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr 0px;
-    -ms-grid-rows: 100px;
-    width: 380px;
+    -ms-grid-rows: 130px;
+    width: 400px;
     height: 130px;
 }
 

@@ -1,8 +1,8 @@
 ﻿.mp-module-0 .wp-list .wp-item {
     overflow: hidden;  
     display: -ms-grid;
-    -ms-grid-columns: 1fr 100px;
-    -ms-grid-rows: 100px;
+    -ms-grid-columns: 1fr 0px;
+    -ms-grid-rows: 130px;
     width: 400px;
     height: 130px;
 }
@@ -27,8 +27,8 @@
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr 0px;
-    -ms-grid-rows: 100px;
-    width: 380px;
+    -ms-grid-rows: 130px;
+    width: 400px;
     height: 130px;
 }
 
@@ -43,7 +43,7 @@
 }
 .wp-list .wp-item h3 {
          font-size: 130%;
-    text-overflow: clip;
+    text-overflow:clip;
     word-wrap: break-word;
 }
 .wp-list .wp-item h5 {
