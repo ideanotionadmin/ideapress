@@ -42,6 +42,7 @@
     padding: 8px 12px 8px;
 }
 .wp-list .wp-item h3 {
+         font-size: 130%;
     text-overflow: clip;
     word-wrap: break-word;
 }
