@@ -534,7 +534,7 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
         authorName: item.author.name,
         comments: item.comments
     };
-    if (document) {
+    if (self.document) {
 
         var div = document.createElement("div");
         //div.innerHTML = item.content;

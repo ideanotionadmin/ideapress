@@ -691,7 +691,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
     };
 
     //description
-    if (document) {
+    if (self.document) {
         var div = document.createElement("div");
         //div.innerHTML = item.content;
         WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
