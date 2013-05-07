@@ -534,17 +534,21 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
         authorName: item.author.name,
         comments: item.comments
     };
+    if (document) {
 
-    var div = document.createElement("div");
-    //div.innerHTML = item.content;
-    WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
+        var div = document.createElement("div");
+        //div.innerHTML = item.content;
+        WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
 
 
-    res.description = div.textContent || div.innerText || "";
+        res.description = div.textContent || div.innerText || "";
 
-    if (res.description) {
-        if (res.description.length > 180) {
-            res.description = res.description.substr(0, 177) + "...";
+        if (res.description) {
+            if (res.description.length > 180) {
+                res.description = res.description.substr(0, 177) + "...";
+            }
+        } else {
+            res.description = "";
         }
     } else {
         res.description = "";
