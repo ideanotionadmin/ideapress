@@ -486,6 +486,7 @@ wordpresscomModule.prototype.convertPage = function (item, list, parentId) {
         hasChildren: false
     };
 
+    res.description = "";
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
@@ -533,6 +534,21 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
         authorName: item.author.name,
         comments: item.comments
     };
+
+    var div = document.createElement("div");
+    //div.innerHTML = item.content;
+    WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
+
+
+    res.description = div.textContent || div.innerText || "";
+
+    if (res.description) {
+        if (res.description.length > 180) {
+            res.description = res.description.substr(0, 177) + "...";
+        }
+    } else {
+        res.description = "";
+    }
 
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';

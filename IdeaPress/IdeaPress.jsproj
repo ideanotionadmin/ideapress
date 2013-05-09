@@ -81,6 +81,7 @@
     <Content Include="modules\wordpressCom\css\templates\tight.css" />
     <Content Include="modules\wordpressCom\css\templates\variable.css" />
     <Content Include="modules\wordpressCom\css\templates\rectangle.css" />
+    <Content Include="modules\wordpressCom\css\templates\text.css" />
     <Content Include="modules\wordpressCom\css\templates\wide.css" />
     <Content Include="modules\wordpressCom\css\wpcom.module.css" />
     <Content Include="modules\wordpressCom\css\wpcom.module.detail.css" />
@@ -96,6 +97,7 @@
     <Content Include="modules\wordpress\css\templates\tight.css" />
     <Content Include="modules\wordpress\css\templates\variable.css" />
     <Content Include="modules\wordpress\css\templates\rectangle.css" />
+    <Content Include="modules\wordpress\css\templates\text.css" />
     <Content Include="modules\wordpress\css\templates\wide.css" />
     <Content Include="modules\wordpress\css\templates\large.css" />
     <Content Include="modules\wordpress\css\templates\normal.css" />

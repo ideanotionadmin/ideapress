@@ -690,11 +690,34 @@ wordpressModule.prototype.convertItem = function (item, type) {
         comments: item.comments
     };
 
+    //description
+    var div = document.createElement("div");
+    //div.innerHTML = item.content;
+    WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
+
+
+    res.description = div.textContent || div.innerText || "";
+
+    if (res.description) {
+        if (res.description.length > 180) {
+            res.description = res.description.substr(0, 177) + "...";
+        }
+    } else {
+        res.description = "";
+    }
+
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
 
     var found = false;
+
+    var itemThumbnail = item.thumbnail;
+    if (itemThumbnail) {
+        res.imgThumbUrl = itemThumbnail;
+    }
+    else{
+
     for (var i in item.attachments) {        
         if (item.attachments[i].images != null) {
             res.imgUrl = item.attachments[i].images.full.url;
@@ -705,7 +728,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
             break;
         }
     }
-
+    }
     // Workaround: fix-up img src is not using absolute paths "/" 
     /*if (self.document) {
         res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
@@ -758,7 +781,7 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
-
+    res.description = "";
 
     var found = false;
     for (var i in item.attachments) {
