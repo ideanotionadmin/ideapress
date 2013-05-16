@@ -21,6 +21,13 @@ Description: It handles the Sharing functionality.
         // if we ever want a share button, just assign this onlick
         Windows.ApplicationModel.DataTransfer.DataTransferManager.showShareUI();
     }
+    
+    function addhttp(url) {
+        if (!/^(f|ht)tps?:\/\//i.test(url)) {
+            url = "http://" + url;
+        }
+        return url;
+    }
 
     function uriDataRequestedHandler(request) {
 
@@ -38,7 +45,7 @@ Description: It handles the Sharing functionality.
             request.data.properties.description = postEl.innerText.substring(0, 50);
         } else {
             // we're not in a single post view, let's promote your site
-            request.data.setUri(new Windows.Foundation.Uri(ideaPress.options.mainUrl));
+            request.data.setUri(new Windows.Foundation.Uri(addhttp(ideaPress.options.mainUrl)));
             request.data.properties.title = ideaPress.options.appTitle;
             request.data.properties.description = ideaPress.options.appTitle;
         }
