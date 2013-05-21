@@ -38,7 +38,7 @@ Author: IdeaNotion
         document.querySelector('.mp-share').setAttribute('title', item.title);
 
         document.getElementById("like").addEventListener("click", bookmarkClick, false);
-        document.getElementById("home").addEventListener("click", function () { var nav = WinJS.Navigation; nav.back(nav.history.backStack.length); }, false);
+        document.getElementById("home").addEventListener("click", function () { var nav = WinJS.Navigation; NavBack(nav, nav.history.backStack.length);/*nav.back(nav.history.backStack.length);*/ }, false);
 
         document.getElementById('viewblog').removeEventListener("click", viewBlog);
         document.getElementById('viewblog').addEventListener("click", viewBlog, false);

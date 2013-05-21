@@ -46,14 +46,14 @@ Description: Controls the navigational behaviors of the App
                 // the backspace key is not used elsewhere.
                 _keypressHandler: function (args) {
                     if (args.key === "Backspace") {
-                        nav.back();
+                        NavBack(nav);/*navBack();*/
                     }
                 },
 
                 // This function responds to keyup to enable keyboard navigation.
                 _keyupHandler: function (args) {
                     if ((args.key === "Left" && args.altKey) || (args.key === "BrowserBack")) {
-                        nav.back();
+                        NavBack(nav);/*navBack();*/
                     } else if ((args.key === "Right" && args.altKey) || (args.key === "BrowserForward")) {
                         nav.forward();
                     }
@@ -61,7 +61,7 @@ Description: Controls the navigational behaviors of the App
 
                 _mspointerupHandler: function (args) {
                     if (args.button === 3) {
-                        nav.back();
+                        NavBack(nav);/*navBack();*/
                     } else if (args.button === 4) {
                         nav.forward();
                     }
@@ -108,7 +108,7 @@ Description: Controls the navigational behaviors of the App
                     if (backButton) {
                         backButton.onclick = function () {
                             if (backButton.id != 'back-button')
-                                nav.back();
+                                NavBack(nav);/*navBack();*/
                         };
 
                         if (nav.canGoBack) {

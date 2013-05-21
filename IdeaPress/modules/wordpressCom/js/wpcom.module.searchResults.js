@@ -26,7 +26,7 @@ Author: IdeaNotion
             this._handleQuery(element, options);
             listView.element.focus();
 
-            document.getElementById("home").addEventListener("click", function () { nav.back(nav.history.backStack.length); }, false);
+            document.getElementById("home").addEventListener("click", function () { NavBack(nav, nav.history.backStack.length);/*nav.back(nav.history.backStack.length);*/ }, false);
 
             var wc = document.querySelector('.wpc-list').winControl;
             wc.addEventListener("mousewheel", ideaPress.scrollBackground);
