@@ -9,6 +9,7 @@ var wordpressModule = function (ideaPress, options) {
     this.userAgent = 'wp-window8';
     this.bookmarks = null;
     this.fetching = false;
+    this.loadDescription = false;
 
     // set constant
     this.defaultCount = 32;
@@ -36,8 +37,8 @@ var wordpressModule = function (ideaPress, options) {
         this.defaultCount = options.defaultCount;
     if (options.numberOfRelatedPosts)
         this.numberOfRelatedPosts = options.numberOfRelatedPosts;
-
-
+    if (options.loadDescription)
+        this.loadDescription = options.loadDescription;
 
     return this;
 };
@@ -691,7 +692,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
     };
 
     //description
-    if (self.document) {
+    if (self.document && self.loadDescription) {
         var div = document.createElement("div");
         //div.innerHTML = item.content;
         WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
