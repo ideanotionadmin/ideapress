@@ -9,6 +9,7 @@ var wordpresscomModule = function (ideaPress, options) {
     this.apiURL = 'https://public-api.wordpress.com/';
     this.userAgent = 'wpc-windows8';
     this.fetching = false;
+    this.loadDescription = false;
 
     // set constants
     this.defaultCount = 32;
@@ -39,7 +40,8 @@ var wordpresscomModule = function (ideaPress, options) {
         this.defaultCount = options.defaultCount;
     if (options.numberOfRelatedPosts)
         this.numberOfRelatedPosts = options.numberOfRelatedPosts;
-
+    if (options.loadDescription)
+        this.loadDescription = options.loadDescription;
     return this;
 };
 
@@ -534,7 +536,8 @@ wordpresscomModule.prototype.convertItem = function (item, type) {
         authorName: item.author.name,
         comments: item.comments
     };
-    if (self.document) {
+    
+    if (self.document && self.loadDescription) {
 
         var div = document.createElement("div");
         //div.innerHTML = item.content;
