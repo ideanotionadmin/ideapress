@@ -85,6 +85,8 @@ If your WordPress site is self-hosted, make sure that you have the plugin JSON A
 <h3>3.4 Self-Hosted WordPress or WordPress.com</h3>
 
 The default options included both Self-hosted WordPress and WordPress.com modules. If WordPress is self-hosted, please include only **wp.module.js** and remove anything associated to ** wordpresscomModule**.  Otherwise if you WordPress is at WordPress.com, use **wpcom.module.js** and remove anything associated to **wordpressModule**.
+Self-hosted website is the website you manage your hosting.<br/>
+Wordpress.com site is the blog that is hosted on Wordpress.com which usually looks liek this: http://{mydomain}.wordpress.com. Or if it is a VIP wordpress site, you wil have your own domain, but you are still required to enter the original wordpress.com address for IdeaPress setup.
 
 <h3>3.5 Update Page Title</h3>
 
