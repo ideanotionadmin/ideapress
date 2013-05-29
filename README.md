@@ -85,8 +85,29 @@ If your WordPress site is self-hosted, make sure that you have the plugin JSON A
 <h3>3.4 Self-Hosted WordPress or WordPress.com</h3>
 
 The default options included both Self-hosted WordPress and WordPress.com modules. If WordPress is self-hosted, please include only **wp.module.js** and remove anything associated to ** wordpresscomModule**.  Otherwise if you WordPress is at WordPress.com, use **wpcom.module.js** and remove anything associated to **wordpressModule**.
-<br/><b>Self-hosted</b> website is the website where you manage your hosting.<br/>
+<br/><b>Self-hosted</b> website is the website where you manage your hosting. 
+<br/>In this case, your options.js will look like this:
+<br/><br/>
+modules: [<br/>
+                    { name: wordpressModule, options: { apiUrl: 'http://{youdomain.com}/', title: "Pages", typeId: wordpressModule.PAGES, pageIds: [{PageIDs}] } },<br/>
+                    { name: wordpressModule, options: { apiUrl: 'http://{youdomain.com}/', title: "Recent News", typeId: wordpressModule.MOSTRECENT } },<br/>
+                    { name: wordpressModule, options: { apiUrl: 'http://{youdomain.com}/', title: "Bookmark", typeId: wordpressModule.BOOKMARKS } },<br/>                     
+                    { name: wordpressModule, options: { apiUrl: 'http://{youdomain.com}/', title: {CategoryName}, typeId: wordpressModule.CATEGORY,categoryId: {CategoryID} } }, <br/>
+                ],<br/>
+searchModule: { name: wordpressModule, options: { apiUrl: 'http://{youdomain.com}/', title: "Search" } },<br/>
+liveTileModule: { name: wordpressModule, options: { apiUrl: 'http://{youdomain.com}/', title: "Live Tile", squareTileType: Windows.UI.Notifications.TileTemplateType.tileSquarePeekImageAndText04, wideTileType: Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01 } },<br/>
+<br/>
 <b>Wordpress.com</b> site is the blog that is hosted on Wordpress.com which usually looks liek this: http://{mydomain}.wordpress.com. Or if it is a VIP wordpress site, you wil have your own domain, but you are still required to enter the original wordpress.com address for IdeaPress setup.
+<br/>In this case, your options.js will look like this:
+<br/><br/>
+modules: [<br/>
+                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Pages", typeId: wordpresscomModule.PAGES, pageIds: [{PageIDs}], clientId: {clientId}, clientSecret: {clientSecret} } },<br/>
+                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Recent News", typeId: wordpresscomModule.MOSTRECENT, clientId: {clientId}, clientSecret: {clientSecret} } },<br/>
+                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Bookmark", typeId: wordpresscomModule.BOOKMARK, clientId: {clientId}, clientSecret: {clientSecret}S } },<br/>                     
+                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: {CategoryName}, typeId: wordpresscomModule.CATEGORY,categoryId: {Slug}, clientId: {clientId}, clientSecret: {clientSecret} } }, <br/>
+                ],<br/>
+searchModule: { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Search" } },<br/>
+liveTileModule: { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Live Tile", squareTileType: Windows.UI.Notifications.TileTemplateType.tileSquarePeekImageAndText04, wideTileType: Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01 } },<br/>
 
 <h3>3.5 Update Page Title</h3>
 
