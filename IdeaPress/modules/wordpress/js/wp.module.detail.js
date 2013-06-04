@@ -27,7 +27,7 @@ Author: IdeaNotion
         WinJS.Utilities.setInnerHTMLUnsafe(document.querySelector('.content'), item.content);
         // hot fix
         
-        if (ideaPress.options.fetchOnPostInit && item.type == 'post')
+        if (ideaPress.options.fetchOnPostInit && item.type === 'post')
             item.module.getPostContent(item.id, document.querySelector('.content'));
         
         document.querySelector('.meta').innerHTML += '<div class="meta-txt"><em>by ' + item.authorName + '</em><br />Posted ' + ideaPress.timeSince(item.date) + ' ago</div>';
@@ -155,7 +155,7 @@ Author: IdeaNotion
     }
 
     function clone(obj) {
-        if (null == obj || "object" != typeof obj) return obj;
+        if (!obj || "object" !== typeof obj) return obj;
         var copy = obj.constructor();
         for (var attr in obj) {
             if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
@@ -222,13 +222,13 @@ Author: IdeaNotion
                 document.getElementById("commentComment").value.trim(),
                 function (result) {
                     var data = JSON.parse(result.responseText);
-                    if (data.status == 'pending') {
+                    if (data.status === 'pending') {
                         document.getElementById('comments#results').innerText = 'Comment submitted. Pending approval.';
                     }
-                    else if (data.status == 'ok') {
+                    else if (data.status === 'ok') {
                         document.getElementById('comments#results').innerText = 'Comment submitted successfully.';
                     }
-                    else if (data.status == 'error') {
+                    else if (data.status === 'error') {
                         document.getElementById('comments#results').innerText = 'An error occurred: ' + data.error;
                     } else {
                         document.getElementById('comments#results').innerText = result.responseText;

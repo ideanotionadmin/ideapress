@@ -24,7 +24,7 @@ Author: IdeaNotion
         if (document.querySelector('.wp-list')) {
             var listview = document.querySelector('.wp-list').winControl;
 
-            if ('itemsLoaded' == listview.loadingState && (listview.indexOfLastVisible + 1) >= item.list.length && fetching === false) {
+            if ('itemsLoaded' === listview.loadingState && (listview.indexOfLastVisible + 1) >= item.list.length && fetching === false) {
                 showLoader();
                 fetching = item.fetch((item.list.length / item.defaultCount)).then(function () {
                     fetching = false;
@@ -34,7 +34,7 @@ Author: IdeaNotion
                     hideLoader();
                 }, function () {
                 });
-            } else if ('complete' == listview.loadingState) {
+            } else if ('complete' === listview.loadingState) {
                 item.scrollPosition = listview.scrollPosition;
             }
         }
@@ -43,7 +43,7 @@ Author: IdeaNotion
     function scrollToPosition() {
         var listview = document.querySelector(".wp-list").winControl;
 
-        if ('complete' == listview.loadingState) {
+        if ('complete' === listview.loadingState) {
 
             listview.removeEventListener('loadingstatechanged', scrollToPosition);
         }

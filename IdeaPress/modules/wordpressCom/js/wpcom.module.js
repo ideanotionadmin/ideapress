@@ -82,8 +82,8 @@ wordpresscomModule.prototype.update = function (viewState) {
     }
 
     self.fetching = self.fetch(0).then(function () {
-        if (self.typeId == wordpresscomModule.BOOKMARKS) {
-            if (self.list.length == 0) {
+        if (self.typeId === wordpresscomModule.BOOKMARKS) {
+            if (self.list.length === 0) {
                 var content = self.container.querySelector(".mp-module-content");
                 content.parentNode.className = content.parentNode.className + ' hide';
                 return;
@@ -179,7 +179,7 @@ wordpresscomModule.prototype.getLiveTileList = function () {
 
         WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
             var data = JSON.parse(r.responseText);
-            if (data.found == undefined || data.found == "0") {
+            if (data.found || data.found === "0") {
                 err();
                 return;
             }
@@ -241,7 +241,7 @@ wordpresscomModule.prototype.fetch = function (page) {
         var url = self.apiURL;
         var queryString;
 
-        if (self.typeId == wordpresscomModule.PAGES) {
+        if (self.typeId === wordpresscomModule.PAGES) {
             self.getPages(page).then(function () {
                 comp(0);
             }, function (m) {
@@ -262,7 +262,7 @@ wordpresscomModule.prototype.fetch = function (page) {
 
         }
 
-        if (self.typeId == wordpresscomModule.BOOKMARKS) {
+        if (self.typeId === wordpresscomModule.BOOKMARKS) {
             var bookmarks = self.getBookmarks();
             self.post_count = bookmarks.post_count;
             self.lastFetched = bookmarks.lastFetched;
@@ -282,7 +282,7 @@ wordpresscomModule.prototype.fetch = function (page) {
             ideaPress.toggleElement(self.loader, "hide");
             comp();
             return;
-        } else if (self.typeId == wordpresscomModule.MOSTRECENT)
+        } else if (self.typeId === wordpresscomModule.MOSTRECENT)
             queryString = 'rest/v1/sites/' + self.siteDomain + '/posts/?number=' + self.defaultCount + '&order_by=date&page=' + (page + 1);
         else
             queryString = 'rest/v1/sites/' + self.siteDomain + '/posts/?number=' + self.defaultCount + '&category=' + self.categoryId + '&page=' + (page + 1);
@@ -295,7 +295,7 @@ wordpresscomModule.prototype.fetch = function (page) {
         if (self.shouldFetch(localStorageObject, page)) {
             WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
                 var data = JSON.parse(r.responseText);
-                if (data.found == undefined || data.found == "0") {
+                if (data.found || data.found === "0") {
                     self.maxPagingIndex = page;
                     comp(0);
                     return;
@@ -351,7 +351,7 @@ wordpresscomModule.prototype.shouldFetch = function (localStorageObject, page) {
             return true;
         }
 
-        if (this.typeId == wordpresscomModule.PAGES) {
+        if (this.typeId === wordpresscomModule.PAGES) {
             if (localStorageObject.pages && localStorageObject.pages.length > 0) {
                 if (new Date() - new Date(localStorageObject.lastFetched) < 360000) {
                     return false;
@@ -430,7 +430,7 @@ wordpresscomModule.prototype.addItemsToList = function (jsonPosts) {
 
         var insert = true;
         self.list.forEach(function (value) {
-            if (value.id == item.id) {
+            if (value.id === item.id) {
                 insert = false;
             }
         });
@@ -457,7 +457,7 @@ wordpresscomModule.prototype.addPagesToList = function (jsonPages) {
 
         var insert = true;
         self.list.forEach(function (value) {
-            if (value.id == item.id) {
+            if (value.id === item.id) {
                 insert = false;
             }
         });
@@ -516,7 +516,7 @@ wordpresscomModule.prototype.convertPage = function (item, list, parentId) {
         res.hasChildren = true;
     }
     res.subtitle = "";
-    if (this.pageIds.length == 0 || this.pageIds.indexOf(res.id) > -1) {
+    if (this.pageIds.length === 0 || this.pageIds.indexOf(res.id) > -1) {
         list.push(res);
     }
     return;
@@ -693,7 +693,7 @@ wordpresscomModule.prototype.getBookmarks = function () {
 wordpresscomModule.prototype.checkIsBookmarked = function (id) {
     var bookmarks = this.getBookmarks();
     for (var index in bookmarks.posts) {
-        if (id == bookmarks.posts[index].id)
+        if (id === bookmarks.posts[index].id)
             return true;
     }
     return false;
@@ -705,7 +705,7 @@ wordpresscomModule.prototype.addBookmark = function (item) {
 
     var bookmarks = self.getBookmarks();
     for (var index in bookmarks.posts) {
-        if (item.id == bookmarks.posts[index].id) {
+        if (item.id === bookmarks.posts[index].id) {
             return;
         }
     }
@@ -720,7 +720,7 @@ wordpresscomModule.prototype.removeBookmark = function (id) {
     var self = this;
     var bookmarks = self.getBookmarks();
     for (var index in bookmarks.posts) {
-        if (id == bookmarks.posts[index].id) {
+        if (id === bookmarks.posts[index].id) {
             bookmarks.posts.splice(index, 1);
             break;
         }
@@ -790,11 +790,11 @@ wordpresscomModule.prototype.submitCommentWithToken = function (accessToken, pos
 
 // OAuth Callback
 wordpresscomModule.prototype.callbackWordPressWebAuth = function (result, self, callback) {
-    if (result.responseStatus == 0) {
+    if (result.responseStatus === 0) {
         var vars = result.responseData.split('?')[1].split('&');
         for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split('=');
-            if (decodeURIComponent(pair[0]) == 'code') {
+            if (decodeURIComponent(pair[0]) === 'code') {
                 // Found code
                 var code = decodeURIComponent(pair[1]);
 
