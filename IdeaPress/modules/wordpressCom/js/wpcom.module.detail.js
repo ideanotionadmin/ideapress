@@ -175,7 +175,7 @@ Author: IdeaNotion
         }
     }
     function clone(obj) {
-        if (null == obj || "object" != typeof obj) return obj;
+        if (!obj || "object" !== typeof obj) return obj;
         var copy = obj.constructor();
         for (var attr in obj) {
             if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
@@ -223,7 +223,7 @@ Author: IdeaNotion
 
             // Check to see if an access token is stored 
             var token = ideaPress.getAccessToken();
-            if (null == token)
+            if (!token)
                 item.module.submitCommentWithoutToken(function (t, e) {
                     if (e) {
                         document.getElementById('comments#results').innerText = "Error Posting Comment. " + e;
@@ -247,10 +247,10 @@ Author: IdeaNotion
             comment,
             function (result) {
                 var data = JSON.parse(result.responseText);
-                if (data.status == 'unapproved') {
+                if (data.status === 'unapproved') {
                     document.getElementById('comments#results').innerText = 'Comment not approved.';
                 }
-                else if (data.status == 'approved') {
+                else if (data.status === 'approved') {
                     // Once it is approved, we will show the comment by fetching the existing data and append to it..
                     var existingComment = document.querySelector('.comment').innerHTML;
                     existingComment += '<div class="item"><div class="wpc-caption-text">';
@@ -262,10 +262,10 @@ Author: IdeaNotion
                     // Clear any progress status
                     document.getElementById('comments#results').innerText = '';
                 }
-                else if (data.status == 'spam') {
+                else if (data.status === 'spam') {
                     document.getElementById('comments#results').innerText = 'Comment marked as spam.';
                 }
-                else if (data.status == 'trash') {
+                else if (data.status === 'trash') {
                     document.getElementById('comments#results').innerText = 'Comment sent to trash.';
                 }
                 else {

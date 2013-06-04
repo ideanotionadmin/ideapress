@@ -186,7 +186,7 @@ var ideaPress = {
 
     // Check local storage schema version
     checkLocalStorageSchemaVersion: function () {
-        if (null == localStorage || null == localStorage.schemaVersion || localStorage.schemaVersion != this.localStorageSchemaVersion)
+        if (!localStorage || !localStorage.schemaVersion || localStorage.schemaVersion != this.localStorageSchemaVersion)
             ideaPress.clearLocalStorage();
     },
 
@@ -200,7 +200,7 @@ var ideaPress = {
     importModulesAndSetOptions: function (urls, options) {
         // importScripts  is only defined for Web Worker Scope (background task)
         // hence, we have another way to import javascripts for the main thread
-        if (typeof importScripts == "function") {
+        if (typeof importScripts === "function") {
             for (var i in urls)
                 importScripts(urls[i]);
             options();
@@ -334,7 +334,7 @@ var ideaPress = {
 
     // Helper method to escape illegal characters
     decodeEntities: function (s) {
-        if (typeof document == "undefined") {
+        if (typeof document === "undefined") {
             return HtmlDecode(s);
         }
         var str, temp = document.createElement('p');
@@ -345,9 +345,9 @@ var ideaPress = {
 
     // Helper method to toggle element visibility
     toggleElement: function (e, status) {
-        if (null == e)
+        if (!e)
             return;
-        if ('hide' == status || (WinJS.Utilities.hasClass(e, 'show') && 'show' != status)) {
+        if ('hide' === status || (WinJS.Utilities.hasClass(e, 'show') && 'show' !== status)) {
             if (WinJS.Utilities.hasClass(e, 'show'))
                 WinJS.Utilities.removeClass(e, 'show');
             WinJS.Utilities.addClass(e, 'hide');
@@ -396,19 +396,19 @@ var ideaPress = {
 
 function HtmlDecode(s) {
     var out = "";
-    if (s == null) return;
+    if (!s) return;
 
     var l = s.length;
     for (var i = 0; i < l; i++) {
         var ch = s.charAt(i);
 
-        if (ch == '&') {
+        if (ch === '&') {
             var semicolonIndex = s.indexOf(';', i + 1);
 
             if (semicolonIndex > 0) {
                 var entity = s.substring(i + 1, semicolonIndex);
-                if (entity.length > 1 && entity.charAt(0) == '#') {
-                    if (entity.charAt(1) == 'x' || entity.charAt(1) == 'X')
+                if (entity.length > 1 && entity.charAt(0) === '#') {
+                    if (entity.charAt(1) === 'x' || entity.charAt(1) === 'X')
                         ch = String.fromCharCode(eval('0' + entity.substring(1)));
                     else
                         ch = String.fromCharCode(eval(entity.substring(1)));

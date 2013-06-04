@@ -86,8 +86,8 @@ wordpressModule.prototype.update = function (viewState) {
     self.fetching = self.fetch(0).then(function () {
         var listViewLayout;
 
-        if (self.typeId == wordpressModule.BOOKMARKS) {
-            if (self.list.length == 0) {
+        if (self.typeId === wordpressModule.BOOKMARKS) {
+            if (self.list.length === 0) {
                 var content = self.container.querySelector(".mp-module-content");
                 content.parentNode.className = content.parentNode.className + ' hide';
                 return;
@@ -254,7 +254,7 @@ wordpressModule.prototype.fetch = function (page) {
         var queryString;
 
         // branch off to get pages, posts or bookmark based on categoryId
-        if (self.typeId == wordpressModule.PAGES) {
+        if (self.typeId === wordpressModule.PAGES) {
             self.getPages().then(function () {
                 comp();
                 return;
@@ -273,7 +273,7 @@ wordpressModule.prototype.fetch = function (page) {
                 prog(p);
             });
             return;
-        } else if (self.typeId == wordpressModule.BOOKMARKS) {
+        } else if (self.typeId === wordpressModule.BOOKMARKS) {
 
             // read from bookmark and store to the list
             var bookmarks = self.getBookmarks();
@@ -295,7 +295,7 @@ wordpressModule.prototype.fetch = function (page) {
             return;
         } else {
             // fetch Posts            
-            if (self.typeId == wordpressModule.MOSTRECENT)
+            if (self.typeId === wordpressModule.MOSTRECENT)
                 queryString = '?json=get_recent_posts&count=' + self.defaultCount + "&page=" + (page + 1);
             else
                 queryString = '?json=get_category_posts&id=' + self.categoryId + '&count=' + self.defaultCount + "&page=" + (page + 1);
@@ -308,7 +308,7 @@ wordpressModule.prototype.fetch = function (page) {
                 WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
                     //var data = JSON.parse(r.responseText);
                     var data = self.getJsonFromResponse(r.responseText);
-                    if (data.status != "ok" || data.count == 0) {
+                    if (data.status !== "ok" || data.count === 0) {
                         // no data
                         self.maxPagingIndex = 0;
                         ideaPress.toggleElement(self.loader, "hide");
@@ -530,7 +530,7 @@ wordpressModule.prototype.shouldFetch = function (localStorageObject, page) {
         if (page && (page > this.maxPagingIndex)) {
             return true;
         }
-        if (this.typeId == wordpressModule.PAGES) {
+        if (this.typeId === wordpressModule.PAGES) {
             if (localStorageObject.pages && localStorageObject.pages.length > 0) {
                 if (new Date() - new Date(localStorageObject.lastFetched) < 360000) {
                     return false;
@@ -635,7 +635,7 @@ wordpressModule.prototype.addItemsToList = function (jsonPosts) {
 
         var insert = true;
         self.list.forEach(function (value) {
-            if (value.id == item.id) {
+            if (value.id === item.id) {
                 insert = false;
             }
         });
@@ -664,7 +664,7 @@ wordpressModule.prototype.addPagesToList = function (jsonPages) {
 
         var insert = true;
         self.list.forEach(function (value) {
-            if (value.id == item.id) {
+            if (value.id === item.id) {
                 insert = false;
             }
         });
@@ -839,7 +839,7 @@ wordpressModule.prototype.getBookmarks = function () {
 wordpressModule.prototype.checkIsBookmarked = function (id) {
     var bookmarks = this.getBookmarks();
     for (var index in bookmarks.posts) {
-        if (id == bookmarks.posts[index].id)
+        if (id === bookmarks.posts[index].id)
             return true;
     }
     return false;
@@ -850,7 +850,7 @@ wordpressModule.prototype.addBookmark = function (item) {
     var self = this;
     var bookmarks = self.getBookmarks();
     for (var index in bookmarks.posts) {
-        if (item.id == bookmarks.posts[index].id) {
+        if (item.id === bookmarks.posts[index].id) {
             return;
         }
     }
@@ -865,7 +865,7 @@ wordpressModule.prototype.removeBookmark = function (id) {
     var self = this;
     var bookmarks = self.getBookmarks();
     for (var index in bookmarks.posts) {
-        if (id == bookmarks.posts[index].id) {
+        if (id === bookmarks.posts[index].id) {
             bookmarks.posts.splice(index, 1);
             break;
         }
