@@ -133,3 +133,25 @@ Description: Controls the navigational behaviors of the App
         )
     });
 })();
+
+
+function NavBack(na, backParam) {
+    if (document.getElementsByTagName('iframe')[0] && document.getElementsByTagName('iframe')[0].src) {
+        document.getElementsByTagName('iframe')[0].src = document.getElementsByTagName('iframe')[0].src;
+        WinJS.UI.processAll().done(function () {
+            if (backParam) {
+                na.back(backParam);
+            }
+            else {
+                na.back();
+            }
+        });
+    } else {
+        if (backParam) {
+            na.back(backParam);
+        }
+        else {
+            na.back();
+        }
+    }
+}

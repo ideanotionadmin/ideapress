@@ -1,42 +1,52 @@
 ﻿/* colors */
+/*Default header font color including App Title color*/
 h1, h2, h3, h4, h5, h6, .mp-color-header {
     color: #ff7700;
 }
 
+/*Detail page text font on content*/
 body, .mp-color-text {
     color: #fff;
 }
+
+/* Hub page article/page title font color and progress ring*/
 .mp-color-title, progress.win-ring
 {
     color: #fff;
     border-color: #fff;
 }
 
+/*link page*/
 .mp-color-link, .a, a:link {
     color: #ff7700;
 }
 
+/*hub page sub title font color and visited link*/
 .mp-color-subtitle, a:visited, a:active, article a:hover {
     color: #333;
 }
 
+/*Main article background color*/
 body, .mp-bg-main, .mp-bg-plain {
     background-color:#d0d0d0;
 }
 
+/* hub page article item background color*/
 .mp-bg-overlay {
     background-color:#ff7700 ;
 }
-
-header.win-backbutton {
+/*Back button styling*/
+header .win-backbutton {
     border-color: #ff7700;
     color: #ff7700;
 }
 
-header.win-backbutton:hover {
+header .win-backbutton:hover {
     background-color:#ccc;
+    color: #fff;
 }
 
+/* the outline item of the hub item when hover over*/
 .win-container:hover {
     outline-color: #ff7700;
 }
