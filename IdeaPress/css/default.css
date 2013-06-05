@@ -1,5 +1,5 @@
 ﻿/* Import rules for custom themes */
-@import url('themes/custom.orange.css');
+@import url('themes/custom.light.css');
 
 html {
     cursor: default;
@@ -19,6 +19,7 @@ body {
     transition-duration: 0.8s;
 }
 
+/* content host in default.html*/
 #contenthost {
     height: 100%;
     width: 100%;
@@ -32,6 +33,7 @@ body {
 	height: 100%;
 }
 
+/*================== header style start =========================*/
 header[role=banner] {
 	-ms-grid-row: 1;
     /* Define a grid with columns for the back button and page title. */
@@ -76,7 +78,7 @@ header[role=banner] .titlearea .pagetitle {
     width: calc(100% - 20px);
     letter-spacing: 0;
 }
-
+/*================== header styling end =========================*/
 
 section[role=main] {
     height: 100%;
@@ -84,13 +86,12 @@ section[role=main] {
 	-ms-grid-row: 2;
 }
 
-/* controls, icons and buttons */
-
 .win-body {
     font-size: 11pt;
     font-weight: 300;
 }
 
+/* back button styling */
 .win-backbutton {
     border-color: black;
     color: black;
@@ -102,6 +103,45 @@ button {
     color:#000;
 }
 
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block;
+}
+
+.win-contentcaption {
+    font-size: 9pt;
+}
+
+section[role=main] article {
+    display:block;
+    height:100%;
+    width:100%;   
+}
+
+progress.win-ring {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: calc(50% - 50px);
+    top: calc(50% - 100px);
+}
+
+/* error msg container*/
+div.error {
+    width: 100%;
+    position: absolute;
+    margin: 0 auto 0 auto;
+    text-align: center;
+    top: 45%;
+    color: #fff;
+}
+
+.mp-share { display: none;}
+
+/*========================================== app bar related item style start ============================*/
 #refresh .win-commandimage::before {
     content: "\e149";
 }
@@ -170,26 +210,9 @@ button {
 .win-appbar .win-commandimage {
     margin-top: -3px;
 }
+/*======================================== app bar style end ==============================*/
 
-.hide {
-    display: none !important;
-}
-
-.show {
-    display: block;
-}
-
-.win-contentcaption {
-    font-size: 9pt;
-}
-
-section[role=main] article {
-    display:block;
-    height:100%;
-    width:100%;   
-}
-
-
+/*======================================== win-listview style start =============================*/
 .win-listview {
     overflow:hidden;
     height:100%;
@@ -212,31 +235,13 @@ section[role=main] article {
 	box-shadow: none;
 }
 
+
 .win-groups.win-listview > .win-horizontal .win-surface {
     margin-left: 40px;
 }
 
-.win-listview > .win-horizontal .win-surface {
-}
-
-progress.win-ring {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    left: calc(50% - 50px);
-    top: calc(50% - 100px);
-}
-
-div.error {
-    width: 100%;
-    position: absolute;
-    margin: 0 auto 0 auto;
-    text-align: center;
-    top: 45%;
-    color: #fff;
-}
-.mp-share { display: none;}
-
+.win-listview > .win-horizontal .win-surface {}
+/*======================================== win-listview style end ==========================*/
 
 @media screen and (-ms-view-state: fullscreen-portrait) {
     header[role=banner] {
@@ -319,7 +324,7 @@ div.error {
 
 }
 
-/*====================================================== Hub ======================================================*/
+/*====================================================== Hub  ======================================================*/
 #hub-content {
     display:-ms-grid;
     -ms-grid-rows:1fr;

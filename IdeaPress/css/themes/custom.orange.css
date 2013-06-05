@@ -1,41 +1,42 @@
 ﻿/* colors */
-/*Default header font color including App Title color*/
+/* default header font color including App Title color*/
 h1, h2, h3, h4, h5, h6, .mp-color-header {
     color: #ff7700;
 }
 
-/*Detail page text font on content*/
-body, .mp-color-text {
-    color: #fff;
-}
-
-/* Hub page article/page title font color and progress ring*/
+/* hub page article/page title font color and progress ring*/
 .mp-color-title, progress.win-ring
 {
     color: #fff;
     border-color: #fff;
 }
 
-/*link page*/
+/* link*/
 .mp-color-link, .a, a:link {
     color: #ff7700;
 }
 
-/*hub page sub title font color and visited link*/
+/* hub page sub title font color and visited link*/
 .mp-color-subtitle, a:visited, a:active, article a:hover {
     color: #333;
 }
 
-/*Main article background color*/
+/* hub page item background color*/
+.mp-bg-overlay {
+    background-color:#ff7700 ;
+}
+
+/* detail page background color*/
 body, .mp-bg-main, .mp-bg-plain {
     background-color:#d0d0d0;
 }
 
-/* hub page article item background color*/
-.mp-bg-overlay {
-    background-color:#ff7700 ;
+/* detail page styling*/
+body, .mp-color-text {
+    color: #fff;
 }
-/*Back button styling*/
+
+/* back button styling*/
 header .win-backbutton {
     border-color: #ff7700;
     color: #ff7700;
