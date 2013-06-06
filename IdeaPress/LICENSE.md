@@ -28,7 +28,7 @@ or including modules provided by IdeaNotion is not considered modifying the Prog
 
 Licensees that do modify the Program, taking advantage of the open-source
 license, may not use the IdeaPress mark or IdeaPress logos and must
-change the logo as follows:
+change to:
 
 stating that the licensee modified the Program. A suitable notice might
 read "IdeaPress Source code modified by XYZ 2012", or "Based on IdeaPress source code".
