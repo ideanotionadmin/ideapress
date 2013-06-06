@@ -295,7 +295,7 @@ wordpresscomModule.prototype.fetch = function (page) {
         if (self.shouldFetch(localStorageObject, page)) {
             WinJS.xhr({ type: 'GET', url: fullUrl, headers: headers }).then(function (r) {
                 var data = JSON.parse(r.responseText);
-                if (data.found || data.found === "0") {
+                if (!data.found || data.found === "0") {
                     self.maxPagingIndex = page;
                     comp(0);
                     return;
