@@ -31,7 +31,7 @@ Description: Configures the application and the modules.  Please go to https://g
               
                 ],
                 searchModule: { name: wordpressModule, options: { apiUrl: 'http://ideanotion.net/', title: "Search" } },
-                liveTileModule: { name: wordpressModule, options: { apiUrl: 'http://www.jameswoodcock.co.uk/', title: "Live Tile", squareTileType: Windows.UI.Notifications.TileTemplateType.tileSquarePeekImageAndText04, wideTileType: Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01 } },
+                liveTileModule: { name: wordpressModule, options: { apiUrl: 'http://ideanotion.net/', title: "Live Tile", squareTileType: Windows.UI.Notifications.TileTemplateType.tileSquarePeekImageAndText04, wideTileType: Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01 } },
             };
         });
 })();
