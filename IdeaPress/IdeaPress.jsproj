@@ -71,6 +71,7 @@
     <Content Include="js\options.js" />
     <Content Include="js\share-source.js" />
     <Content Include="js\liveTileTask.js" />
+    <Content Include="LICENSE.md" />
     <Content Include="modules\wordpressCom\css\templates\custom.css" />
     <Content Include="modules\wordpressCom\css\templates\large.css" />
     <Content Include="modules\wordpressCom\css\templates\normal.css" />
