@@ -63,7 +63,7 @@
     display:none;
 }
 .mp-color-description {
-display:block !important;
+    display:block !important;
 }
 
 @media screen and (-ms-view-state: snapped) {

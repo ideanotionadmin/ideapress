@@ -4,13 +4,15 @@ File: core.js
 Author: IdeaNotion
 Description: Control and maintain core logics of the application
 */
+
+
 var ideaPress = {
     // Change Storage Version to empty the local storage
     localStorageSchemaVersion: '20130201-2',
     modules: [],
     initialized: false,
     accessToken: null,
-    maxConcurrent: 6,
+    maxConcurrent: 10,
     globalFetch: false,
     loadRemaining: false,
     useSnapEffect: false,
@@ -393,7 +395,7 @@ var ideaPress = {
         }
     },
 
-
+    // decode html
     htmlDecode: function (s) {
         var out = "";
         if (!s) return;
@@ -679,5 +681,26 @@ var ideaPress = {
 
         return out;
 
+    },
+    
+    navBack: function (na, backParam) {
+        if (document.getElementsByTagName('iframe')[0] && document.getElementsByTagName('iframe')[0].src) {
+            document.getElementsByTagName('iframe')[0].src = document.getElementsByTagName('iframe')[0].src;
+            WinJS.UI.processAll().done(function () {
+                if (backParam) {
+                    na.back(backParam);
+                }
+                else {
+                    na.back();
+                }
+            });
+        } else {
+            if (backParam) {
+                na.back(backParam);
+            }
+            else {
+                na.back();
+            }
+        }
     }
 }

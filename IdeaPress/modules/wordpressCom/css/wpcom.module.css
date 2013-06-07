@@ -1,11 +1,11 @@
 ﻿/* Import rules for GridView templates */
-@import url('templates/rectangle.css');
+@import url('templates/normal.css');
 
 /* @import url('templates/large.css'); */
 /* @import url('templates/wide.css'); */
 
 .wpc-title-count {
-    font-size: 11pt !important;
+    font-size: 11pt;
 }
 
 

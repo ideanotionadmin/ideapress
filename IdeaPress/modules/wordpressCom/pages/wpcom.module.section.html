@@ -9,32 +9,34 @@
     <link href="../css/wpcom.module.css" rel="stylesheet" />    
     <link href="/css/default.css" rel="stylesheet">
 </head>
-<body>
-    <div class="wpc-post-template" data-win-control="WinJS.Binding.Template" style="display: none">
-	    <div data-win-bind="id: id;" class="wpc-item">
-            <div class="wpc-image-container">                
-                <div class="wpc-image" data-win-bind="style.backgroundImage : imgUrlStyle" ></div>
+    <body>
+        <!-- Template layout of this page -->
+        <div class="wpc-post-template" data-win-control="WinJS.Binding.Template" style="display: none">
+            <div data-win-bind="id: id;" class="wpc-item">
+                <div class="wpc-image-container">                
+                    <div class="wpc-image" data-win-bind="style.backgroundImage : imgUrlStyle" ></div>
+                </div>
+                <div class="wpc-text-section mp-bg-overlay">
+                    <h3 class="mp-color-title win-type-ellipsis" data-win-bind="textContent: title"></h3>
+                    <h5 class="mp-color-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h5>
+                </div>
             </div>
-		    <div class="wpc-text-section mp-bg-overlay">
-			    <h3 class="mp-color-title win-type-ellipsis" data-win-bind="textContent: title"></h3>
-			    <h5 class="mp-color-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h5>
-		    </div>
-	    </div>
-    </div>
+        </div>
 
-    <div class="fragment wpc-section">
-        <header aria-label="Header content" role="banner">
-            <button class="win-backbutton" aria-label="Back" disabled></button>
-            <h1 class="titlearea win-type-ellipsis">
-                <span class="pagetitle"></span>
-            </h1>
-        </header>
-        <section aria-label="Main content" role="main">
-            <article>
-                <div class="wpc-list" data-win-control="WinJS.UI.ListView"></div>
-                <progress id="loader" class="show win-ring"></progress>
-            </article>
-        </section>
-    </div>
-</body>
+        <div class="fragment wpc-section">
+            <header aria-label="Header content" role="banner">
+                <button class="win-backbutton" aria-label="Back" disabled></button>
+                <h1 class="titlearea win-type-ellipsis">
+                    <span class="pagetitle"></span>
+                </h1>
+            </header>
+            <section aria-label="Main content" role="main">
+                <article>
+                    <!--wpc-post-template template will be inserted in wpc-list div via js -->
+                    <div class="wpc-list" data-win-control="WinJS.UI.ListView"></div>
+                    <progress id="loader" class="show win-ring"></progress>
+                </article>
+            </section>
+        </div>
+    </body>
 </html>
