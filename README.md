@@ -780,3 +780,8 @@ Here is a schematic look of the HTML and CSS classes:
   [1]: http://ideanotion.net/wp-content/uploads/2013/03/image20.png
   [2]: http://ideanotion.net/wp-content/uploads/2013/03/image07.png
   [3]: http://ideanotion.net/wp-content/uploads/2013/03/image08.png
+  
+<h1>License</h1>
+<a href="http://ideapress.me/license">GPL v3 with an ADDITIONAL TERM per GPL Section 7</a>
+
+<p>Copyright (c) 2013 Idea Notion Development Inc.</p>
