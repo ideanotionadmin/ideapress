@@ -1,8 +1,9 @@
-﻿/* Import rules for GridView templates */
-@import url('templates/custom.css');
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
 
-/* @import url('templates/large.css'); */
-/* @import url('templates/wide.css'); */
+/* Import rules for GridView templates */
+@import url('templates/custom.css');
 
 .wpc-title-count {
     font-size: 11pt;

@@ -1,8 +1,9 @@
-﻿/* Import rules for custom themes */
-@import url('themes/custom.css');
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
 
-/* @import url('themes/custom.dark.css'); */
-/* @import url('themes/custom.orange.css'); */
+/* Import rules for custom themes, you can import custom.dark.css or custom.orange.css */
+@import url('themes/custom.light.css');
 
 html {
     cursor: default;
@@ -35,6 +36,7 @@ body {
 	height: 100%;
 }
 
+/*================== header style start =========================*/
 header[role=banner] {
 	-ms-grid-row: 1;
     /* Define a grid with columns for the back button and page title. */
