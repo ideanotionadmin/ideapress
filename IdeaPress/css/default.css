@@ -1,4 +1,8 @@
-﻿/* Import rules for custom themes */
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
+
+/* Import rules for custom themes, you can import custom.dark.css or custom.orange.css */
 @import url('themes/custom.light.css');
 
 html {

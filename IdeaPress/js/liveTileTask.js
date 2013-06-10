@@ -1,4 +1,8 @@
-﻿/*
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
+
+/*
 IdeaPress Version 2.0
 File: liveTileTask.js
 Author: IdeaNotion
