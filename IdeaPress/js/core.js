@@ -337,7 +337,7 @@ var ideaPress = {
     // Helper method to escape illegal characters
     decodeEntities: function (s) {
         if (typeof document === "undefined") {
-            return ideaPress.htmlDecode(s);
+            return this.htmlDecode(s);
         }
         var str, temp = document.createElement('p');
         temp.innerHTML = s;
