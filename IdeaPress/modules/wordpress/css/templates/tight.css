@@ -1,4 +1,7 @@
-﻿.wp-list .win-horizontal { overflow-x: hidden;  }
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
+.wp-list .win-horizontal { overflow-x: hidden;  }
 .wp-list .win-vertical { overflow-y: hidden;  }
 .wp-list .win-horizontal.win-viewport { overflow-x: hidden;}
 .wp-list .win-vertical.win-viewport { overflow-y: hidden;}

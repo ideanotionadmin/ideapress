@@ -1,4 +1,7 @@
-﻿.wpc-list .wpc-item {
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
+.wpc-list .wpc-item {
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr;
