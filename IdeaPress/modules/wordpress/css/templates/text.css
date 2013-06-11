@@ -1,4 +1,7 @@
-﻿.mp-module-0 .wp-list .wp-item {
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
+.mp-module-0 .wp-list .wp-item {
     overflow: hidden;  
     display: -ms-grid;
     -ms-grid-columns: 1fr 0px;
