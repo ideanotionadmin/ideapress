@@ -216,6 +216,7 @@
 .comment p,
 .content p {
     padding: 0 !important;
+    overflow: auto;
 }
 
 .comment .wp-caption p,
