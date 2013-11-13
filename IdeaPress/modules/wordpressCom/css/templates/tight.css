@@ -5,9 +5,7 @@
 .wpc-list .win-vertical { overflow-y: hidden; }
 .wpc-list .win-horizontal.win-viewport { overflow-x: hidden; }
 .wpc-list .win-horizontal.win-viewport { overflow-x: hidden; }
-@media screen and (-ms-view-state: fullscreen-portrait),
- screen and (-ms-view-state: fullscreen-landscape),
- screen and (-ms-view-state: filled) {
+@media (min-width: 501px) { 
     .wpc-list .wpc-item {        
         overflow: visible;
         display: -ms-grid;
@@ -70,7 +68,7 @@
         }
 }
     
-@media screen and (-ms-view-state: snapped) {
+@media (min-width: 320px) and (max-width: 499px) {
     .wpc-list .wpc-item {
         overflow: hidden;
         display: -ms-grid;

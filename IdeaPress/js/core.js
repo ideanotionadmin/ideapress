@@ -12,7 +12,7 @@ Description: Control and maintain core logics of the application
 
 var ideaPress = {
     // Change Storage Version to empty the local storage
-    localStorageSchemaVersion: '20130201-2',
+    localStorageSchemaVersion: '20131001-0',
     modules: [],
     initialized: false,
     accessToken: null,
@@ -57,15 +57,14 @@ var ideaPress = {
     renderModules: function (elem) {
         var promises = [];
         var count = 1;
-        elem.style.msGridColumns = "";
         for (var i in this.modules) {
-            elem.style.msGridColumns = elem.style.msGridColumns + " auto";
             var container = document.createElement("div");
-            container.style.msGridColumn = count++;
             container.className = "mp-module";
             container.className = "mp-module mp-module-" + i;
-            elem.appendChild(container);
-            promises.push(this.modules[i].render(container));
+            var section = new WinJS.UI.HubSection(container, { header: "" });
+            elem.winControl.sections.push(section);
+            //elem.appendChild(container);
+            promises.push(this.modules[i].render(section));
         }
         return promises;
     },
@@ -117,6 +116,70 @@ var ideaPress = {
             ideaPress.searchModule.cancel();
         if (ideaPress.globalFetch)
             ideaPress.globalFetch.cancel();
+
+        if (ideaPress.heroInterval)
+            clearInterval(ideaPress.heroInterval);
+    },
+
+    registerHero : function () {
+        for (var i in ideaPress.modules) {
+            if (ideaPress.modules[i].initHero) {
+                ideaPress.heroModule = ideaPress.modules[i].initHero();
+            }
+            if (ideaPress.heroModule)
+                return;
+        }
+    },
+
+    startHero : function() {
+        ideaPress.heroIndex = 0;
+        ideaPress.rotateHero();
+        ideaPress.heroInterval = setInterval(function () {
+            ideaPress.rotateHero();
+        }, 10000);
+    },
+
+    rotateHero : function() {
+        if (!ideaPress.heroList || ideaPress.heroList.length == 0)
+            ideaPress.heroList = ideaPress.heroModule.getHeroList();
+
+        if (ideaPress.heroList.length == 0 && localStorage["hero"] != null) {
+            ideaPress.heroList = new WinJS.Binding.List();
+            var json = JSON.parse(localStorage["hero"]);
+            for (var item in json) {
+                ideaPress.heroList.push(json[item]);
+            }
+        }
+        else {
+            var items = [];
+            for (var i = 0; i < ideaPress.heroList.length; i++) {
+                items.push(ideaPress.heroList.getAt(i));
+            }
+            localStorage["hero"] = JSON.stringify(items);
+        }
+
+        if (ideaPress.heroIndex > ideaPress.heroList.length) {
+            ideaPress.heroIndex = 0;
+        }
+        var item = ideaPress.heroList.getAt(ideaPress.heroIndex);
+        if (item) {
+            var bg = document.getElementById("hero-bg");
+            bg.style.backgroundImage = "url('" + item.imgUrl + "')";
+            bg.className = "animation-" + (ideaPress.heroIndex % 2);
+
+            document.getElementsByClassName("hero-info")[0].style.display = "block";
+            document.getElementsByClassName("hero-title")[0].textContent = item.title;
+            document.getElementsByClassName("hero-category")[0].textContent = item.subtitle;
+            document.getElementById("hero").onclick = function () {
+                var i = item;
+                ideaPress.heroModule.heroClicked(i);
+            };
+        }
+        else {
+            document.getElementsByClassName("hero-info")[0].style.display = "none";
+        }
+
+        ideaPress.heroIndex++;
     },
 
     // Override the onClick for all the links and launch content in an iframe 
@@ -390,12 +453,7 @@ var ideaPress = {
     // snap effect
     snapEffect: function () {
         if (ideaPress.useSnapEffect) {
-            var modules = document.getElementsByClassName("mp-module");
-            for (var i in modules) {
-                if (Math.abs(document.querySelector('#hub-content').scrollLeft - modules[i].offsetLeft + 116) < 60) {
-                    document.querySelector('#hub-content').scrollLeft = modules[i].offsetLeft - 116;
-                }
-            }
+            /*  TODO */
         }
     },
 

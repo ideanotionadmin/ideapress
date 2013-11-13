@@ -17,7 +17,7 @@
     display: none;
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media (min-width: 320px) and (max-width: 499px) {
     .wp-list .win-vertical .win-container {   
         margin-left:20px;     
     }

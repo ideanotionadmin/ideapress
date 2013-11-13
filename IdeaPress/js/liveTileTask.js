@@ -10,7 +10,7 @@ Description: handles the support of live tiles
 */
 (function () {
     "use strict";
-    importScripts("//Microsoft.WinJS.1.0/js/base.js");
+    importScripts("//Microsoft.WinJS.2.0/js/base.js");
     importScripts("/js/core.js");
     importScripts("/js/options.js");
 

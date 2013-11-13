@@ -21,22 +21,27 @@ Description: Controls the hub.html page, and intialize the modules.
                 document.getElementsByClassName("titleImage")[0].src = ideaPress.options.appTitleImage;
                 document.querySelector('header').className = 'showImage';
             }
-            var elem = document.querySelector('#hub-content');
+            var elem = document.querySelector('#hub-container');
 
             // initialize IdeaPress modules
             if (!ideaPress.initialized) {
                 ideaPress.initModules(elem);
                 ideaPress.initialized = true;
-            }
 
+                ideaPress.registerHero();            
+            }
+            if (ideaPress.heroModule) {
+                WinJS.Utilities.addClass(document.getElementById("hero"), "show");
+            }
             var promises = ideaPress.renderModules(elem);
 
 
             WinJS.Promise.join(promises).done(function () {
                 setTimeout(function () { self.updateLayout(element, Windows.UI.ViewManagement.ApplicationView.value); }, 1000);
+                ideaPress.startHero();
 
                 // scroll background
-                document.getElementById('hub-content').addEventListener("scroll", self.scrolling);                               
+                document.getElementById('hub-container').addEventListener("scroll", self.scrolling);                               
             });
 
             pingServer();
@@ -50,15 +55,28 @@ Description: Controls the hub.html page, and intialize the modules.
 
         // This function updates the page layout in response to viewState changes.
         updateLayout: function (element, viewState) {
-            ideaPress.update(element, viewState);
+            if (document.getElementById('hub-container')) {
+                var windowWidth = document.documentElement.offsetWidth;
+                if (windowWidth <= 500) {
+                    document.getElementById('hub-container').winControl.orientation = WinJS.UI.Orientation.vertical;
+                    if (ideaPress.heroModule)
+                        WinJS.Utilities.removeClass(document.getElementById("hero"), "show");
+                }
+                else {
+                    document.getElementById('hub-container').winControl.orientation = WinJS.UI.Orientation.horizontal;
+                    if (ideaPress.heroModule)
+                        WinJS.Utilities.addClass(document.getElementById("hero"), "show");
+                }
+                ideaPress.update(element, viewState);
+            }
         },
-
+        
         timeoutHandle : null,
         
         scrolling: function (element) {
             ideaPress.scrollBackground(element);
-            if (document.querySelector('#hub-content').scrollLeft / document.querySelector('#hub-content').offsetWidth > 0.5 ||
-                document.querySelector('#hub-content').scrollTop / document.querySelector('#hub-content').offsetHeight > 0.5) {
+            if (document.querySelector('#hub-container').scrollLeft / document.querySelector('#hub-container').offsetWidth > 0.5 ||
+                document.querySelector('#hub-container').scrollTop / document.querySelector('#hub-container').offsetHeight > 0.5) {
                 ideaPress.updateRemaining(element, Windows.UI.ViewManagement.ApplicationView.value);
             }
             if (this.timeoutHandle)
@@ -97,8 +115,8 @@ Description: Controls the hub.html page, and intialize the modules.
             Windows.Storage.FileIO.readTextAsync(file).done(function (text) {
                 var xdoc = new Windows.Data.Xml.Dom.XmlDocument();
                 xdoc.loadXml(text);
-                appname = xdoc.selectNodesNS("m:Package/m:Applications/m:Application/m:VisualElements",
-                    "xmlns:m=\"http://schemas.microsoft.com/appx/2010/manifest\"")[0]
+                appname = xdoc.selectNodesNS("m:Package/m:Applications/m:Application/m2:VisualElements",
+                    "xmlns:m=\"http://schemas.microsoft.com/appx/2010/manifest\" xmlns:m2=\"http://schemas.microsoft.com/appx/2013/manifest\"")[0]
                     .attributes.getNamedItem("DisplayName").nodeValue;
             });
         });

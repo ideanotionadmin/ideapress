@@ -3,7 +3,7 @@
 */
 
 /* Import rules for custom themes, you can import custom.dark.css or custom.orange.css */
-@import url('themes/custom.light.css');
+@import url('/css/themes/custom.mwnw.css');
 
 html {
     cursor: default;
@@ -38,11 +38,13 @@ body {
 
 /*================== header style start =========================*/
 header[role=banner] {
-	-ms-grid-row: 1;
+	-ms-grid-row :1;
     /* Define a grid with columns for the back button and page title. */
     display: -ms-grid;
     -ms-grid-columns: 120px 400px 1fr;
     -ms-grid-rows: 1fr;
+    z-index:100;
+    position:absolute;
 }
 
 header[role=banner] .win-backbutton {
@@ -65,7 +67,7 @@ header[role=banner] .titleImage {
 
 header[role=banner].showImage .titleImage {
     display: block;
-    margin-left:-5px;
+    /*margin-left:-5px;*/
 }
 
 header[role=banner].showImage .pagetitle {
@@ -84,12 +86,12 @@ header[role=banner] .titlearea .pagetitle {
 
 
 section[role=main] {
+    -ms-grid-row:2;
     height: 100%;
     width: 100%;
-	-ms-grid-row: 2;
+
 }
 
-/* controls, icons and buttons */
 
 .win-body {
     font-size: 11pt;
@@ -198,6 +200,7 @@ section[role=main] article {
 .win-listview {
     overflow:hidden;
     height:100%;
+    width:100%;
 }
 
 .win-horizontal.win-viewport .win-surface {
@@ -243,7 +246,7 @@ div.error {
 .mp-share { display: none;}
 
 
-@media screen and (-ms-view-state: fullscreen-portrait) {
+@media screen and (orientation: portrait) {
     header[role=banner] {
         -ms-grid-columns: 100px 400px 1fr;
     }
@@ -270,22 +273,23 @@ div.error {
 
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media (min-width: 320px) and (max-width: 499px) {
     .fragment {
-        display: -ms-grid;
-        -ms-grid-columns: 1fr;
-        -ms-grid-rows: 70px 1fr 0px;
+        display: block;
     }
 
     header[role=banner] {
         display: block;
+        position:static;
     }
 
     header[role=banner] .titlearea {
         float: left;
         margin-top: 20px;
         height: 44px;
-        width: 210px;
+        width: calc(100% - 100px);
+        margin-left:0;
+        margin-right:0;
         overflow: visible;
     }
 
@@ -294,6 +298,15 @@ div.error {
         -ms-text-overflow: ellipsis;
         overflow:hidden;
         display:block;
+        font-size:0.5em;
+    }   
+
+    header[role=banner] .pagetitle {
+        width: 210px;
+        -ms-text-overflow: ellipsis;
+        overflow:hidden;
+        display:block;
+        font-size:0.5em;
     }   
     
     header[role=banner] .win-backbutton {
@@ -325,44 +338,196 @@ div.error {
 }
 
 /*====================================================== Hub ======================================================*/
-#hub-content {
-    display:-ms-grid;
-    -ms-grid-rows:1fr;
-    height:100%;
-    overflow-x:scroll;
-    padding-left:116px;
+#hub-container {
+    width: 100%;    
+    -ms-grid-row:1;
+    -ms-grid-row-span:2;
+    height: 100%;
+    width: 100%;
+
 }
 
-#hub-content .mp-module {
-    display:-ms-grid;  
-    -ms-grid-row:1;
-    -ms-grid-rows: 45px 1fr;  
+#hub-content {
+    display:-ms-grid;
+    height:100%;
+    -ms-grid-rows: 1fr;
+    overflow-x:scroll;
+    padding-left:116px;
+
+}
+
+#hub-container .mp-module {
+    -ms-grid-rows: 0px 1fr;
     padding-right: 116px;
-    min-width:400px;
-    min-height:200px;
+    height:100%;
     position:relative;
 }
 
-#hub-content .mp-module .mp-module-title {    
-    -ms-grid-row: 1;
-}
-#hub-content .mp-module .mp-module-content {    
-    -ms-grid-row: 2;
-    height:100%;
+#hub-container .mp-module .win-hub-section-content  {
+    min-width:240px;
 }
 
-@media screen and (-ms-view-state: snapped) {
-    #hub-content {
-        display:block;
-        overflow-x:hidden;
-        overflow-y:scroll;
-        padding-left:20px;
+#hub-container .mp-module .win-hub-section-content h2 {    
+    margin-top:129px;
+    height:40px;
+    padding-bottom: 4px;
+}
+#hub-container .mp-module .win-hub-section-content .mp-module-content {    
+    height:calc(100% - 40px);
+}
+
+.hub #hero {
+    display:none;
+    overflow:hidden;
+    position:relative;
+    background-image: url(/images/hero.jpg);
+    background-size:cover;
+	background-repeat:no-repeat;
+    background-position:center;
+}
+
+.hub #hero.show {
+    display:block;
+}
+
+    .hub #hero #hero-bg {
+        background-image: url(/images/hero.jpg);
+        background-size:cover;
+	    background-repeat:no-repeat;
+        background-position:center;
+        z-index:1;
     }
-    #hub-content .mp-module {
-        display: block;
-        float:left;
-        min-width: inherit;
+
+    .hub #hero #hero-overlay {
+        /*background: radial-gradient(ellipse at center, rgba(255,255,255,0) 30%,rgba(255,255,255,0) 71%,rgba(255,255,255,0.08) 75%,rgba(68,68,68,0.98) 100%); */
+        background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,rgba(51,51,51,0.15) 10%,rgba(255,255,255,0) 50%,rgba(51,51,51,0.15) 70%,rgba(0,0,0,0.5) 100%);
+        position:absolute;
         width:100%;
-        padding-right: 0px;
+        height:100%;
+        top:0;
+        left:0;
+        z-index:5;
     }
+
+    .hub #hero #hero-bg.animation-0 {
+	    width:140%;
+	    height:100%;
+	    transform: scale(1.0);     
+        position:absolute;
+        top:0%;
+        left:-15%;
+
+	    animation-delay: 1s;
+	    animation-iteration-count:1;
+	    animation-duration: 9s;
+	    animation-name: animation-left;
+    }
+
+    .hub #hero #hero-bg.animation-1 {
+	    width:140%;
+	    height:100%;
+	    transform: scale(1.0);     
+        position:absolute;
+        top:0%;
+        left:-25%;
+
+	    animation-delay: 1s;
+	    animation-iteration-count:1;
+	    animation-duration: 9s;
+	    animation-name: animation-right;
+    }
+
+    .hub #hero .hero-info {
+        display:none;
+        position:absolute;
+        bottom:40px;
+        left:80px;
+        padding-right:80px;
+        z-index:25;
+        text-transform:capitalize;
+    }
+    
+    .hub #hero .hero-info .hero-title {
+        font-weight:bolder;        
+    }
+
+@keyframes animation-left {
+  0% {	
+    	top:0%;
+        left:-15%;
+  }
+  100% {
+    	top:0%;
+        left:-20%;
+  }
+}
+
+@keyframes animation-right {
+  0% {	
+    	top:0%;
+        left:-25%;
+  }
+  100% {
+    	top:0%;
+        left:-20%;
+  }
+}
+
+
+
+.hub .win-hub-horizontal #hero {
+    margin-left: -80px;
+    margin-right: 20px;
+    min-width: 400px;  
+    width: 60vw;
+    font-size:28pt;
+}
+
+.hub .win-hub-section .win-hub-section-header {
+    visibility: hidden;
+}
+
+
+@media (min-width: 500px) and (max-width: 800px) {
+    .hub .win-hub-horizontal #hero {
+        width: 40vw;
+    }
+    .hub .hero-info h1 {
+        font-size:24pt;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 500px) {
+    #hub-container {
+        display:block;
+        position:static;
+        padding:0;
+    }
+    #hub-container .win-hub-section-header {
+        display:none;
+    }
+    .hub .win-hub-horizontal #hero {
+        display:none;
+    }
+
+    .hub .win-hub-section-content h2 {
+        display:none;
+    }
+
+    .hub #hub-container .mp-module {
+        display:block;
+        margin:auto;
+        padding:0;
+        width:100%;
+        position:static;
+    }
+    
+    .hub #hub-container .mp-module  .win-listview > .win-vertical.win-viewport {
+        overflow-y:hidden;
+    }
+    
+    #hub-container .win-vertical .win-container {   
+        margin-left:20px;     
+    }
+}
 }

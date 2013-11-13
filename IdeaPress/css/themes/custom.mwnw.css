@@ -1,0 +1,74 @@
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
+/* colors */
+/* default header font color including App Title color*/
+h1, h2, h3, h4, h5, h6, .mp-color-header {
+    color: #000;
+}
+
+.hero-info .hero-title {
+    color:#fff;
+    text-shadow: 0px 0px 16px #666;
+}
+
+.hero-info h3 {
+    color:#fff;
+}
+
+/* hub page article/page title font color and progress ring*/
+.mp-color-title, progress.win-ring
+{
+    color: #000;
+    border-color: #f37024;
+}
+
+/* link*/
+.mp-color-link, .a, a:link {
+    color: #000;
+}
+
+/* hub page sub title font color and visited link*/
+.mp-color-subtitle, a:visited, a:active, article a:hover {
+    color: #000;
+}
+
+/* hub page item background color*/
+.mp-bg-overlay {
+    background-color:#f37024;
+}
+
+/* back button styling*/
+header .win-backbutton {
+    border-color: #fff;
+    color: #f37024;
+}
+
+header .win-backbutton:hover {
+    background-color:#f37024;
+}
+
+/* the outline item of the hub item when hover over*/
+.win-container:hover {
+    outline-color: #3bb1ff;
+}
+
+/* detail page styling*/
+body, .mp-color-text {
+    color:#666;
+}
+
+/* detail page background color*/
+body, .mp-bg-main, .mp-bg-plain {
+    
+}
+
+body {
+    background-image: url('/images/backgroundPattern.png') !important;
+	background-size:auto !important;
+    background-repeat: repeat !important;
+}
+
+.wp-list .win-container  {
+    box-shadow:4px 4px 12px #666;
+}
