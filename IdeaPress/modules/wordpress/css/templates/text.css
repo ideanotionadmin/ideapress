@@ -69,7 +69,7 @@
     display:block !important;
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media (min-width: 320px) and (max-width: 499px) {
     .wp-list .wp-item {
         overflow: hidden;
         display: -ms-grid;

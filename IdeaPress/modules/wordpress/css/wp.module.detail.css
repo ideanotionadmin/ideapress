@@ -274,7 +274,24 @@ div#backbar .win-backbutton {
     z-index: 999;
 }
 
-@media screen and (-ms-view-state: snapped) {    
+
+@media (min-width: 320px) and (max-width: 499px) {   
+    .wp-post section[role=main] article {
+        margin-left: 0px;
+    }
+}
+
+@media (-ms-high-contrast) {
+    div#backbar {
+        background: ButtonFace;
+    }
+
+    iframe#external-link {
+        background: ButtonFace;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 499px) {    
     .wp-post {
         overflow-y: auto;
         overflow-x:  hidden;
@@ -288,13 +305,12 @@ div#backbar .win-backbutton {
 
     .wp-post section[role=main] {
         overflow-y: visible;
-        display: inline;
     }  
 
     .wp-post section[role=main] article {
         column-count: 1;
         display: block;
-        width: 280px;
+        width: calc(100% - 60px);
         padding-left: 20px;
         margin-left: 0;
         padding-right: 20px;
@@ -391,34 +407,5 @@ div#backbar .win-backbutton {
 
     #viewblog {
         display: none;
-    }
-}
-
-@media screen and (-ms-view-state: fullscreen-portrait) {
-    .wp-post section[role=main] article {
-        margin-left: 104px;
-        padding-top: 30px;
-    }
-
-    .wp-post header[role=banner] h1 {
-        margin-right: 20px;
-    }
-
-    .wp-post header[role=banner] h2 {
-        margin-right: 20px;
-    }
-
-    .wp-post header[role=banner] .win-backbutton {
-        margin-top: 60px;
-    }
-}
-
-@media (-ms-high-contrast) {
-    div#backbar {
-        background: ButtonFace;
-    }
-
-    iframe#external-link {
-        background: ButtonFace;
     }
 }

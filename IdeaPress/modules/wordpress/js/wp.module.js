@@ -14,6 +14,7 @@ var wordpressModule = function (ideaPress, options) {
     this.bookmarks = null;
     this.fetching = false;
     this.loadDescription = false;
+    this.isHero = false;
 
     // set constant
     this.defaultCount = 32;
@@ -43,6 +44,16 @@ var wordpressModule = function (ideaPress, options) {
         this.numberOfRelatedPosts = options.numberOfRelatedPosts;
     if (options.loadDescription)
         this.loadDescription = options.loadDescription;
+    if (options.isHero)
+        this.isHero = options.isHero;
+
+    if (options.pages) {
+        this.pagesOptions = options.pages;
+        this.pageIds = [];
+        for (var i in this.pagesOptions) {
+            this.pageIds.push(this.pagesOptions[i].id);
+        }
+    }
 
     return this;
 };
@@ -60,13 +71,23 @@ wordpressModule.BOOKMARKS = 3;
 // Render main section with html
 wordpressModule.prototype.render = function (elem) {
     var self = this;
-    this.container = elem;
+    this.container = elem.contentElement;
+    this.section = elem;
     return new WinJS.Promise(function (comp, err, prog) {
         var pageLocation = "/modules/wordpress/pages/wp.module.html";
-        WinJS.UI.Fragments.renderCopy(pageLocation, elem).done(
+        if (self.typeId == wordpressModule.PAGES)
+            WinJS.Utilities.addClass(self.container.parentNode, "wp-module-pages");
+        if (self.typeId == wordpressModule.BOOKMARKS)
+            WinJS.Utilities.addClass(self.container.parentNode, "wp-module-bookmarks");
+        if (self.typeId == wordpressModule.CATEGORY)
+            WinJS.Utilities.addClass(self.container.parentNode, "wp-module-category");
+        if (self.typeId == wordpressModule.MOSTRECENT)
+            WinJS.Utilities.addClass(self.container.parentNode, "wp-module-mostrecent");
+        
+        WinJS.UI.Fragments.renderCopy(pageLocation, self.container).done(
             function () {
-                WinJS.UI.processAll(elem);
-                self.loader = elem.querySelector("progress");
+                WinJS.UI.processAll(self.container);
+                self.loader = self.container.querySelector("progress");
                 ideaPress.toggleElement(self.loader, "show");
                 comp();
             },
@@ -93,7 +114,7 @@ wordpressModule.prototype.update = function (viewState) {
         if (self.typeId === wordpressModule.BOOKMARKS) {
             if (self.list.length === 0) {
                 var content = self.container.querySelector(".mp-module-content");
-                content.parentNode.className = content.parentNode.className + ' hide';
+                content.parentNode.parentNode.className = content.parentNode.parentNode.className + ' hide';
                 return;
             }
         }
@@ -108,7 +129,7 @@ wordpressModule.prototype.update = function (viewState) {
         // no header for page
         title.textContent = ideaPress.decodeEntities(self.title);
         if (self.typeId !== wordpressModule.PAGES) {
-            titleCount.textContent = Math.max(self.list.length, self.totalCount);
+            titleCount.textContent = self.totalCount ? Math.max(self.list.length, self.totalCount) : self.list.length;
         }
 
         // set layout type
@@ -244,6 +265,66 @@ wordpressModule.prototype.getLiveTileList = function () {
     });
 };
 
+wordpressModule.prototype.initHero = function () {
+    if (!this.isHero) {
+        return null;
+    }
+    
+    return this;
+};
+
+wordpressModule.prototype.getHeroList = function () {
+    var heroList = new WinJS.Binding.List();
+    var itemsWithImage  = new WinJS.Binding.List();
+
+    var hasImage = false;
+    for (var i = 0; i < this.list.length; i++) {
+        var item = this.list.getAt(i);
+        if (!item.noLargeImage) {
+            itemsWithImage.push(this.list.getAt(i));
+        }
+    }
+
+    if (itemsWithImage.length > 0) {
+        for (var i = 0; i < Math.min(5, itemsWithImage.length); i++) {
+            var item = itemsWithImage.getAt(i);
+            heroList.push({
+                id: item.id,
+                title: item.title,
+                subtitle: item.subtitle,
+                imgUrl: item.imgUrl,
+                date: item.date,
+            });
+        }
+    }
+    else {
+        for (var i = 0; i < Math.min(1, this.list.length) ; i++) {
+            var item = this.list.getAt(i);
+            heroList.push({
+                id: item.id,
+                title: item.title,
+                subtitle: item.subtitle,
+                imgUrl: 'ms-appx:/images/hero.jpg',
+                date : item.date,
+            });
+        }
+
+    }
+
+    return heroList;
+};
+
+wordpressModule.prototype.heroClicked = function (item) {
+    var post = this.list.getAt(0);
+    for (var i = 0; i < this.list.length; i++) {
+        if (this.list.getAt(i).id == i.id) {
+            post = this.list.getAt(i);
+        }
+    }
+        
+    WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.detail.html", { item: post });
+};
+
 /* 
 ============================================================================     Module Internal Methods     =============================================================//
 */
@@ -342,12 +423,15 @@ wordpressModule.prototype.fetch = function (page) {
                     return;
                 },
                 function (m) {
-                    localStorageObject = self.loadFromStorage();
-                    if (localStorageObject != null && localStorageObject.posts != null)
-                        self.addItemsToList(localStorageObject.posts);
-
                     ideaPress.toggleElement(self.loader, "hide");
-                    err(m);
+                    localStorageObject = self.loadFromStorage();
+                    if (localStorageObject != null && localStorageObject.posts != null) {
+                        self.addItemsToList(localStorageObject.posts);
+                        comp();
+                    }
+                    else {
+                        err(m);
+                    }
                 },
                 function (p) {
                     prog(p);
@@ -393,16 +477,21 @@ wordpressModule.prototype.getPages = function () {
             var promises = [];
             var pageData = new Array();
             var pagesToFetch = new Array();
-            for (var i in self.pageIds) {
-                pagesToFetch.push(self.pageIds[i]);
+            for (var i in self.pagesOptions) {
+                pagesToFetch.push(self.pagesOptions[i]);
             }
             var toFetch = function () {
                 var numFetch = Math.min(pagesToFetch.length, ideaPress.maxConcurrent);
                 for (var index = 0; index < numFetch; index++) {
-                    var id = pagesToFetch.shift();
+                    var pOpt = pagesToFetch.shift();
+                    var id = pOpt.id;
                     promises.push(WinJS.xhr({ type: 'GET', url: fullUrl + id, headers: headers }).then(function (r) {
 
                         var data = self.getJsonFromResponse(r.responseText);
+                        var index = self.pageIds.indexOf(data.page.id);
+                        if (self.pagesOptions[index].imgUrl)
+                            data.page.iconUrl = self.pagesOptions[index].imgUrl;
+
                         if (data.page) {
                             pageData[self.pageIds.indexOf(data.page.id)] = data.page;
                         }
@@ -718,26 +807,34 @@ wordpressModule.prototype.convertItem = function (item, type) {
     // get the first image from attachments
     res.imgUrl = 'ms-appx:/images/blank.png';
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
+    res.noLargeImage = true;
 
     var found = false;
 
     var itemThumbnail = item.thumbnail;
     if (itemThumbnail) {
         res.imgThumbUrl = itemThumbnail;
+        found = true;
     }
-    else{
-
+    
     for (var i in item.attachments) {        
         if (item.attachments[i].images != null) {
-            res.imgUrl = item.attachments[i].images.full.url;
-            if (item.attachments[i].images.medium) {
-                res.imgThumbUrl = item.attachments[i].images.medium.url;
+            if (res.noLargeImage) {
+                if (item.attachments[i].images.full.height > 520) {
+                    res.imgUrl = item.attachments[i].images.full.url;
+                    res.noLargeImage = false;
+                }
             }
-            found = true;
+
+            if (!found) {
+                if (item.attachments[i].images.medium) {
+                    res.imgThumbUrl = item.attachments[i].images.medium.url;
+                }
+                found = true;
+            }
             break;
         }
-    }
-    }
+    }    
     // Workaround: fix-up img src is not using absolute paths "/" 
     /*if (self.document) {
         res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
@@ -792,34 +889,40 @@ wordpressModule.prototype.convertPage = function (item, parentId) {
     res.imgThumbUrl = 'ms-appx:/images/blank.png';
     res.description = "";
 
-    var found = false;
-    for (var i in item.attachments) {
-        if (item.attachments[i].images != null) {
-            res.imgUrl = item.attachments[i].images.full.url;
-            if (item.attachments[i].images.medium) {
-                res.imgThumbUrl = item.attachments[i].images.medium.url;
-                found = true;
-            }
-            break;
-        }
+    if (item.iconUrl) {
+        res.imgThumbUrl = item.iconUrl;
+        res.imgUrl = item.iconUrl;
     }
-
-    // Workaround: fix-up img src is not using absolute paths "/" 
-    /*if (self.document) {
-        res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
-    }*/
-
-    // Workaround: some wordpress post do not have attachment, 
-    // - this fix do not work for live tile because there is no document for background thread
-    /*if (!found && self.document) {
-        var div = document.createElement("div");
-        WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
-        var imgs = div.getElementsByTagName("img");
-        if (imgs && imgs.length > 0) {
-            res.imgUrl = imgs[0].src;
-            res.imgThumbUrl = imgs[0].src;
+    else {
+        var found = false;
+        for (var i in item.attachments) {
+            if (item.attachments[i].images != null) {
+                res.imgUrl = item.attachments[i].images.full.url;
+                if (item.attachments[i].images.medium) {
+                    res.imgThumbUrl = item.attachments[i].images.medium.url;
+                    found = true;
+                }
+                break;
+            }
         }
-    }*/
+
+        // Workaround: fix-up img src is not using absolute paths "/" 
+        /*if (self.document) {
+            res.content = ideaPress.cleanImageTag(res.content, this.apiURL);
+        }*/
+
+        // Workaround: some wordpress post do not have attachment, 
+        // - this fix do not work for live tile because there is no document for background thread
+        /*if (!found && self.document) {
+            var div = document.createElement("div");
+            WinJS.Utilities.setInnerHTMLUnsafe(div, res.content);
+            var imgs = div.getElementsByTagName("img");
+            if (imgs && imgs.length > 0) {
+                res.imgUrl = imgs[0].src;
+                res.imgThumbUrl = imgs[0].src;
+            }
+        }*/
+    }
 
     var imgUrlStyle = res.imgThumbUrl;
     res.imgUrlStyle = "url('" + imgUrlStyle + "')";

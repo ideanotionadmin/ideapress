@@ -6,11 +6,11 @@
 .wp-list .win-horizontal.win-viewport { overflow-x: hidden;}
 .wp-list .win-vertical.win-viewport { overflow-y: hidden;}
 /*Overwrite class to make it work*/
-#hub-content {
+#hub-container {
     padding-left:0px;
     padding: 0px;
 }
-#hub-content .mp-module {
+#hub-container .mp-module {
     padding-right: 0px;
     padding: 0px;
     min-width:0px;
@@ -21,9 +21,7 @@
 
 /*.fragment { -ms-grid-rows: 0px 1fr;}*/
 .wp-text-section .mp-bg-overlay{ padding: 0px;}
-@media screen and (-ms-view-state: fullscreen-portrait),
- screen and (-ms-view-state: fullscreen-landscape),
- screen and (-ms-view-state: filled) {
+@media (min-width: 501px) {
     .wpc-list .wpc-item {        
         overflow: visible;
         display: -ms-grid;
@@ -86,7 +84,7 @@
         }
 }
     
-@media screen and (-ms-view-state: snapped) {
+@media (min-width: 320px) and (max-width: 499px) {
     .wpc-list .wpc-item {
         overflow: hidden;
         display: -ms-grid;

@@ -61,12 +61,13 @@ wordpresscomModule.BOOKMARKS = 3;
 // Render main section with html
 wordpresscomModule.prototype.render = function (elem) {
     var self = this;
-    this.container = elem;
+    this.container = elem.contentElement;
+    this.section = elem;
     return new WinJS.Promise(function (comp, err, prog) {
-        WinJS.UI.Fragments.renderCopy("/modules/wordpressCom/pages/wpcom.module.html", elem).done(
+        WinJS.UI.Fragments.renderCopy("/modules/wordpressCom/pages/wpcom.module.html", self.container).done(
             function () {
-                WinJS.UI.processAll(elem);
-                self.loader = elem.querySelector("progress");
+                WinJS.UI.processAll(self.container);
+                self.loader = self.co.querySelector("progress");
                 ideaPress.toggleElement(self.loader, "show");
                 comp();
             },
@@ -106,7 +107,7 @@ wordpresscomModule.prototype.update = function (viewState) {
         // no header for page
         title.textContent = ideaPress.decodeEntities(self.title);
         if (self.typeId !== wordpresscomModule.PAGES) {
-            titleCount.textContent = Math.max(self.list.length, self.totalCount);
+            titleCount.textContent = self.totalCount ? Math.max(self.list.length, self.totalCount) : self.list.length;
         }
 
         // set layout type
@@ -257,7 +258,6 @@ wordpresscomModule.prototype.fetch = function (page) {
 
                 comp();
                 ideaPress.toggleElement(self.loader, "hide");
-                err(m);
             },
                 function (p) {
                     prog(p);
@@ -323,11 +323,14 @@ wordpresscomModule.prototype.fetch = function (page) {
             },
                 function (m) {
                     localStorageObject = self.loadFromStorage();
-                    if (localStorageObject != null && localStorageObject.posts != null)
+                    if (localStorageObject != null && localStorageObject.posts != null) {
                         self.addItemsToList(localStorageObject.posts);
 
-                    ideaPress.toggleElement(self.loader, "hide");
-                    err(m);
+                        ideaPress.toggleElement(self.loader, "hide");
+                        comp();
+                    } else {
+                        err(m);
+                    }
                 },
                 function (p) {
                     prog(p);

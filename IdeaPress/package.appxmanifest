@@ -1,31 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="IdeaPress" Version="1.0.0.0" Publisher="CN=Raymond" />
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="IdeaNotion.MakeWebNotWar" Version="1.1.0.2" Publisher="CN=E1A17568-5CAA-4483-91E3-9918A4499A02" />
   <Properties>
-    <DisplayName>IdeaPress</DisplayName>
+    <DisplayName>Make Web Not War</DisplayName>
     <Description>IdeaPress</Description>
-    <PublisherDisplayName>IdeaNotion Development Inc.</PublisherDisplayName>
+    <PublisherDisplayName>IDEA NOTION DEVELOPMENT INC.</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
   <Prerequisites>
-    <OSMinVersion>6.2.0</OSMinVersion>
-    <OSMaxVersionTested>6.2.0</OSMaxVersionTested>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
   </Prerequisites>
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="IdeaPress" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="IdeaPress" ForegroundText="dark" BackgroundColor="#ffffff">
-        <DefaultTile ShowName="noLogos" WideLogo="images\widelogo.png" ShortName="IdeaPress" />
-        <SplashScreen Image="images\splashscreen.png" BackgroundColor="#ffffff" />
-        <InitialRotationPreference>
-          <Rotation Preference="portrait" />
-          <Rotation Preference="landscape" />
-          <Rotation Preference="portraitFlipped" />
-          <Rotation Preference="landscapeFlipped" />
-        </InitialRotationPreference>
-      </VisualElements>
       <Extensions>
         <Extension Category="windows.search" />
         <Extension Category="windows.backgroundTasks" StartPage="js\liveTileTask.js">
@@ -34,6 +24,18 @@
           </BackgroundTasks>
         </Extension>
       </Extensions>
+      <m2:VisualElements DisplayName="Make Web Not War" Description="IdeaPress" BackgroundColor="#ffffff" ForegroundText="dark" Square150x150Logo="images\logo.png" Square30x30Logo="images\smalllogo.png">
+        <m2:DefaultTile ShortName="IdeaPress" Wide310x150Logo="images\widelogo.png">
+        </m2:DefaultTile>
+        <m2:InitialRotationPreference>
+          <m2:Rotation Preference="portrait" />
+          <m2:Rotation Preference="landscape" />
+          <m2:Rotation Preference="portraitFlipped" />
+          <m2:Rotation Preference="landscapeFlipped" />
+        </m2:InitialRotationPreference>
+        <m2:SplashScreen BackgroundColor="#ffffff" Image="images\splashscreen.png" />
+        <m2:ApplicationView MinWidth="width320" />
+      </m2:VisualElements>
     </Application>
   </Applications>
   <Capabilities>

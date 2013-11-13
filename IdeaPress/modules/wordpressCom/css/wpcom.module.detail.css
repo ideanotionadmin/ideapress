@@ -278,9 +278,7 @@ margin-left:39px;
 }
 /* --- */
 
-
-
-@media screen and (-ms-view-state: snapped) {    
+@media (min-width: 320px) and (max-width: 499px) {    
     .wpc-post {
         overflow-y: auto;
         overflow-x:  hidden;
@@ -300,7 +298,7 @@ margin-left:39px;
     .wpc-post section[role=main] article {
         column-count: 1;
         display: block;
-        width: 280px;
+        width: calc(100% - 60px);
         padding-left: 20px;
         margin-left: 0;
         padding-right: 20px;
@@ -400,10 +398,9 @@ margin-left:39px;
     }
 }
 
-@media screen and (-ms-view-state: fullscreen-portrait) {
+@media screen and (orientation: portrait) {
     .wpc-post section[role=main] article {
         margin-left: 104px;
-        padding-top: 30px;
     }
 
     .wpc-post header[role=banner] h1 {

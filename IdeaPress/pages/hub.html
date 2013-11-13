@@ -4,28 +4,36 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Main Page</title>     
-    <script src="/js/hub.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <title>Main Page</title>     
+        <script src="/js/hub.js"></script>
     
-</head>
-<body>
+    </head>
+    <body>
         <div class="fragment hub">
-            <header aria-label="Header content" role="banner"> 
+            <header aria-label="Header content" role="banner">
                 <button class="win-backbutton" aria-label="Back" disabled></button>
                 <h1 class="titlearea win-type-ellipsis">
                     <img class="titleImage" />
                     <span class="pagetitle"></span>
                 </h1>
             </header>
-            <section aria-label="Main content" role="main">
-                <article>    		
-                    <div id="hub-content">
+            <div id="hub-container" data-win-control="WinJS.UI.Hub">
+                <div id="hero" class="hero" data-win-control="WinJS.UI.HubSection" data-win-options="{header: 'Hero'}">
+                    <div id="hero-bg">
                     </div>
-                    <div id="error-div" class="error hide"></div>
-                </article>
-            </section>        
+                    <div id="hero-overlay">
+
+                    </div>
+                    <div class="hero-info">
+                        <h1 class="hero-title">This is the Title Man</h1>
+                        <h3 class="hero-category">Featured</h3>
+                        <h3 class="hero-ago">3 Hours Ago</h3>
+                    </div>
+                </div>
+            </div>
+            <div id="error-div" class="error hide"></div>
         </div>
         <div id="appbar" data-win-control="WinJS.UI.AppBar">
             <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'refresh',label:'Refresh',section:'selection',tooltip:'Refresh content'}"></button>
