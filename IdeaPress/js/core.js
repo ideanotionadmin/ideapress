@@ -131,7 +131,10 @@ var ideaPress = {
         }
     },
 
-    startHero : function() {
+    startHero: function () {
+        if (!ideaPress.heroModule)
+            return;
+
         ideaPress.heroIndex = 0;
         ideaPress.rotateHero();
         ideaPress.heroInterval = setInterval(function () {
@@ -139,7 +142,7 @@ var ideaPress = {
         }, 10000);
     },
 
-    rotateHero : function() {
+    rotateHero: function () {
         if (!ideaPress.heroList || ideaPress.heroList.length == 0)
             ideaPress.heroList = ideaPress.heroModule.getHeroList();
 

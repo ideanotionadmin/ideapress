@@ -44,7 +44,7 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>IdeaPress_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>IdeaPress.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <VisualStudioVersion>12.0</VisualStudioVersion>
     <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
@@ -59,7 +59,6 @@
     <Content Include="css\themes\custom.css" />
     <Content Include="css\themes\custom.mwnw.css" />
     <Content Include="css\themes\custom.orange.css" />
-    <None Include="IdeaPress_StoreKey.pfx" />
     <Content Include="images\BackgroundPic.png" />
     <Content Include="images\badgelogo.png" />
     <Content Include="images\blank.png" />
@@ -85,7 +84,6 @@
     <Content Include="js\share-source.js" />
     <Content Include="js\liveTileTask.js" />
     <Content Include="LICENSE.md" />
-    <Content Include="modules\wordpressCom\css\templates\custom.css" />
     <Content Include="modules\wordpressCom\css\templates\large.css" />
     <Content Include="modules\wordpressCom\css\templates\normal.css" />
     <Content Include="modules\wordpressCom\css\templates\fullScreen.css" />
@@ -125,7 +123,6 @@
     <Content Include="modules\wordpress\pages\wp.module.html" />
     <Content Include="modules\wordpress\pages\wp.module.searchResults.html" />
     <Content Include="modules\wordpress\pages\wp.module.section.html" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="pages\about-flyout.html" />
     <Content Include="pages\hub.html" />
     <None Include="IdeaPress_TemporaryKey.pfx" />

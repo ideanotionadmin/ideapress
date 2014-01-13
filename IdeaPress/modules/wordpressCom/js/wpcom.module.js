@@ -67,7 +67,7 @@ wordpresscomModule.prototype.render = function (elem) {
         WinJS.UI.Fragments.renderCopy("/modules/wordpressCom/pages/wpcom.module.html", self.container).done(
             function () {
                 WinJS.UI.processAll(self.container);
-                self.loader = self.co.querySelector("progress");
+                self.loader = self.container.querySelector("progress");
                 ideaPress.toggleElement(self.loader, "show");
                 comp();
             },

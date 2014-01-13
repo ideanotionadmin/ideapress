@@ -83,7 +83,7 @@ wordpressModule.prototype.render = function (elem) {
             WinJS.Utilities.addClass(self.container.parentNode, "wp-module-category");
         if (self.typeId == wordpressModule.MOSTRECENT)
             WinJS.Utilities.addClass(self.container.parentNode, "wp-module-mostrecent");
-        
+
         WinJS.UI.Fragments.renderCopy(pageLocation, self.container).done(
             function () {
                 WinJS.UI.processAll(self.container);
@@ -227,7 +227,7 @@ wordpressModule.prototype.getLiveTileList = function () {
                 var template = self.wideTileType;
                 var tileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(template);
                 var tileImageElements = tileXml.getElementsByTagName("image");
-                if (tileImageElements && tileImageElements.length>0) {
+                if (tileImageElements && tileImageElements.length > 0) {
                     tileImageElements[0].setAttribute("src", post.imgThumbUrl);
                     tileImageElements[0].setAttribute("alt", "Post Image");
                 }
@@ -269,13 +269,13 @@ wordpressModule.prototype.initHero = function () {
     if (!this.isHero) {
         return null;
     }
-    
+
     return this;
 };
 
 wordpressModule.prototype.getHeroList = function () {
     var heroList = new WinJS.Binding.List();
-    var itemsWithImage  = new WinJS.Binding.List();
+    var itemsWithImage = new WinJS.Binding.List();
 
     var hasImage = false;
     for (var i = 0; i < this.list.length; i++) {
@@ -286,7 +286,7 @@ wordpressModule.prototype.getHeroList = function () {
     }
 
     if (itemsWithImage.length > 0) {
-        for (var i = 0; i < Math.min(5, itemsWithImage.length); i++) {
+        for (var i = 0; i < Math.min(5, itemsWithImage.length) ; i++) {
             var item = itemsWithImage.getAt(i);
             heroList.push({
                 id: item.id,
@@ -305,7 +305,7 @@ wordpressModule.prototype.getHeroList = function () {
                 title: item.title,
                 subtitle: item.subtitle,
                 imgUrl: 'ms-appx:/images/hero.jpg',
-                date : item.date,
+                date: item.date,
             });
         }
 
@@ -321,7 +321,7 @@ wordpressModule.prototype.heroClicked = function (item) {
             post = this.list.getAt(i);
         }
     }
-        
+
     WinJS.Navigation.navigate("/modules/wordpress/pages/wp.module.detail.html", { item: post });
 };
 
@@ -477,20 +477,20 @@ wordpressModule.prototype.getPages = function () {
             var promises = [];
             var pageData = new Array();
             var pagesToFetch = new Array();
-            for (var i in self.pagesOptions) {
-                pagesToFetch.push(self.pagesOptions[i]);
+            for (var i in self.pageIds) {
+                pagesToFetch.push(self.pageIds[i]);
             }
             var toFetch = function () {
                 var numFetch = Math.min(pagesToFetch.length, ideaPress.maxConcurrent);
                 for (var index = 0; index < numFetch; index++) {
                     var pOpt = pagesToFetch.shift();
-                    var id = pOpt.id;
+                    var id = pOpt;
                     promises.push(WinJS.xhr({ type: 'GET', url: fullUrl + id, headers: headers }).then(function (r) {
 
                         var data = self.getJsonFromResponse(r.responseText);
                         var index = self.pageIds.indexOf(data.page.id);
-                        if (self.pagesOptions[index].imgUrl)
-                            data.page.iconUrl = self.pagesOptions[index].imgUrl;
+                        //if (self.pagesOptions[index].imgUrl)
+                        //    data.page.iconUrl = self.pagesOptions[index].imgUrl;
 
                         if (data.page) {
                             pageData[self.pageIds.indexOf(data.page.id)] = data.page;
@@ -548,17 +548,16 @@ wordpressModule.prototype.getJsonFromResponse = function (responseText) {
         }*/
         var startIndex = responseText.indexOf('{"status"');
 
-        if (startIndex < 0)
-        {
+        if (startIndex < 0) {
             return JSON.parse("{\"status\":\"fail\"}");
         }
         responseText = responseText.substring(startIndex);
-        
+
         var regex = /<!--.+?-->/g;
         responseText = responseText.replace(regex, '');
         var responseText = responseText;
-        return JSON.parse(responseText);        
-    }    
+        return JSON.parse(responseText);
+    }
 };
 
 // Search text using JSON API 
@@ -816,7 +815,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
         res.imgThumbUrl = itemThumbnail;
         found = true;
     }
-    
+
     for (var i in item.attachments) {
         if (item.attachments[i].images != null) {
             if (res.noLargeImage) {
@@ -834,7 +833,7 @@ wordpressModule.prototype.convertItem = function (item, type) {
             }
             break;
         }
-    }    
+    }
     // Workaround: fix-up img src is not using absolute paths "/" 
     /*if (self.document) {
         res.content = ideaPress.cleanImageTag(res.content, this.apiURL);

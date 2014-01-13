@@ -3,7 +3,7 @@
 */
 
 /* Import rules for custom themes, you can import custom.dark.css or custom.orange.css */
-@import url('/css/themes/custom.mwnw.css');
+@import url('/css/themes/custom.css');
 
 html {
     cursor: default;

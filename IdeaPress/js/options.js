@@ -32,31 +32,7 @@ Description: Configures the application and the modules.  Please go to https://g
                     { name: wordpresscomModule, options: { siteDomain: 'metropress.wordpress.com', title: "Recent News", typeId: wordpresscomModule.MOSTRECENT, clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } },
                     { name: wordpresscomModule, options: { siteDomain: 'metropress.wordpress.com', title: "Tech", typeId: wordpresscomModule.CATEGORY, categoryId: "tech", clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } },
                     { name: wordpresscomModule, options: { siteDomain: 'metropress.wordpress.com', title: "Bookmark", typeId: wordpresscomModule.BOOKMARKS, clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } }
-//                    { name: wordpressModule, options: { apiUrl: 'http://www.webnotwar.ca/', title: "IdeaPress", typeId: wordpresscomModule.CATEGORY, categoryId: 113 } },
-//                    { name: wordpressModule, options: { apiUrl: 'http://www.webnotwar.ca/', title: "Technical", typeId: wordpresscomModule.CATEGORY, categoryId: 7 } },
-/*                    { name: wordpresscomModule, options: { siteDomain: 'wordpressmetro.wordpress.com', title: "Pages", typeId: wordpresscomModule.PAGES, pageIds: [2, 9], clientId: '2131', clientSecret: 'b8OEIPyqH113smvoCpgrShM3wakwYALgPOoFUn3X8PA9Y3l2hslQCCKev51VvHsR' } },
-
-                    modules: [{ name: wordpressModule, options: { id: 1, siteDomain:  'http://www.webnotwar.ca', title: 'Recent News', typeId: wordpressModule.MOSTRECENT, showHub: true } },
-{ name: wordpressModule, options: { id: 2, siteDomain: 'http://www.webnotwar.ca', title: 'Bookmark', typeId: wordpressModule.BOOKMARKS, showHub: true } },
-{ name: wordpressModule, options: { id: 3, siteDomain: 'http://www.webnotwar.ca', title: 'Featured', typeId: wordpressModule.CATEGORY, categoryId: 530, showHub: true } },
-{ name: wordpressModule, options: { id: 4, siteDomain: 'http://www.webnotwar.ca', title: 'Open Data', typeId: wordpressModule.CATEGORY, categoryId: 1729, showHub: true } },
-{ name: wordpressModule, options: { id: 5, siteDomain: 'http://www.webnotwar.ca', title: 'Events', typeId: wordpressModule.CATEGORY, categoryId: 4, showHub: true } },
-{ name: wordpressModule, options: { id: 6, siteDomain: 'http://www.webnotwar.ca', title: 'Training &amp; Webcasts', typeId: wordpressModule.CATEGORY, categoryId: 350, showHub: true } }],
-
-
-*//*
-                    {
-                        name: wordpressModule, options: {
-                            apiUrl: 'http://www.webnotwar.ca/', title: "Pages", typeId: wordpressModule.PAGES, pageIds: [10542, 10080, 10649, 10075],
-                            pages: [{ id: 10542, title: "Tutorials", imgUrl: '/images/pages/10542.png' }
-                                , { id: 10080, title: "Open Data", imgUrl: '/images/pages/10080.png' }
-                                , { id: 10649, title: "Community", imgUrl: '/images/pages/10649.png' }
-                                , { id: 10075, title: "Glossary", imgUrl: '/images/pages/10075.png' }
-                            ]
-                        }
-                    },*/
                 ],
-                semanticModule: { name: wordpressModule, options: { apiUrl: 'http://www.webnotwar.ca/', title: "Make Web Not War" } },
                 searchModule: { name: wordpressModule, options: { apiUrl: 'http://www.webnotwar.ca/', title: "Search" } },
                 liveTileModule: { name: wordpressModule, options: { apiUrl: 'http://www.webnotwar.ca/', title: "Live Tile", squareTileType: Windows.UI.Notifications.TileTemplateType.tileSquarePeekImageAndText04, wideTileType: Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01 } },
             };

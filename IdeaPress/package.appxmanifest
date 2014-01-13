@@ -24,7 +24,7 @@
           </BackgroundTasks>
         </Extension>
       </Extensions>
-      <m2:VisualElements DisplayName="Make Web Not War" Description="IdeaPress" BackgroundColor="#ffffff" ForegroundText="dark" Square150x150Logo="images\logo.png" Square30x30Logo="images\smalllogo.png">
+      <m2:VisualElements DisplayName="Make Web Not War" Description="Make Web Not War by IdeaPress" BackgroundColor="#ffffff" ForegroundText="dark" Square150x150Logo="images\logo.png" Square30x30Logo="images\smalllogo.png">
         <m2:DefaultTile ShortName="IdeaPress" Wide310x150Logo="images\widelogo.png">
         </m2:DefaultTile>
         <m2:InitialRotationPreference>
