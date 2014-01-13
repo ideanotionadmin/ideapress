@@ -74,7 +74,7 @@ Download IdeaPress from GitHub: https://github.com/ideanotion/ideapress
 
 <h3>3.2 Compile The VS Solution</h3>
 
-Unzip the downloaded file, compile, and run the IdeaPress solution in Visual Studio 2012 on your Windows 8 system. As you compile, it will bring up the IdeaPress App, but it connects to http://ideanotion.net by default. 
+Unzip the downloaded file, compile, and run the IdeaPress solution in Visual Studio 2013 on your Windows 8.1 system. As you compile, it will bring up the IdeaPress App, but it connects to http://ideanotion.net by default. 
 
 <h3>3.3 Change It to Your Own Website</h3>
 
@@ -155,7 +155,7 @@ Assign **wordpressModule.BOOKMARKS** to **typeId**.<br/>
 This section will provide a brief breakdown of the Visual Studio solution for IdeaPress v2. Whether you download the release version or clone from github, you will find a **IdeaPress.sln** file and a **IdeaPress** folder. If desired, you may rename the solution file from IdeaPress.sln to your own project name.<br/>
 <img src="http://ideanotion.net/wp-content/uploads/2013/03/solution.png" />
 
-You need Visual Studio 2012 to open the solution. Upon opening it, you will see the following files and folder:
+You need Visual Studio 2013 to open the solution. Upon opening it, you will see the following files and folder:
 <img src="http://ideanotion.net/wp-content/uploads/2013/03/solution-structure.png" />
 <br/>
 <h3>4.1 css folder</h3>
