@@ -57,17 +57,29 @@
     </AppxManifest>
     <Content Include="css\default.css" />
     <Content Include="css\themes\custom.css" />
+    <Content Include="css\themes\custom.mwnw.css" />
+    <Content Include="css\themes\custom.orange.css" />
+<<<<<<< HEAD
+    <None Include="IdeaPress_StoreKey.pfx" />
+=======
+    <Content Include="css\themes\custom.light.css" />
+>>>>>>> 3130914... clean up and bug fix
     <Content Include="images\BackgroundPic.png" />
     <Content Include="images\badgelogo.png" />
     <Content Include="images\blank.png" />
     <Content Include="images\hero.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="images\pages\10080.png" />
+    <Content Include="images\pages\10542.png" />
+    <Content Include="images\pages\10075.png" />
+    <Content Include="images\pages\10649.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
     <Content Include="images\titlePic.png" />
     <Content Include="images\title.png" />
     <Content Include="images\widelogo.png" />
+    <Content Include="images\background.png" />
     <Content Include="js\default.js" />
     <Content Include="js\hub.js" />
     <Content Include="js\navigator.js" />
@@ -76,7 +88,11 @@
     <Content Include="js\options.js" />
     <Content Include="js\share-source.js" />
     <Content Include="js\liveTileTask.js" />
+<<<<<<< HEAD
     <Content Include="LICENSE.md" />
+    <Content Include="modules\wordpressCom\css\templates\custom.css" />
+=======
+>>>>>>> 3130914... clean up and bug fix
     <Content Include="modules\wordpressCom\css\templates\large.css" />
     <Content Include="modules\wordpressCom\css\templates\normal.css" />
     <Content Include="modules\wordpressCom\css\templates\fullScreen.css" />

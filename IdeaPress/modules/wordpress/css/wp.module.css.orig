@@ -1,0 +1,44 @@
+<<<<<<< HEAD
+﻿/* Import rules for GridView templates */
+@import url('templates/custom.css');
+=======
+﻿/*!
+	IdeaPress v2.0.1 (Wednesday, June 5, 2013) | ideapress.me/license 
+*/
+
+/* Import rules for GridView templates */
+@import url('templates/normal.css');
+>>>>>>> 3130914... clean up and bug fix
+
+/* @import url('templates/large.css'); */
+/* @import url('templates/wide.css'); */
+
+
+.wp-title-count {
+    font-size: 11pt;
+}
+
+@media (min-width: 320px) and (max-width: 499px) {    
+    .wp-list .wp-item {
+        height: 220px;
+        width: 100%;
+        -ms-grid-rows: 160px 60px;
+    }
+
+    .wp-list .wp-item .wp-image-container .wp-image{
+        height:160px;
+    }   
+
+    .wp-list .win-vertical .win-item {
+        width: 100%;
+    }
+    .wp-list .win-vertical .win-item .wp-image-container .wp-image {
+        width: 100%;
+    }
+        .wp-list .win-vertical .win-item {
+        width: 100%;
+    }
+    .wp-list .win-vertical .win-item .wp-image-container .wp-image {
+        width: 100%;
+    }
+}
