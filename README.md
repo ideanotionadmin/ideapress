@@ -101,13 +101,13 @@ liveTileModule: { name: wordpressModule, options: { apiUrl: 'http://{youdomain.c
 <br/>In this case, your options.js will look like this:
 <br/><br/>
 modules: [<br/>
-                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Pages", typeId: wordpresscomModule.PAGES, pageIds: [{PageIDs}], clientId: {clientId}, clientSecret: {clientSecret} } },<br/>
-                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Recent News", typeId: wordpresscomModule.MOSTRECENT, clientId: {clientId}, clientSecret: {clientSecret} } },<br/>
-                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Bookmark", typeId: wordpresscomModule.BOOKMARK, clientId: {clientId}, clientSecret: {clientSecret}S } },<br/>                     
-                    { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: {CategoryName}, typeId: wordpresscomModule.CATEGORY,categoryId: {Slug}, clientId: {clientId}, clientSecret: {clientSecret} } }, <br/>
+                    { name: wordpresscomModule, options: { siteDomain: 'http://{youdomain}.wordpress.com/', title: "Pages", typeId: wordpresscomModule.PAGES, pageIds: [{PageIDs}], clientId: {clientId}, clientSecret: {clientSecret} } },<br/>
+                    { name: wordpresscomModule, options: { siteDomain: 'http://{youdomain}.wordpress.com/', title: "Recent News", typeId: wordpresscomModule.MOSTRECENT, clientId: {clientId}, clientSecret: {clientSecret} } },<br/>
+                    { name: wordpresscomModule, options: { siteDomain: 'http://{youdomain}.wordpress.com/', title: "Bookmark", typeId: wordpresscomModule.BOOKMARK, clientId: {clientId}, clientSecret: {clientSecret}S } },<br/>                     
+                    { name: wordpresscomModule, options: { siteDomain: 'http://{youdomain}.wordpress.com/', title: {CategoryName}, typeId: wordpresscomModule.CATEGORY,categoryId: {Slug}, clientId: {clientId}, clientSecret: {clientSecret} } }, <br/>
                 ],<br/>
-searchModule: { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Search" } },<br/>
-liveTileModule: { name: wordpresscomModule, options: { apiUrl: 'http://{youdomain}.wordpress.com/', title: "Live Tile", squareTileType: Windows.UI.Notifications.TileTemplateType.tileSquarePeekImageAndText04, wideTileType: Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01 } },<br/>
+searchModule: { name: wordpresscomModule, options: { siteDomain: 'http://{youdomain}.wordpress.com/', title: "Search" } },<br/>
+liveTileModule: { name: wordpresscomModule, options: { siteDomain: 'http://{youdomain}.wordpress.com/', title: "Live Tile", squareTileType: Windows.UI.Notifications.TileTemplateType.tileSquarePeekImageAndText04, wideTileType: Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01 } },<br/>
 
 <h3>3.5 Update Page Title</h3>
 
